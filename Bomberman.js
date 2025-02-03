@@ -1,41 +1,42 @@
 const canvas = document.getElementById('game');
 const context = canvas.getContext('2d');
-const grid = 64;
-const numRows = 13;
-const numCols = 15;
+const grid = 64; // Größe eines Spielfeldblocks
+const numRows = 13; // Anzahl der Reihen
+const numCols = 15; // Anzahl der Spalten
 
-const bombableWallCanvas = document.createElement('canvas');
-const bombableWallCtx = bombableWallCanvas.getContext('2d');
-bombableWallCanvas.width = bombableWallCanvas.height = grid;
+// Erstellt ein Canvas für zerstörbare Blöcke
+const brickCanvas = document.createElement('canvas');
+const brickCtx = brickCanvas.getContext('2d');
+brickCanvas.width = brickCanvas.height = grid;
+brickCtx.fillStyle = '#6d4520'; // Wandfarbe
+brickCtx.fillRect(0, 0, grid, grid);
 
-bombableWallCtx.fillStyle = '#6d4520';
-bombableWallCtx.fillRect(0, 0, grid, grid);
-
-
+// Erstellt ein Canvas für feste Wände
 const wallCanvas = document.createElement('canvas');
 const wallCtx = wallCanvas.getContext('2d');
 wallCanvas.width = wallCanvas.height = grid;
-
-wallCtx.fillStyle = 'black';
+wallCtx.fillStyle = 'black'; // Feste Wandfarbe
 wallCtx.fillRect(0, 0, grid, grid);
-wallCtx.fillStyle = '#a9a9a9';
+wallCtx.fillStyle = '#a9a9a9'; // Innenfarbe der Wand
 wallCtx.fillRect(2, 2, grid - 4, grid - 4);
 
+// Definiert die verschiedenen Typen von Objekten im Spiel
 const types = {
-    wall: '🟩',
-    bombableWall: 1,
-    bomb: 2
+    wall: '🟩', // Wand
+    brick: 1, // zerstörbarer Block
+    bomb: 2 // Bombe
 };
 
-let entities = [];
-let cells = [];
+let entities = []; // Alle entitäten wie Spieler, Bomben, Explosionen
+let cells = []; // Raster vom Spielfeld
 
+// Spielfeld-Template
 class Level {
     constructor() {
         this.template = [
-            ['🟩','🟩','🟩','🟩','🟩','🟩','🟩','🟩','🟩','🟩','🟩','🟩','🟩', '🟩','🟩'],
-            ['🟩', 'x', 'x',    ,     ,    ,    ,    ,    ,    ,    ,    ,  'x', 'x','🟩'],
-            ['🟩', 'x','🟩',    ,'🟩',    ,'🟩',    ,'🟩',    ,'🟩',    , '🟩',    'x','🟩'],
+            ['🟩', '🟩', '🟩', '🟩', '🟩', '🟩', '🟩', '🟩', '🟩', '🟩', '🟩', '🟩', '🟩', '🟩', '🟩'],
+            ['🟩', 'x', 'x',    ,    ,    ,    ,    ,    ,    ,    ,    ,   'x', 'x', '🟩'],
+            ['🟩', 'x', '🟩',    ,'🟩',    ,'🟩',    ,'🟩',    ,'🟩',    , '🟩',    'x', '🟩'],
             ['🟩',    ,    ,    ,    ,    ,    ,    ,    ,    ,    ,    ,     ,     ,'🟩'],
             ['🟩',    ,'🟩',    ,'🟩',    ,'🟩',    ,'🟩',    ,'🟩',    , '🟩',       ,'🟩'],
             ['🟩',    ,    ,    ,    ,    ,    ,    ,    ,    ,    ,    ,     ,     ,'🟩'],
@@ -43,20 +44,20 @@ class Level {
             ['🟩',    ,    ,    ,    ,    ,    ,    ,    ,    ,    ,    ,     ,     ,'🟩'],
             ['🟩',    ,'🟩',    ,'🟩',    ,'🟩',    ,'🟩',    , '🟩',    ,'🟩',       ,'🟩'],
             ['🟩',    ,    ,    ,    ,    ,    ,    ,    ,    ,    ,    ,     ,     ,'🟩'],
-            ['🟩', 'x','🟩',    ,'🟩',    ,'🟩',    ,'🟩',    ,'🟩',    , '🟩',    'x','🟩'],
+            ['🟩', 'x', '🟩',    ,'🟩',    ,'🟩',    ,'🟩',    ,'🟩',    , '🟩',    'x', '🟩'],
             ['🟩', 'x', 'x',    ,    ,     ,    ,    ,    ,    ,    ,    ,  'x', 'x','🟩'],
             ['🟩','🟩','🟩','🟩','🟩','🟩','🟩','🟩','🟩','🟩','🟩','🟩','🟩', '🟩', '🟩'],
         ];
     }
 
-    //generiert das spielfeld
+    // Generiert das Spielfeld basierend auf dem Template
     generate() {
         cells = [];
         for (let row = 0; row < numRows; row++) {
             cells[row] = [];
             for (let col = 0; col < numCols; col++) {
-                if (!this.template[row][col] && Math.random() < 0.90) { // 90% chance einen block zu spawnen
-                    cells[row][col] = types.bombableWall;
+                if (!this.template[row][col] && Math.random() < 0.90) { // 90% Chance, einen Block zu spawnen
+                    cells[row][col] = types.brick;
                 } else if (this.template[row][col] === types.wall) {
                     cells[row][col] = types.wall;
                 }
@@ -65,6 +66,7 @@ class Level {
     }
 }
 
+// Mainklasse für Entitäten wie Bomben, Explosionen und Spieler
 class Entity {
     constructor(row, col) {
         this.row = row;
@@ -75,6 +77,7 @@ class Entity {
     render() {}
 }
 
+// Bomb-Klasse
 class Bomb extends Entity {
     constructor(row, col, size, owner) {
         super(row, col);
@@ -83,21 +86,17 @@ class Bomb extends Entity {
         this.owner = owner;
         this.alive = true;
         this.type = types.bomb;
-        this.timer = 3000;
+        this.timer = 3000; // 3 Sekunden Timer
     }
 
     update(frameTime) {
         this.timer -= frameTime;
         if (this.timer <= 0) {
-            blowUpBomb(this);
+            blowUpBomb(this); // Bombe explodiert
         }
         // 'Animation' für Bombe
         const interval = Math.ceil(this.timer / 500);
-        if (interval % 2 === 0) {
-            this.radius = grid * 0.4;
-        } else {
-            this.radius = grid * 0.5;
-        }
+        this.radius = (interval % 2 === 0) ? grid * 0.4 : grid * 0.5; // Wechsel der Größe von der Bombe
     }
 
     render() {
@@ -110,36 +109,36 @@ class Bomb extends Entity {
     }
 }
 
+// Explosion-Klasse
 class Explosion extends Entity {
-    constructor(row, col, center) {
+    constructor(row, col) {
         super(row, col);
         this.alive = true;
-        this.timer = 300;
-        this.center = center;
+        this.timer = 300; // 300ms Lebenszeit der Explosion
     }
 
     update(frameTime) {
         this.timer -= frameTime;
         if (this.timer <= 0) {
-            this.alive = false;
+            this.alive = false; // Explosion endet
         }
     }
 
     render() {
         const x = this.col * grid;
         const y = this.row * grid;
-
-        context.fillStyle = '#D72B16'; // red
+        context.fillStyle = '#D72B16'; // Rote Explosion
         context.fillRect(x, y, grid, grid);
-        }
+    }
 }
 
+// Spieler-Klasse
 class Player {
     constructor(row, col) {
         this.row = row;
         this.col = col;
-        this.numBombs = 1;
-        this.bombSize = 3;
+        this.numBombs = 1; // Der Spieler kann nur eine Bombe gleichzeitig legen
+        this.bombSize = 3; // Bombenreichweite
         this.radius = grid * 0.35;
     }
 
@@ -157,6 +156,7 @@ class Player {
         let newRow = this.row;
         let newCol = this.col;
 
+        // Berechnet die neue Position des Spielers basierend auf der Steuerung
         switch (direction) {
             case 'a': newCol--; break;
             case 'w': newRow--; break;
@@ -164,7 +164,7 @@ class Player {
             case 's': newRow++; break;
         }
 
-        // Überprüft, ob die neue Position im Gitter gültig ist und keine Bombe, Wand oder Block enthält
+        // Überprüft, ob die neue Position gültig ist (keine Wand oder Bombe)
         if (this.isValidMove(newRow, newCol)) {
             this.row = newRow;
             this.col = newCol;
@@ -173,25 +173,13 @@ class Player {
 
     // Überprüft, ob der Spieler auf ein gültiges Feld laufen kann
     isValidMove(row, col) {
-        // Überprüft, ob die neue Position innerhalb der Grenzen des Spielfeldes liegt
-        if (row < 0 || row >= numRows || col < 0 || col >= numCols) {
-            return false;
-        }
-
-        // Überprüft, ob auf der Zelle eine Bombe liegt
-        if (cells[row][col] === types.bomb) {
-            return false;
-        }
-
-        // Überprüft, ob das Ziel eine Wand oder ein Block ist
-        if (cells[row][col] === types.wall || cells[row][col] === types.bombableWall) {
-            return false;
-        }
-
-        return true; // Bewegung ist gültig, wenn kein Hindernis vorhanden ist
+        if (row < 0 || row >= numRows || col < 0 || col >= numCols) return false; // Außerhalb des Spielfelds
+        if (cells[row][col] === types.bomb || cells[row][col] === types.wall || cells[row][col] === types.brick) return false; // Hindernisse
+        return true;
     }
 
     placeBomb() {
+        // Platziert eine Bombe, wenn der Spieler keine andere Bombe an dieser Stelle hat
         if (!cells[this.row][this.col] && entities.filter(entity => entity.type === types.bomb && entity.owner === this).length < this.numBombs) {
             const bomb = new Bomb(this.row, this.col, this.bombSize, this);
             entities.push(bomb);
@@ -200,75 +188,77 @@ class Player {
     }
 }
 
-let player = new Player(1, 1); //startpostion vom spieler
-let level = new Level();
-level.generate();
-
+// Funktion, die eine Bombe explodieren lässt
 function blowUpBomb(bomb) {
     if (!bomb.alive) return;
-    bomb.alive = false;
-    cells[bomb.row][bomb.col] = null;
-    const directions = [{
-        row: -1, col: 0
-    }, {
-        row: 1, col: 0
-    }, {
-        row: 0, col: -1
-    }, {
-        row: 0, col: 1
-    }];
+    bomb.alive = false; // Bombe ist nicht mehr aktiv
+    cells[bomb.row][bomb.col] = null; // Entfernt die Bombe vom Spielfeld
 
-    const startRange = 2; // Bombenreichweite
+    const directions = [{ row: -1, col: 0 }, { row: 1, col: 0 }, { row: 0, col: -1 }, { row: 0, col: 1 }];
+    const startRange = 2; // Reichweite der Bombe
 
-    // Explosionsauswirkung auf benachbarte Felder
+    // Überprüft jede Richtung (oben, unten, links, rechts)
     directions.forEach((direction) => {
         for (let i = 0; i < startRange; i++) {
             const row = bomb.row + direction.row * i;
             const col = bomb.col + direction.col * i;
-            const cell = cells[row][col];
-            if (cell === types.wall) return;
-            entities.push(new Explosion(row, col, direction, i === 0));
+            const cell = cells[row]?.[col]; // Sicherstellen, dass die Zelle existiert
+
+            if (cell === types.wall) return; // Wand blockiert Explosion
+            entities.push(new Explosion(row, col)); // Explosion erzeugen
             cells[row][col] = null;
+
             if (cell === types.bomb) {
                 const nextBomb = entities.find((entity) => entity.type === types.bomb && entity.row === row && entity.col === col);
-                blowUpBomb(nextBomb);
+                blowUpBomb(nextBomb); // Nächste Bombe explodieren lassen
             }
-            if (cell) return;
+            if (cell) return; // Stoppt die Explosion, wenn ein Block getroffen wurde
         }
     });
 }
 
+let player = new Player(1, 1); // Startposition des Spielers
+let level = new Level();
+level.generate();
+
+// Game-Loop für Animation
 let last;
 let frameTime;
 function loop(timestamp) {
     requestAnimationFrame(loop);
     context.clearRect(0, 0, canvas.width, canvas.height);
+
     if (!last) last = timestamp;
     frameTime = timestamp - last;
     last = timestamp;
 
+    // Zeichnet das Spielfeld basierend auf den Zellen
     for (let row = 0; row < numRows; row++) {
         for (let col = 0; col < numCols; col++) {
             switch (cells[row][col]) {
                 case types.wall:
                     context.drawImage(wallCanvas, col * grid, row * grid);
                     break;
-                case types.bombableWall:
-                    context.drawImage(bombableWallCanvas, col * grid, row * grid);
+                case types.brick:
+                    context.drawImage(brickCanvas, col * grid, row * grid);
                     break;
             }
         }
     }
 
+    // Aktualisiert und rendert alle Entitäten (Spieler, Bomben, Explosionen)
     entities.forEach(entity => {
         entity.update(frameTime);
         entity.render();
     });
 
+    // Entfernt inaktive Entitäten/Objekte
     entities = entities.filter(entity => entity.alive);
+
     player.render();
 }
 
+// Event-Listener für Tasteneingaben
 document.addEventListener('keydown', (event) => {
     if (event.key === 'a' || event.key === 'w' || event.key === 'd' || event.key === 's') {
         player.move(event.key);
