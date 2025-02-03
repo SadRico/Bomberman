@@ -173,9 +173,15 @@ class Player {
 
     // Überprüft, ob der Spieler auf ein gültiges Feld laufen kann
     isValidMove(row, col) {
-        if (row < 0 || row >= numRows || col < 0 || col >= numCols) return false; // Außerhalb des Spielfelds
-        if (cells[row][col] === types.bomb || cells[row][col] === types.wall || cells[row][col] === types.brick) return false; // Hindernisse
-        return true;
+        if (row < 0 || row >= numRows || col < 0 || col >= numCols) {
+            return false; // Außerhalb des Spielfelds
+        }
+
+        else if (cells[row][col] === types.bomb || cells[row][col] === types.wall || cells[row][col] === types.brick){ // Hindernisse
+            return false;
+        }
+
+        return true; // Bewegung ist gültig, wenn kein Hindernis vorhanden ist
     }
 
     placeBomb() {
