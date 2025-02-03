@@ -220,6 +220,7 @@ function blowUpBomb(bomb) {
 
     const startRange = 2; // Bombenreichweite
 
+    // Explosionsauswirkung auf benachbarte Felder
     directions.forEach((direction) => {
         for (let i = 0; i < startRange; i++) {
             const row = bomb.row + direction.row * i;
@@ -236,7 +237,6 @@ function blowUpBomb(bomb) {
         }
     });
 }
-
 
 let last;
 let frameTime;
