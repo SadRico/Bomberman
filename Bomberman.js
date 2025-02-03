@@ -8,16 +8,16 @@ const numCols = 15; // Anzahl der Spalten
 const brickCanvas = document.createElement('canvas');
 const brickCtx = brickCanvas.getContext('2d');
 brickCanvas.width = brickCanvas.height = grid;
-brickCtx.fillStyle = '#6d4520'; // Wandfarbe
+brickCtx.fillStyle = '#6d4520';
 brickCtx.fillRect(0, 0, grid, grid);
 
 // Erstellt ein Canvas für feste Wände
 const wallCanvas = document.createElement('canvas');
 const wallCtx = wallCanvas.getContext('2d');
 wallCanvas.width = wallCanvas.height = grid;
-wallCtx.fillStyle = 'black'; // Feste Wandfarbe
+wallCtx.fillStyle = 'black';
 wallCtx.fillRect(0, 0, grid, grid);
-wallCtx.fillStyle = '#a9a9a9'; // Innenfarbe der Wand
+wallCtx.fillStyle = '#a9a9a9';
 wallCtx.fillRect(2, 2, grid - 4, grid - 4);
 
 // Definiert die verschiedenen Typen von Objekten im Spiel
