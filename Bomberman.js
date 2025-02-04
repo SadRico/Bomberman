@@ -42,7 +42,7 @@ function updateCanvas() {
     // Formatierte Zeit im mm:ss-Format
     let timeString = `${checkZero(minutes)}:${checkZero(seconds)}`;
 
-    // Text auf das Canvas zeichnen
+    // Zeit und Text Canvas zeichnen
     timerContext.fillText(seconds_left > 0 ? timeString : 'Time Up!', timerCanvas.width / 2, timerCanvas.height / 2);
 }
 
