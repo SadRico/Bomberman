@@ -20,6 +20,33 @@ wallCtx.fillRect(0, 0, grid, grid);
 wallCtx.fillStyle = '#a9a9a9';
 wallCtx.fillRect(2, 2, grid - 4, grid - 4);
 
+// Erstellt einen Timer
+const timerCanvas = document.createElement('canvas');
+timerCanvas.width = 200;
+timerCanvas.height = 100;
+document.body.appendChild(timerCanvas);
+const timerContext = timerCanvas.getContext('2d');
+
+let seconds_left = 100;
+
+function updateCanvas() {
+    timerContext.clearRect(0, 0, timerCanvas.width, timerCanvas.height); // Clears the canvas
+    timerContext.font = '30px Arial';
+    timerContext.fillStyle = 'black';
+    timerContext.textAlign = 'center';
+    timerContext.fillText(seconds_left > 0 ? seconds_left : 'Time Up!', timerCanvas.width / 2, timerCanvas.height / 2);
+}
+
+let interval = setInterval(function() {
+    seconds_left--;
+    updateCanvas();
+
+    if (seconds_left <= 0) {
+        clearInterval(interval);
+        player = null
+    }
+}, 1000); // zeigt an wie langsam/schnell die zeit abläuft
+
 // Definiert die verschiedenen Typen von Objekten im Spiel
 const types = {
     wall: '🟩', // Wand
