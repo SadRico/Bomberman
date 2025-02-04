@@ -22,10 +22,12 @@ wallCtx.fillRect(2, 2, grid - 4, grid - 4);
 
 // Erstellt Timer
 const timerCanvas = document.createElement('canvas');
+timerCanvas.id = 'timerCanvas'; // ID hinzufügen
 const timerCtx = timerCanvas.getContext('2d');
-timerCanvas.width = 200;
-timerCanvas.height = 828;
+timerCanvas.width = 957;
+timerCanvas.height = 60; // Timer-Höhe anpassen, je nachdem, was du benötigst
 document.body.appendChild(timerCanvas);
+
 
 let seconds_left = 200;
 
@@ -314,7 +316,7 @@ function blowUpBomb(bomb) {
             cells[row][col] = null;
 
             if (cell === types.brick){
-            generateItem(row, col); // Zufälliges Item im Block generieren
+                generateItem(row, col); // Zufälliges Item im Block generieren
             }
             if (cell === types.bomb) {
                 const nextBomb = entities.find((entity) => entity.type === types.bomb && entity.row === row && entity.col === col);
@@ -380,5 +382,4 @@ document.addEventListener('keydown', (event) => {
         player.placeBomb();
     }
 });
-
 requestAnimationFrame(loop);
