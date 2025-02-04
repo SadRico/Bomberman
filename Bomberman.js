@@ -43,7 +43,7 @@ let interval = setInterval(function() {
 
     if (seconds_left <= 0) {
         clearInterval(interval);
-        player = null
+        player = null // wenn time up, spieler tot
     }
 }, 1000); // zeigt an wie langsam/schnell die zeit abläuft
 
