@@ -35,7 +35,7 @@ class Level {
     constructor() {
         this.template = [
             ['🟩', '🟩', '🟩', '🟩', '🟩', '🟩', '🟩', '🟩', '🟩', '🟩', '🟩', '🟩', '🟩', '🟩', '🟩'],
-            ['🟩', 'x', 'x',    ,    ,    ,    ,    ,    ,    ,    ,    ,   'x', 'x', '🟩'],
+            ['🟩', 'x', 'x',    ,    ,    ,    ,    ,    ,    ,    ,    ,       'x', 'x', '🟩'],
             ['🟩', 'x', '🟩',    ,'🟩',    ,'🟩',    ,'🟩',    ,'🟩',    , '🟩',    'x', '🟩'],
             ['🟩',    ,    ,    ,    ,    ,    ,    ,    ,    ,    ,    ,     ,     ,'🟩'],
             ['🟩',    ,'🟩',    ,'🟩',    ,'🟩',    ,'🟩',    ,'🟩',    , '🟩',       ,'🟩'],
@@ -217,6 +217,10 @@ function blowUpBomb(bomb) {
             if (cell === types.bomb) {
                 const nextBomb = entities.find((entity) => entity.type === types.bomb && entity.row === row && entity.col === col);
                 blowUpBomb(nextBomb); // Nächste Bombe explodieren lassen
+            }
+
+            if (player && player.row === row && player.col === col) {
+                player = null // player wird gekillt
             }
             if (cell) return; // Stoppt die Explosion, wenn ein Block getroffen wurde
         }
