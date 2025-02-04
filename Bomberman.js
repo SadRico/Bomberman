@@ -156,7 +156,7 @@ class Item {
 function generateItem(row, col) {
     // Random Item erscheint mit 30% Wahrscheinlichkeit
     if (Math.random() < 0.3) {
-        const itemTypes = Object.values(items);
+        const itemTypes = Object.values(items); // Object ist eine built-in method (Zur Verständnis)
         const randomItemType = itemTypes[Math.floor(Math.random() * itemTypes.length)];
         const item = new Item(row, col, randomItemType);
         entities.push(item);
@@ -334,9 +334,11 @@ function loop(timestamp) {
     for (let row = 0; row < numRows; row++) {
         for (let col = 0; col < numCols; col++) {
             switch (cells[row][col]) {
+                // zeichnet feste Wände
                 case types.wall:
                     context.drawImage(wallCanvas, col * grid, row * grid);
                     break;
+                // zeichnet Blöcke
                 case types.brick:
                     context.drawImage(brickCanvas, col * grid, row * grid);
                     break;
