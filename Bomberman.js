@@ -27,14 +27,28 @@ timerCanvas.height = 100;
 document.body.appendChild(timerCanvas);
 const timerContext = timerCanvas.getContext('2d');
 
-let seconds_left = 100;
+let seconds_left = 200;
 
 function updateCanvas() {
     timerContext.clearRect(0, 0, timerCanvas.width, timerCanvas.height); // Clears the canvas
     timerContext.font = '30px Arial';
-    timerContext.fillStyle = 'black';
+    timerContext.fillStyle = 'white';
     timerContext.textAlign = 'center';
-    timerContext.fillText(seconds_left > 0 ? seconds_left : 'Time Up!', timerCanvas.width / 2, timerCanvas.height / 2);
+
+    // Minuten und Sekunden berechnen
+    let minutes = Math.floor(seconds_left / 60);
+    let seconds = seconds_left % 60;
+
+    // Formatierte Zeit im mm:ss-Format
+    let timeString = `${checkZero(minutes)}:${checkZero(seconds)}`;
+
+    // Text auf das Canvas zeichnen
+    timerContext.fillText(seconds_left > 0 ? timeString : 'Time Up!', timerCanvas.width / 2, timerCanvas.height / 2);
+}
+
+// Stellt sicher, dass Minuten und Sekunden immer 2 Stellen haben
+function checkZero(num) {
+    return num < 10 ? '0' + num : num;
 }
 
 let interval = setInterval(function() {
@@ -43,9 +57,9 @@ let interval = setInterval(function() {
 
     if (seconds_left <= 0) {
         clearInterval(interval);
-        player = null // wenn time up, spieler tot
+        player = null; // wenn time up, spieler tot
     }
-}, 1000); // zeigt an wie langsam/schnell die zeit abläuft
+}, 1000); // zeigt an, wie langsam/schnell die Zeit abläuft
 
 // Definiert die verschiedenen Typen von Objekten im Spiel
 const types = {
