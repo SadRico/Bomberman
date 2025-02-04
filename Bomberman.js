@@ -161,7 +161,7 @@ class Item {
 
     remove() {
         // Item wird gelöscht
-        //console.log(`Item bei (${this.row}, ${this.col}) ist verschwunden`);
+        //console.log(`Item bei (${this.row}, ${this.col}) wurde gelöscht`);
         entities = entities.filter(entity => entity !== this);
     }
 }
