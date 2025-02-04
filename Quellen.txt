@@ -1,0 +1,13 @@
+Quellen:
+
+stackoverflow:
+https://stackoverflow.com/questions/72480727/how-to-implement-setinterval-function-with-interval-as-minutes
+https://stackoverflow.com/questions/9989285/javascript-countdown-timer-and-display-text
+https://stackoverflow.com/questions/44464235/bomberman-vanilla-js
+
+YouTube:
+https://www.youtube.com/watch?v=bkFerURWPgA
+
+Codehilfe:
+https://codepen.io/lewster32/pen/KvzVVd
+https://gist.github.com/straker/769fb461e066147ea16ac2cb9463beae
