@@ -4,14 +4,14 @@ const grid = 64; // Größe eines Spielfeldblocks
 const numRows = 13; // Anzahl der Reihen
 const numCols = 15; // Anzahl der Spalten
 
-// Erstellt ein Canvas für zerstörbare Blöcke
+// Erstellt Canvas für zerstörbare Blöcke
 const brickCanvas = document.createElement('canvas');
 const brickCtx = brickCanvas.getContext('2d');
 brickCanvas.width = brickCanvas.height = grid;
 brickCtx.fillStyle = '#6d4520';
 brickCtx.fillRect(0, 0, grid, grid);
 
-// Erstellt ein Canvas für feste Wände
+// Erstellt Canvas für feste Wände
 const wallCanvas = document.createElement('canvas');
 const wallCtx = wallCanvas.getContext('2d');
 wallCanvas.width = wallCanvas.height = grid;
@@ -20,30 +20,30 @@ wallCtx.fillRect(0, 0, grid, grid);
 wallCtx.fillStyle = '#a9a9a9';
 wallCtx.fillRect(2, 2, grid - 4, grid - 4);
 
-// Erstellt einen Timer
+// Erstellt Timer
 const timerCanvas = document.createElement('canvas');
+const timerCtx = timerCanvas.getContext('2d');
 timerCanvas.width = 200;
-timerCanvas.height = 100;
+timerCanvas.height = 828;
 document.body.appendChild(timerCanvas);
-const timerContext = timerCanvas.getContext('2d');
 
 let seconds_left = 200;
 
 function updateCanvas() {
-    timerContext.clearRect(0, 0, timerCanvas.width, timerCanvas.height); // Clears the canvas
-    timerContext.font = '30px Arial';
-    timerContext.fillStyle = 'white';
-    timerContext.textAlign = 'center';
+    timerCtx.clearRect(0, 0, timerCanvas.width, timerCanvas.height); // Clears the canvas
+    timerCtx.font = '30px Arial';
+    timerCtx.fillStyle = 'white';
+    timerCtx.textAlign = 'center';
 
     // Minuten und Sekunden berechnen
     let minutes = Math.floor(seconds_left / 60);
     let seconds = seconds_left % 60;
 
-    // Formatierte Zeit im mm:ss-Format
+    // Zeit im mm:ss-Format
     let timeString = `${checkZero(minutes)}:${checkZero(seconds)}`;
 
     // Zeit und Text Canvas zeichnen
-    timerContext.fillText(seconds_left > 0 ? timeString : 'Time Up!', timerCanvas.width / 2, timerCanvas.height / 2);
+    timerCtx.fillText(seconds_left > 0 ? timeString : 'Time Up!', timerCanvas.width / 2, 50);
 }
 
 // Stellt sicher, dass Minuten und Sekunden immer 2 Stellen haben
