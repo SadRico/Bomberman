@@ -72,8 +72,9 @@ const types = {
 
 // Item-Typen
 const items = {
-    extraBombs: '🎁', // Erhöht die Anzahl der Bomben
-    speedBoost: '⚡', // Erhöht die Geschwindigkeit
+    extraBombs: '💣', // Erhöht die Anzahl der Bomben
+    fireUp: '🔥', // Erhöht die Explosionsrange
+    vest: '🦺' // Extra Hit
 };
 
 let entities = []; // Alle entitäten wie Spieler, Bomben, Explosionen
@@ -140,10 +141,9 @@ class Item {
     // Items werden gerendert
     render() {
         const x = (this.col + 0.5) * grid;
-        const y = (this.row + 0.5) * grid;
+        const y = (this.row + 0.65) * grid;
         context.font = '30px Arial';
         context.textAlign = 'center';
-        context.fillStyle = 'yellow';
         context.fillText(this.type, x, y);
     }
 
@@ -241,14 +241,14 @@ class Player {
         this.col = col;
         this.numBombs = 1; // Spieler kann nur eine Bombe gleichzeitig legen
         this.bombSize = 3; // Bombenreichweite
-        this.radius = grid * 0.35;
+        this.radius = grid * 0.25;
     }
 
     render() {
         const x = (this.col + 0.5) * grid;
         const y = (this.row + 0.5) * grid;
         context.save();
-        context.fillStyle = 'white';
+        context.fillStyle = 'orange';
         context.beginPath();
         context.arc(x, y, this.radius, 0, 2 * Math.PI);
         context.fill();
@@ -258,7 +258,7 @@ class Player {
         let newRow = this.row;
         let newCol = this.col;
 
-        // Berechnet die neue Position des Spielers
+        // Berechnet die Position des Spielers
         switch (direction) {
             case 'a': newCol--; break;
             case 'w': newRow--; break;
@@ -270,10 +270,12 @@ class Player {
         if (this.isValidMove(newRow, newCol)) {
             this.row = newRow;
             this.col = newCol;
+            this.getItem(); // Item einsammeln
         }
     }
 
-    // Überprüft, ob der Spieler auf ein gültiges Feld laufen kann
+
+    // Überprüft, ob Spieler auf ein gültiges Feld laufen kann
     isValidMove(row, col) {
         if (row < 0 || row >= numRows || col < 0 || col >= numCols) {
             return false; // Außerhalb des Spielfelds
@@ -294,6 +296,21 @@ class Player {
             cells[this.row][this.col] = types.bomb;
         }
     }
+
+    getItem() {
+        // Findet ein Item an der aktuellen Position
+        let item = entities.find(entity => entity instanceof Item && entity.row === this.row && entity.col === this.col);
+
+        if (item) {
+            if (item.type === items.extraBombs) {
+                if (this.numBombs< 5){
+                    this.numBombs++; // Mehr Bomben (max. 5)
+            }
+            } //else if (item.type === items.fireUp) {
+                //this.speedBoost(); // Geschwindigkeit erhöhen
+            }
+            item.remove(); // Entfernt das Item nach Aufnahme
+        }
 }
 
 // Funktion, die eine Bombe explodieren lässt
