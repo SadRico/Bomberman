@@ -54,6 +54,12 @@ const types = {
     bomb: 2 // Bombe
 };
 
+// Item-Typen
+const items = {
+    extraBombs: '🎁', // Erhöht die Anzahl der Bomben
+    speedBoost: '⚡', // Erhöht die Geschwindigkeit
+};
+
 let entities = []; // Alle entitäten wie Spieler, Bomben, Explosionen
 let cells = []; // Raster vom Spielfeld
 
@@ -103,7 +109,59 @@ class Entity {
     update(frameTime) {}
     render() {}
 }
+// Klasse für Items
+class Item {
+    constructor(row, col, type) {
+        this.row = row;
+        this.col = col;
+        this.type = type;
+        this.secondsLeft = 10;
+        this.interval = null;
+        this.alive = true;
+    }
 
+    // Items werden gerendert
+    render() {
+        const x = (this.col + 0.5) * grid;
+        const y = (this.row + 0.5) * grid;
+        context.font = '30px Arial';
+        context.textAlign = 'center';
+        context.fillStyle = 'yellow';
+        context.fillText(this.type, x, y);
+    }
+
+    // Updated das Item um es despawnen zu lassen
+    update() {
+        if (!this.interval) {
+            this.interval = setInterval(() => {
+                this.secondsLeft--;
+
+                // Wenn die Zeit abgelaufen ist
+                if (this.secondsLeft <= 0) {
+                    clearInterval(this.interval);
+                    this.remove(); // Item entfernen
+                }
+            }, 1000);
+        }
+    }
+
+    remove() {
+        // Item wird gelöscht
+        //console.log(`Item bei (${this.row}, ${this.col}) ist verschwunden`);
+        entities = entities.filter(entity => entity !== this);
+    }
+}
+
+// Funktion zum zufälligen Erzeugen von Items, wenn ein Block zerstört wird
+function generateItem(row, col) {
+    // Random Item erscheint mit 30% Wahrscheinlichkeit
+    if (Math.random() < 0.3) {
+        const itemTypes = Object.values(items);
+        const randomItemType = itemTypes[Math.floor(Math.random() * itemTypes.length)];
+        const item = new Item(row, col, randomItemType);
+        entities.push(item);
+    }
+}
 // Bomb-Klasse
 class Bomb extends Entity {
     constructor(row, col, size, owner) {
@@ -113,7 +171,7 @@ class Bomb extends Entity {
         this.owner = owner;
         this.alive = true;
         this.type = types.bomb;
-        this.timer = 3000; // 3 Sekunden Timer
+        this.timer = 3000;
     }
 
     update(frameTime) {
@@ -123,7 +181,7 @@ class Bomb extends Entity {
         }
         // 'Animation' für Bombe
         const interval = Math.ceil(this.timer / 500);
-        this.radius = (interval % 2 === 0) ? grid * 0.4 : grid * 0.5; // Wechsel der Größe von der Bombe
+        this.radius = (interval % 2 === 0) ? grid * 0.4 : grid * 0.5; // Wechsel der Größe von der Bombe, wegen Animation
     }
 
     render() {
@@ -164,7 +222,7 @@ class Player {
     constructor(row, col) {
         this.row = row;
         this.col = col;
-        this.numBombs = 1; // Der Spieler kann nur eine Bombe gleichzeitig legen
+        this.numBombs = 1; // Spieler kann nur eine Bombe gleichzeitig legen
         this.bombSize = 3; // Bombenreichweite
         this.radius = grid * 0.35;
     }
@@ -183,7 +241,7 @@ class Player {
         let newRow = this.row;
         let newCol = this.col;
 
-        // Berechnet die neue Position des Spielers basierend auf der Steuerung
+        // Berechnet die neue Position des Spielers
         switch (direction) {
             case 'a': newCol--; break;
             case 'w': newRow--; break;
@@ -230,7 +288,7 @@ function blowUpBomb(bomb) {
     const directions = [{ row: -1, col: 0 }, { row: 1, col: 0 }, { row: 0, col: -1 }, { row: 0, col: 1 }];
     const startRange = 2; // Reichweite der Bombe
 
-    // Überprüft jede Richtung (oben, unten, links, rechts)
+    // Überprüft jede Richtung
     directions.forEach((direction) => {
         for (let i = 0; i < startRange; i++) {
             const row = bomb.row + direction.row * i;
@@ -241,13 +299,16 @@ function blowUpBomb(bomb) {
             entities.push(new Explosion(row, col)); // Explosion erzeugen
             cells[row][col] = null;
 
+            if (cell === types.brick){
+            generateItem(row, col); // Zufälliges Item im Block generieren
+            }
             if (cell === types.bomb) {
                 const nextBomb = entities.find((entity) => entity.type === types.bomb && entity.row === row && entity.col === col);
-                blowUpBomb(nextBomb); // Nächste Bombe explodieren lassen
+                blowUpBomb(nextBomb); // Nächste Bombe explodieren lassen, für Bombchains
             }
 
             if (player && player.row === row && player.col === col) {
-                player = null // player wird gekillt
+                player = null // Player wird gekillt
             }
             if (cell) return; // Stoppt die Explosion, wenn ein Block getroffen wurde
         }
