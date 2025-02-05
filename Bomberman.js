@@ -310,6 +310,8 @@ class Explosion extends Substance {
         });
     }}
 
+const playerImage = new Image();
+playerImage.src = 'assets/bomberman.png';
 
 // Spieler-Klasse
 class Player {
@@ -318,18 +320,14 @@ class Player {
         this.col = col;
         this.numBombs = 1; // Spieler kann nur eine Bombe gleichzeitig legen
         this.bombSize = 3;
-        this.radius = grid * 0.25;
-        this.bombRange = 2
+        this.bombRange = 2;
     }
 
     render() {
-        const x = (this.col + 0.5) * grid;
-        const y = (this.row + 0.5) * grid;
-        context.save();
-        context.fillStyle = 'orange';
-        context.beginPath();
-        context.arc(x, y, this.radius, 0, 2 * Math.PI);
-        context.fill();
+        const x = (this.col + 0.5) * grid - grid / 2; // Zentrierung
+        const y = (this.row + 0.5) * grid - grid / 2; // Zentrierung
+
+        context.drawImage(playerImage, x, y, grid, grid); // Spielerbild zeichnen
     }
 
     move(direction) {
