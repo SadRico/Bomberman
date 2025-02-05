@@ -350,10 +350,16 @@ class Player {
 
         if (item) {
             if (item.type === items.extraBombs) {
+                let bombUpAudio = new Audio('sounds/GetItem__.wav');
+                bombUpAudio.volume = 0.09;
+                bombUpAudio.play();
                 if (this.numBombs < 5){
                     this.numBombs++; // Mehr Bomben (max. 5)
             }
             } else if (item.type === items.fireUp) {
+                let fireUpAudio = new Audio('sounds/GetItem.wav');
+                fireUpAudio.volume = 0.09;
+                fireUpAudio.play();
                 if (this.bombRange < 5){
                     this.bombRange++; // Range erhöhen
                 }
@@ -381,6 +387,10 @@ function blowUp(bomb) {
 
             if (cell === types.wall) return; // Wand blockiert Explosion
             substances.push(new Explosion(row, col)); // Explosion erzeugen
+            let bombAudio = new Audio('sounds/Bomb.wav');
+            bombAudio.volume = 0.02;
+            bombAudio.play();
+
             cells[row][col] = null;
 
             if (cell === types.brick){
