@@ -79,6 +79,8 @@ let interval = setInterval(function() {
     if (seconds_left <= 0) {
         clearInterval(interval);
         player = null; // wenn time up, spieler tot
+
+        // Player Death Sound
         const deathAudio = new Audio('sounds/Death.wav');
         deathAudio.volume = 0.1;
         deathAudio.play();
@@ -271,7 +273,7 @@ class Bomb extends Substance {
         const x = (this.col + 0.5) * grid;
         const y = (this.row + 0.5) * grid;
         const size = this.radius * 2;
-        //Bombenbild
+        // Bombenbild
         bombCtx.drawImage(this.img, x - size / 2, y - size / 2, size, size)
     }
 }
@@ -346,6 +348,12 @@ class Player {
         if (this.isValidMove(newRow, newCol)) {
             this.row = newRow;
             this.col = newCol;
+
+            // Walking Sound (hier platziert, damit Sound nicht IMMER abgespielt wird bei Eingabe!)
+            let walkAudio = new Audio('sounds/Walking.wav');
+            walkAudio.volume = 0.4;
+            walkAudio.play();
+
             this.getItem(); // Item einsammeln
         }
     }
@@ -369,6 +377,11 @@ class Player {
             const bomb = new Bomb(this.row, this.col, this.bombSize, this);
             substances.push(bomb);
             cells[this.row][this.col] = types.bomb;
+
+            // Place-Bomb Sound
+            const bombPlaceAudio = new Audio('sounds/Place_Bomb.wav');
+            bombPlaceAudio.volume = 0.4;
+            bombPlaceAudio.play();
         }
     }
 
@@ -378,18 +391,22 @@ class Player {
 
         if (item) {
             if (item.type === items.extraBombs) {
+                //Bomb-Up Audio
                 const bombUpAudio = new Audio('sounds/GetItem__.wav');
                 bombUpAudio.volume = 0.09;
                 bombUpAudio.play();
+
                 if (this.numBombs < 5){
                     this.numBombs++; // Mehr Bomben (max. 5)
             }
             } else if (item.type === items.fireUp) {
+                // Fire-Up Audio
                 const fireUpAudio = new Audio('sounds/GetItem.wav');
                 fireUpAudio.volume = 0.09;
                 fireUpAudio.play();
+
                 if (this.bombRange < 5){
-                    this.bombRange++; // Range erhöhen
+                    this.bombRange++; // Range erhöhen (max. 5)
                 }
             }
             }
@@ -415,6 +432,8 @@ function blowUp(bomb) {
 
             if (cell === types.wall) return; // Wand blockiert Explosion
             substances.push(new Explosion(row, col)); // Explosion erzeugen
+
+            // Explosion Sound
             const bombAudio = new Audio('sounds/Bomb.wav');
             bombAudio.volume = 0.015;
             bombAudio.play();
@@ -431,6 +450,8 @@ function blowUp(bomb) {
 
             if (player && player.row === row && player.col === col) {
                 player = null // Player wird gekillt
+
+                // Player Death Sound
                 const deathAudio = new Audio('sounds/Death.wav');
                 deathAudio.volume = 0.1;
                 deathAudio.play();

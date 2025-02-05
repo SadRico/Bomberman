@@ -29,5 +29,6 @@ https://downloads.khinsider.com/game-soundtracks/album/super-bomberman-snes/04.%
 https://www.newgrounds.com/art/view/pbsnapple/bomberman-wallpaper
 https://www.pixilart.com/draw/bomberman-sprite-c5e4d357e30cf9d
 
-Bearbeitungsprogramm für Bilder:
+Bearbeitungsprogramm für Bilder/Sounds:
 https://www.photopea.com
+https://mp3cut.net/de/
