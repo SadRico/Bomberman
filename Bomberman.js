@@ -70,6 +70,9 @@ let interval = setInterval(function() {
     if (seconds_left <= 0) {
         clearInterval(interval);
         player = null; // wenn time up, spieler tot
+        const deathAudio = new Audio('sounds/Death.wav');
+        deathAudio.volume = 0.09;
+        deathAudio.play();
     }
 }, 1000); // zeigt an, wie langsam/schnell die Zeit abläuft
 
@@ -128,7 +131,7 @@ class Level {
     }
 }
 
-// Mainklasse für Substances wie Bomben, Explosionen und Spieler
+// Main-klasse für Substances wie Bomben, Explosionen und Spieler
 class Substance {
     constructor(row, col) {
         this.row = row;
@@ -171,9 +174,9 @@ class Item {
     render() {
         const x = (this.col + 0.5) * grid;
         const y = (this.row + 0.5) * grid;
-        const size = 60;  //Größe des Items
+        const size = 60;  // Größe des Items
 
-        if (this.imgLoaded) {  // Prüft ob das Bild vollständig geladen wurde
+        if (this.imgLoaded) {  // Prüft, ob das Bild vollständig geladen wurde
             itemCtx.drawImage(this.img, x - size / 2, y - size / 2, size, size);
         } else {
             // Wenn das Bild noch nicht geladen ist, zeige Symbol an
@@ -183,7 +186,7 @@ class Item {
         }
     }
 
-    // Updated das Item um es despawnen zu lassen
+    // Updated das Item um es de-spawnen zu lassen
     update() {
         if (!this.interval) {
             this.interval = setInterval(() => {
@@ -205,9 +208,9 @@ class Item {
     }
 }
 const itemChances = {
-    '💣': 0.15,  // 15% Wahrscheinlichkeit für Bomben
-    '🔥': 0.15,  // 15% Wahrscheinlichkeit für Fire Up
-    '🪡': 0.05   // 5% Wahrscheinlichkeit für Piercing Bomb
+    '💣': 0.15,  // 15 % Wahrscheinlichkeit für Bomben
+    '🔥': 0.15,  // 15 % Wahrscheinlichkeit für Fire Up
+    '🪡': 0.05   // 5 % Wahrscheinlichkeit für Piercing Bomb
 };
 
 // Funktion um Item zu generieren
@@ -280,12 +283,24 @@ class Explosion extends Substance {
     }
 
     render() {
-        const x = this.col * grid;
-        const y = this.row * grid;
-        context.fillStyle = '#D72B16'; // Rote Explosion
-        context.fillRect(x, y, grid, grid);
-    }
-}
+        const x = this.col * grid + grid / 2;
+        const y = this.row * grid + grid / 2;
+        const maxRadius = grid * 0.4;
+
+        const colors = [
+            'rgba(215, 43, 22, 0.9)',  // Rot
+            'rgba(234, 108, 5, 0.7)',  // Orange
+            'rgba(255, 183, 0, 0.5)'   // Gelb
+        ];
+
+        colors.forEach((color, index) => {
+            context.beginPath();
+            context.arc(x, y, maxRadius * (1 - index * 0.3), 0, Math.PI * 2);
+            context.fillStyle = color;
+            context.fill();
+        });
+    }}
+
 
 // Spieler-Klasse
 class Player {
@@ -404,12 +419,12 @@ function blowUp(bomb) {
             }
             if (cell === types.bomb) {
                 const nextBomb = substances.find((substance) => substance.type === types.bomb && substance.row === row && substance.col === col);
-                blowUp(nextBomb); // Nächste Bombe explodieren lassen, für Bombchains
+                blowUp(nextBomb); // Nächste Bombe explodieren lassen, für Bomb-chains
             }
 
             if (player && player.row === row && player.col === col) {
                 player = null // Player wird gekillt
-                let deathAudio = new Audio('sounds/Death.wav');
+                const deathAudio = new Audio('sounds/Death.wav');
                 deathAudio.volume = 0.09;
                 deathAudio.play();
             }
@@ -465,9 +480,9 @@ function loop(timestamp) {
 document.addEventListener('keydown', (event) => {
     if (event.key === 'a' || event.key === 'w' || event.key === 'd' || event.key === 's') {
         player.move(event.key);
+
     } else if (event.key === ' ') {
         player.placeBomb();
     }
 });
-
 requestAnimationFrame(loop);
