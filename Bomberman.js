@@ -118,7 +118,7 @@ class Level {
 }
 
 // Mainklasse für Entitäten wie Bomben, Explosionen und Spieler
-class Entity {
+class Substance {
     constructor(row, col) {
         this.row = row;
         this.col = col;
@@ -165,7 +165,7 @@ class Item {
     remove() {
         // Item wird gelöscht
         //console.log(`Item bei (${this.row}, ${this.col}) wurde gelöscht`);
-        entities = entities.filter(entity => entity !== this);
+        entities = entities.filter(substance => substance !== this);
     }
 }
 
@@ -180,7 +180,7 @@ function generateItem(row, col) {
     }
 }
 // Bomb-Klasse
-class Bomb extends Entity {
+class Bomb extends Substance {
     constructor(row, col, size, owner) {
         super(row, col);
         this.radius = grid * 0.4;
@@ -212,7 +212,7 @@ class Bomb extends Entity {
 }
 
 // Explosion-Klasse
-class Explosion extends Entity {
+class Explosion extends Substance {
     constructor(row, col) {
         super(row, col);
         this.alive = true;
@@ -290,7 +290,7 @@ class Player {
 
     placeBomb() {
         // Platziert eine Bombe, wenn der Spieler keine andere Bombe an dieser Stelle hat
-        if (!cells[this.row][this.col] && entities.filter(entity => entity.type === types.bomb && entity.owner === this).length < this.numBombs) {
+        if (!cells[this.row][this.col] && entities.filter(substance => substance.type === types.bomb && substance.owner === this).length < this.numBombs) {
             const bomb = new Bomb(this.row, this.col, this.bombSize, this);
             entities.push(bomb);
             cells[this.row][this.col] = types.bomb;
@@ -299,7 +299,7 @@ class Player {
 
     getItem() {
         // Findet ein Item an der aktuellen Position
-        let item = entities.find(entity => entity instanceof Item && entity.row === this.row && entity.col === this.col);
+        let item = entities.find(substance => substance instanceof Item && substance.row === this.row && substance.col === this.col);
 
         if (item) {
             if (item.type === items.extraBombs) {
@@ -337,7 +337,7 @@ function blowUpBomb(bomb) {
                 generateItem(row, col); // Zufälliges Item im Block generieren
             }
             if (cell === types.bomb) {
-                const nextBomb = entities.find((entity) => entity.type === types.bomb && entity.row === row && entity.col === col);
+                const nextBomb = entities.find((substance) => substance.type === types.bomb && substance.row === row && substance.col === col);
                 blowUpBomb(nextBomb); // Nächste Bombe explodieren lassen, für Bombchains
             }
 
@@ -381,13 +381,13 @@ function loop(timestamp) {
     }
 
     // Aktualisiert und rendert alle Entitäten (Spieler, Bomben, Explosionen)
-    entities.forEach(entity => {
-        entity.update(frameTime);
-        entity.render();
+    entities.forEach(substance => {
+        substance.update(frameTime);
+        substance.render();
     });
 
     // Entfernt inaktive Entitäten/Objekte
-    entities = entities.filter(entity => entity.alive);
+    entities = entities.filter(substance => substance.alive);
 
     player.render();
 }
