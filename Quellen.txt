@@ -4,6 +4,9 @@ stackoverflow:
 https://stackoverflow.com/questions/72480727/how-to-implement-setinterval-function-with-interval-as-minutes
 https://stackoverflow.com/questions/9989285/javascript-countdown-timer-and-display-text
 https://stackoverflow.com/questions/44464235/bomberman-vanilla-js
+https://stackoverflow.com/questions/9419263/how-to-play-audio
+https://stackoverflow.com/questions/37115491/how-to-set-volume-of-audio-object
+https://stackoverflow.com/questions/13610638/loop-audio-with-javascript
 
 YouTube:
 https://www.youtube.com/watch?v=bkFerURWPgA
@@ -13,13 +16,14 @@ Codehilfe:
 https://codepen.io/lewster32/pen/KvzVVd
 https://dev.to/martyhimmel/animating-sprite-sheets-with-javascript-ag3
 
-Itemreferenzen/bilder:
+Itemreferenzen/bilder/sounds:
 https://bomberman.fandom.com/wiki/Fire_Up
 https://bomberman.fandom.com/wiki/Pierce_Bomb
 https://bomberman.fandom.com/wiki/Bomb
 https://www.spriters-resource.com/mobile/bombermanforandroid/sheet/70111
 https://randomhoohaas.flyingomelette.com/spr/bomberman/BombermanNES2.gif
-
+https://bomberman.fandom.com/wiki/Bomberman_(DS)/Power_Ups
+https://archive.org/download/bombermansoundeffectsandvoices
 
 Bearbeitungsprogramm für Bilder:
 https://www.photopea.com
