@@ -388,7 +388,7 @@ function blowUp(bomb) {
             if (cell === types.wall) return; // Wand blockiert Explosion
             substances.push(new Explosion(row, col)); // Explosion erzeugen
             const bombAudio = new Audio('sounds/Bomb.wav');
-            bombAudio.volume = 0.02;
+            bombAudio.volume = 0.015;
             bombAudio.play();
 
             cells[row][col] = null;
@@ -463,4 +463,7 @@ document.addEventListener('keydown', (event) => {
         player.placeBomb();
     }
 });
+const bgmAudio = new Audio('sounds/BGM_1.mp3');
+bgmAudio.volume = 0.2;
+bgmAudio.play();
 requestAnimationFrame(loop);
