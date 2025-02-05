@@ -4,6 +4,12 @@ const grid = 64; // Größe eines Spielfeldblocks
 const numRows = 13; // Anzahl der Reihen
 const numCols = 15; // Anzahl der Spalten
 
+// BGM Musik
+const bgmAudio = new Audio('sounds/BGM_1.mp3');
+bgmAudio.volume = 0.2;
+bgmAudio.loop = true;
+bgmAudio.play();
+
 // Erstellt Canvas für zerstörbare Blöcke
 const brickCanvas = document.createElement('canvas');
 const brickCtx = brickCanvas.getContext('2d');
@@ -463,8 +469,5 @@ document.addEventListener('keydown', (event) => {
         player.placeBomb();
     }
 });
-const bgmAudio = new Audio('sounds/BGM_1.mp3');
-bgmAudio.volume = 0.2;
-bgmAudio.loop = true;
-bgmAudio.play();
+
 requestAnimationFrame(loop);
