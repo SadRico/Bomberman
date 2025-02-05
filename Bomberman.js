@@ -349,7 +349,7 @@ class Player {
             this.row = newRow;
             this.col = newCol;
 
-            // Walking Sound (hier platziert, damit Sound nicht IMMER abgespielt wird bei Eingabe!)
+            // Walking Sound (Hier platziert, damit Sound nicht IMMER abgespielt, wenn gegen Wand gelaufen wird bei Eingabe!)
             let walkAudio = new Audio('sounds/Walking.wav');
             walkAudio.volume = 0.4;
             walkAudio.play();
