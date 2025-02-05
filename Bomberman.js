@@ -194,7 +194,7 @@ class Bomb extends Substance {
     update(frameTime) {
         this.timer -= frameTime;
         if (this.timer <= 0) {
-            blowUpBomb(this); // Bombe explodiert
+            blowUp(this); // Bombe explodiert
         }
         // 'Animation' für Bombe
         const interval = Math.ceil(this.timer / 500);
@@ -314,7 +314,7 @@ class Player {
 }
 
 // Funktion, die eine Bombe explodieren lässt
-function blowUpBomb(bomb) {
+function blowUp(bomb) {
     if (!bomb.alive) return;
     bomb.alive = false; // Bombe ist nicht mehr aktiv
     cells[bomb.row][bomb.col] = null; // Entfernt die Bombe vom Spielfeld
@@ -338,7 +338,7 @@ function blowUpBomb(bomb) {
             }
             if (cell === types.bomb) {
                 const nextBomb = entities.find((substance) => substance.type === types.bomb && substance.row === row && substance.col === col);
-                blowUpBomb(nextBomb); // Nächste Bombe explodieren lassen, für Bombchains
+                blowUp(nextBomb); // Nächste Bombe explodieren lassen, für Bombchains
             }
 
             if (player && player.row === row && player.col === col) {
