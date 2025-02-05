@@ -43,7 +43,7 @@ const blackCanvas = document.createElement('canvas');
 const blackCtx = blackCanvas.getContext('2d');
 blackCanvas.id = 'blackCanvas';
 blackCanvas.width = 1050;
-blackCanvas.height = 1000;
+blackCanvas.height = 926;
 blackCtx.fillRect(0, 0, blackCanvas.width, blackCanvas.height)
 document.body.appendChild(blackCanvas);
 
