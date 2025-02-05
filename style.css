@@ -22,7 +22,7 @@ canvas {
 
 #timerCanvas {
     position: absolute;
-    top: 30px;
+    top: 50px;
     z-index: 2;
     background: #c56704;
 }
