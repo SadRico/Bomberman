@@ -36,9 +36,10 @@ let seconds_left = 200;
 
 function updateCanvas() {
     timerCtx.clearRect(0, 0, timerCanvas.width, timerCanvas.height);
-    timerCtx.font = '30px Arial';
+    timerCtx.font = '30px Bahnschrift';
     timerCtx.fillStyle = 'white';
     timerCtx.textAlign = 'center';
+    timerCtx.textBaseline = 'bottom';
 
     // Minuten und Sekunden berechnen
     let minutes = Math.floor(seconds_left / 60);
@@ -48,7 +49,7 @@ function updateCanvas() {
     let timeString = `${checkZero(minutes)}:${checkZero(seconds)}`;
 
     // Zeit und Text Canvas zeichnen
-    timerCtx.fillText(seconds_left > 0 ? timeString : 'Time Up!', timerCanvas.width / 2, 50);
+    timerCtx.fillText(seconds_left > 0 ? timeString : 'Time Up!', timerCanvas.width / 2, 47);
 }
 
 // Stellt sicher, dass Minuten und Sekunden immer 2 Stellen haben

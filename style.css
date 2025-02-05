@@ -24,7 +24,7 @@ canvas {
 
 #timerCanvas {
     position: absolute;
-    top: 50px;
-    z-index: 2;
-    background: #c56704;
+    top: 55px;
+    background-image: url('assets/timerCanvas.png');
+    background-position: initial;
 }
