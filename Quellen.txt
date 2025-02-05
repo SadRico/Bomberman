@@ -11,6 +11,9 @@ https://www.youtube.com/watch?v=IidrdODAfsU
 
 Codehilfe:
 https://codepen.io/lewster32/pen/KvzVVd
+https://dev.to/martyhimmel/animating-sprite-sheets-with-javascript-ag3
 
-Itemreferenzen:
-https://bomberman.fandom.com/wiki/Power-Ups
+Itemreferenzen/bilder:
+https://bomberman.fandom.com/wiki/Fire_Up
+https://bomberman.fandom.com/wiki/Pierce_Bomb
+https://bomberman.fandom.com/wiki/Bomb

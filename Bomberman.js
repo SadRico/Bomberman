@@ -71,9 +71,9 @@ const types = {
 
 // Item-Typen
 const items = {
-    extraBombs: '💣', // Erhöht die Anzahl der Bomben
+    extraBombs: '💣',// Erhöht die Anzahl der Bomben
     fireUp: '🔥', // Erhöht die Explosionsrange
-    vest: '🦺' // Extra Hit
+    pierce: '🪡' // Extra Hit
 };
 
 let substances = []; // Alle Substances wie Spieler, Bomben, Explosionen
@@ -84,8 +84,8 @@ class Level {
     constructor() {
         this.template = [
             ['🟩','🟩','🟩','🟩','🟩','🟩','🟩','🟩','🟩','🟩','🟩','🟩','🟩','🟩','🟩'],
-            ['🟩','x','x',0,0,0,0,0,0,0,0,0,'x','x','🟩'],
-            ['🟩','x','🟩',0,'🟩',0,'🟩',0,'🟩',0,'🟩',0,'🟩','x','🟩'],
+            ['🟩',1,1,0,0,0,0,0,0,0,0,0,1,1,'🟩'],
+            ['🟩',1,'🟩',0,'🟩',0,'🟩',0,'🟩',0,'🟩',0,'🟩',1,'🟩'],
             ['🟩',0,0,0,0,0,0,0,0,0,0,0,0,0,'🟩'],
             ['🟩',0,'🟩',0,'🟩',0,'🟩',0,'🟩',0,'🟩',0,'🟩',0,'🟩'],
             ['🟩',0,0,0,0,0,0,0,0,0,0,0,0,0,'🟩'],
@@ -93,8 +93,8 @@ class Level {
             ['🟩',0,0,0,0,0,0,0,0,0,0,0,0,0,'🟩'],
             ['🟩',0,'🟩',0,'🟩',0,'🟩',0,'🟩',0,'🟩',0,'🟩',0,'🟩'],
             ['🟩',0,0,0,0,0,0,0,0,0,0,0,0,0,'🟩'],
-            ['🟩','x','🟩',0,'🟩',0,'🟩',0,'🟩',0,'🟩',0,'🟩','x','🟩'],
-            ['🟩','x','x',0,0,0,0,0,0,0,0,0,'x','x','🟩'],
+            ['🟩',1,'🟩',0,'🟩',0,'🟩',0,'🟩',0,'🟩',0,'🟩',1,'🟩'],
+            ['🟩',1,1,0,0,0,0,0,0,0,0,0,1,1,'🟩'],
             ['🟩','🟩','🟩','🟩','🟩','🟩','🟩','🟩','🟩','🟩','🟩','🟩','🟩','🟩','🟩']
         ]
         ;
@@ -126,6 +126,10 @@ class Substance {
     update(frameTime) {}
     render() {}
 }
+
+const itemCanvas = document.querySelector('canvas');
+const itemCtx = itemCanvas.getContext('2d');
+
 // Klasse für Items
 class Item {
     constructor(row, col, type) {
@@ -135,15 +139,36 @@ class Item {
         this.secondsLeft = 10;
         this.interval = null;
         this.alive = true;
+
+        this.img = new Image();
+        if (this.type === '💣') {
+            this.img.src = 'assets/bomb_up.png';
+        } else if (this.type === '🔥') {
+            this.img.src = 'assets/fire_up.png';
+        } else if (this.type === '🪡') {
+            this.img.src = 'assets/pierce_bomb.png';
+        }
+
+        this.imgLoaded = false;
+        this.img.onload = () => {
+            this.imgLoaded = true;
+        };
     }
 
     // Items werden gerendert
     render() {
         const x = (this.col + 0.5) * grid;
-        const y = (this.row + 0.65) * grid;
-        context.font = '30px Arial';
-        context.textAlign = 'center';
-        context.fillText(this.type, x, y);
+        const y = (this.row + 0.5) * grid;
+        const size = 60;  //Größe des Items
+
+        if (this.imgLoaded) {  // Prüft ob das Bild vollständig geladen wurde
+            itemCtx.drawImage(this.img, x - size / 2, y - size / 2, size, size);
+        } else {
+            // Wenn das Bild noch nicht geladen ist, zeige Symbol an
+            itemCtx.font = '30px Arial';
+            itemCtx.textAlign = 'center';
+            itemCtx.fillText(this.type, x, y);
+        }
     }
 
     // Updated das Item um es despawnen zu lassen
@@ -167,17 +192,27 @@ class Item {
         substances = substances.filter(substance => substance !== this);
     }
 }
+const itemChances = {
+    '💣': 0.3,  // 30% Wahrscheinlichkeit für Bomben
+    '🔥': 0.3,  // 20% Wahrscheinlichkeit für Fire Up
+    '🪡': 0.05   // 10% Wahrscheinlichkeit für Piercing Bomb
+};
 
-// Funktion zum zufälligen Erzeugen von Items, wenn ein Block zerstört wird
+// Funktion um Item zu generieren
 function generateItem(row, col) {
-    // Random Item erscheint mit 30% Wahrscheinlichkeit
-    if (Math.random() < 0.3) {
-        const itemTypes = Object.values(items); // Object ist eine built-in method (Zur Verständnis)
-        const randomItemType = itemTypes[Math.floor(Math.random() * itemTypes.length)];
-        const item = new Item(row, col, randomItemType);
-        substances.push(item);
+    // Geht durch alle Items und prüft Wahrscheinlichkeit
+    for (const [itemType, chance] of Object.entries(itemChances)) {
+        if (Math.random() < chance) {
+            // Item wird mit der Wahrscheinlichkeit erzeugt
+            const item = new Item(row, col, itemType);
+            substances.push(item);
+            break; // Nur ein Item wird erzeugt
+        }
     }
 }
+
+const bombCanvas = document.querySelector('canvas');
+const ctx = bombCanvas.getContext('2d');
 // Bomb-Klasse
 class Bomb extends Substance {
     constructor(row, col, size, owner) {
@@ -188,8 +223,16 @@ class Bomb extends Substance {
         this.alive = true;
         this.type = types.bomb;
         this.timer = 3000;
-    }
+        this.img = new Image();
 
+        this.img.src = 'assets/bomb.png';
+        this.img.onload = () => {
+            this.init();
+        };
+    }
+    init() {
+    ctx.drawImage(this.img, 0, 0, 16, 18, 0, 0, 16, 18);
+}
     update(frameTime) {
         this.timer -= frameTime;
         if (this.timer <= 0) {
@@ -203,10 +246,9 @@ class Bomb extends Substance {
     render() {
         const x = (this.col + 0.5) * grid;
         const y = (this.row + 0.5) * grid;
-        context.fillStyle = 'black';
-        context.beginPath();
-        context.arc(x, y, this.radius, 0, 2 * Math.PI);
-        context.fill();
+        const size = this.radius * 2;
+        //Bombenbild
+        ctx.drawImage(this.img, x - size / 2, y - size / 2, size, size)
     }
 }
 
@@ -302,7 +344,7 @@ class Player {
 
         if (item) {
             if (item.type === items.extraBombs) {
-                if (this.numBombs< 5){
+                if (this.numBombs < 5){
                     this.numBombs++; // Mehr Bomben (max. 5)
             }
             } else if (item.type === items.fireUp) {
@@ -310,7 +352,6 @@ class Player {
                     this.bombRange++; // Range erhöhen
                 }
             }
-
             }
             item.remove(); // Entfernt das Item nach Aufnahme
         }
