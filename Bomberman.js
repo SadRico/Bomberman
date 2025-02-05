@@ -325,9 +325,9 @@ class Player {
 
     render() {
         const x = (this.col + 0.5) * grid - grid / 2; // Zentrierung
-        const y = (this.row + 0.5) * grid - grid / 2; // Zentrierung
+        const y = (this.row + 0.5) * grid - grid / 2;
 
-        context.drawImage(playerImage, x, y, grid, grid); // Spielerbild zeichnen
+        context.drawImage(playerImage, x, y, grid, grid); // Spielerbild
     }
 
     move(direction) {
