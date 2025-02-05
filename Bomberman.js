@@ -38,6 +38,15 @@ timerCanvas.width = 957;
 timerCanvas.height = 60; // Timer-Höhe anpassen, je nachdem, was du benötigst
 document.body.appendChild(timerCanvas);
 
+// Erstellt schwarze Ränder
+const blackCanvas = document.createElement('canvas');
+const blackCtx = blackCanvas.getContext('2d');
+blackCanvas.id = 'blackCanvas';
+blackCanvas.width = 1050;
+blackCanvas.height = 1000;
+blackCtx.fillRect(0, 0, blackCanvas.width, blackCanvas.height)
+document.body.appendChild(blackCanvas);
+
 let seconds_left = 240;
 
 function updateCanvas() {
@@ -71,7 +80,7 @@ let interval = setInterval(function() {
         clearInterval(interval);
         player = null; // wenn time up, spieler tot
         const deathAudio = new Audio('sounds/Death.wav');
-        deathAudio.volume = 0.09;
+        deathAudio.volume = 0.1;
         deathAudio.play();
     }
 }, 1000); // zeigt an, wie langsam/schnell die Zeit abläuft
@@ -425,7 +434,7 @@ function blowUp(bomb) {
             if (player && player.row === row && player.col === col) {
                 player = null // Player wird gekillt
                 const deathAudio = new Audio('sounds/Death.wav');
-                deathAudio.volume = 0.09;
+                deathAudio.volume = 0.1;
                 deathAudio.play();
             }
             if (cell) return; // Stoppt die Explosion, wenn ein Block getroffen wurde
