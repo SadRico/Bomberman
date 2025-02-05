@@ -198,9 +198,9 @@ class Item {
     }
 }
 const itemChances = {
-    '💣': 0.15,  // 20% Wahrscheinlichkeit für Bomben
-    '🔥': 0.15,  // 20% Wahrscheinlichkeit für Fire Up
-    '🪡': 0.05   // 10% Wahrscheinlichkeit für Piercing Bomb
+    '💣': 0.15,  // 15% Wahrscheinlichkeit für Bomben
+    '🔥': 0.15,  // 15% Wahrscheinlichkeit für Fire Up
+    '🪡': 0.05   // 5% Wahrscheinlichkeit für Piercing Bomb
 };
 
 // Funktion um Item zu generieren
