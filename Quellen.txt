@@ -7,6 +7,7 @@ https://stackoverflow.com/questions/44464235/bomberman-vanilla-js
 https://stackoverflow.com/questions/9419263/how-to-play-audio
 https://stackoverflow.com/questions/37115491/how-to-set-volume-of-audio-object
 https://stackoverflow.com/questions/13610638/loop-audio-with-javascript
+https://stackoverflow.com/questions/57235019/why-does-my-javascript-audio-not-work-after-i-refresh-a-page#:~:text=This%20happens%20because%20playing%20audio,will%20be%20allowed%20to%20play.
 
 YouTube:
 https://www.youtube.com/watch?v=bkFerURWPgA
