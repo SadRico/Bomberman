@@ -8,17 +8,21 @@ const numCols = 15; // Anzahl der Spalten
 const brickCanvas = document.createElement('canvas');
 const brickCtx = brickCanvas.getContext('2d');
 brickCanvas.width = brickCanvas.height = grid;
-brickCtx.fillStyle = '#7c4e25';
-brickCtx.fillRect(0, 0, grid, grid);
+const brickImage = new Image();
+brickImage.src = 'assets/block.png';
+brickImage.onload = () => {
+    brickCtx.drawImage(brickImage, 0, 0, grid, grid); // Bild auf Canvas zeichnen
+};
 
 // Erstellt Canvas für feste Wände
 const wallCanvas = document.createElement('canvas');
 const wallCtx = wallCanvas.getContext('2d');
 wallCanvas.width = wallCanvas.height = grid;
-wallCtx.fillStyle = '#494949';
-wallCtx.fillRect(0, 0, grid, grid);
-wallCtx.fillStyle = '#a9a9a9';
-wallCtx.fillRect(2, 2, grid - 4, grid - 4);
+const wallImage = new Image();
+wallImage.src = 'assets/wall.png';
+wallImage.onload = () => {
+    wallCtx.drawImage(wallImage, 0, 0, grid, grid); // Wandbild auf Canvas zeichnen
+};
 
 // Erstellt Timer
 const timerCanvas = document.createElement('canvas');
@@ -108,6 +112,7 @@ class Level {
             for (let col = 0; col < numCols; col++) {
                 if (!this.template[row][col] && Math.random() < 0.90) { // 90% Chance, einen Block zu spawnen
                     cells[row][col] = types.brick;
+
                 } else if (this.template[row][col] === types.wall) {
                     cells[row][col] = types.wall;
                 }
@@ -193,15 +198,15 @@ class Item {
     }
 }
 const itemChances = {
-    '💣': 0.3,  // 30% Wahrscheinlichkeit für Bomben
-    '🔥': 0.3,  // 20% Wahrscheinlichkeit für Fire Up
+    '💣': 0.15,  // 20% Wahrscheinlichkeit für Bomben
+    '🔥': 0.15,  // 20% Wahrscheinlichkeit für Fire Up
     '🪡': 0.05   // 10% Wahrscheinlichkeit für Piercing Bomb
 };
 
 // Funktion um Item zu generieren
 function generateItem(row, col) {
     // Geht durch alle Items und prüft Wahrscheinlichkeit
-    for (const [itemType, chance] of Object.entries(itemChances)) {
+    for (const [itemType, chance] of Object.entries(itemChances)) { // of Object ist eine built-in method (Zur Verständnis)
         if (Math.random() < chance) {
             // Item wird mit der Wahrscheinlichkeit erzeugt
             const item = new Item(row, col, itemType);
@@ -212,7 +217,7 @@ function generateItem(row, col) {
 }
 
 const bombCanvas = document.querySelector('canvas');
-const ctx = bombCanvas.getContext('2d');
+const bombCtx = bombCanvas.getContext('2d');
 // Bomb-Klasse
 class Bomb extends Substance {
     constructor(row, col, size, owner) {
@@ -231,7 +236,7 @@ class Bomb extends Substance {
         };
     }
     init() {
-    ctx.drawImage(this.img, 0, 0, 16, 18, 0, 0, 16, 18);
+    bombCtx.drawImage(this.img, 0, 0, 16, 18, 0, 0, 16, 18);
 }
     update(frameTime) {
         this.timer -= frameTime;
@@ -248,7 +253,7 @@ class Bomb extends Substance {
         const y = (this.row + 0.5) * grid;
         const size = this.radius * 2;
         //Bombenbild
-        ctx.drawImage(this.img, x - size / 2, y - size / 2, size, size)
+        bombCtx.drawImage(this.img, x - size / 2, y - size / 2, size, size)
     }
 }
 

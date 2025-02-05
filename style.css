@@ -11,7 +11,9 @@ body {
 }
 
 canvas {
-    background: rgb(33, 129, 15);
+    background-position-y: 64px;
+    background-position-x: center;
+    background-image: url('assets/green_zone.png');
 }
 
 #game {
