@@ -350,14 +350,14 @@ class Player {
 
         if (item) {
             if (item.type === items.extraBombs) {
-                let bombUpAudio = new Audio('sounds/GetItem__.wav');
+                const bombUpAudio = new Audio('sounds/GetItem__.wav');
                 bombUpAudio.volume = 0.09;
                 bombUpAudio.play();
                 if (this.numBombs < 5){
                     this.numBombs++; // Mehr Bomben (max. 5)
             }
             } else if (item.type === items.fireUp) {
-                let fireUpAudio = new Audio('sounds/GetItem.wav');
+                const fireUpAudio = new Audio('sounds/GetItem.wav');
                 fireUpAudio.volume = 0.09;
                 fireUpAudio.play();
                 if (this.bombRange < 5){
@@ -387,7 +387,7 @@ function blowUp(bomb) {
 
             if (cell === types.wall) return; // Wand blockiert Explosion
             substances.push(new Explosion(row, col)); // Explosion erzeugen
-            let bombAudio = new Audio('sounds/Bomb.wav');
+            const bombAudio = new Audio('sounds/Bomb.wav');
             bombAudio.volume = 0.02;
             bombAudio.play();
 
@@ -403,6 +403,9 @@ function blowUp(bomb) {
 
             if (player && player.row === row && player.col === col) {
                 player = null // Player wird gekillt
+                let deathAudio = new Audio('sounds/Death.wav');
+                deathAudio.volume = 0.09;
+                deathAudio.play();
             }
             if (cell) return; // Stoppt die Explosion, wenn ein Block getroffen wurde
         }
