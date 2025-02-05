@@ -8,31 +8,30 @@ const numCols = 15; // Anzahl der Spalten
 const brickCanvas = document.createElement('canvas');
 const brickCtx = brickCanvas.getContext('2d');
 brickCanvas.width = brickCanvas.height = grid;
-brickCtx.fillStyle = '#6d4520';
+brickCtx.fillStyle = '#7c4e25';
 brickCtx.fillRect(0, 0, grid, grid);
 
 // Erstellt Canvas für feste Wände
 const wallCanvas = document.createElement('canvas');
 const wallCtx = wallCanvas.getContext('2d');
 wallCanvas.width = wallCanvas.height = grid;
-wallCtx.fillStyle = 'black';
+wallCtx.fillStyle = '#494949';
 wallCtx.fillRect(0, 0, grid, grid);
 wallCtx.fillStyle = '#a9a9a9';
 wallCtx.fillRect(2, 2, grid - 4, grid - 4);
 
 // Erstellt Timer
 const timerCanvas = document.createElement('canvas');
-timerCanvas.id = 'timerCanvas'; // ID hinzufügen
 const timerCtx = timerCanvas.getContext('2d');
+timerCanvas.id = 'timerCanvas'; // ID hinzufügen
 timerCanvas.width = 957;
 timerCanvas.height = 60; // Timer-Höhe anpassen, je nachdem, was du benötigst
 document.body.appendChild(timerCanvas);
 
-
 let seconds_left = 200;
 
 function updateCanvas() {
-    timerCtx.clearRect(0, 0, timerCanvas.width, timerCanvas.height); // Clears the canvas
+    timerCtx.clearRect(0, 0, timerCanvas.width, timerCanvas.height);
     timerCtx.font = '30px Arial';
     timerCtx.fillStyle = 'white';
     timerCtx.textAlign = 'center';
@@ -117,7 +116,7 @@ class Level {
     }
 }
 
-// Mainklasse für Entitäten wie Bomben, Explosionen und Spieler
+// Mainklasse für Substances wie Bomben, Explosionen und Spieler
 class Substance {
     constructor(row, col) {
         this.row = row;
@@ -240,8 +239,9 @@ class Player {
         this.row = row;
         this.col = col;
         this.numBombs = 1; // Spieler kann nur eine Bombe gleichzeitig legen
-        this.bombSize = 3; // Bombenreichweite
+        this.bombSize = 3;
         this.radius = grid * 0.25;
+        this.bombRange = 2
     }
 
     render() {
@@ -274,7 +274,6 @@ class Player {
         }
     }
 
-
     // Überprüft, ob Spieler auf ein gültiges Feld laufen kann
     isValidMove(row, col) {
         if (row < 0 || row >= numRows || col < 0 || col >= numCols) {
@@ -306,8 +305,12 @@ class Player {
                 if (this.numBombs< 5){
                     this.numBombs++; // Mehr Bomben (max. 5)
             }
-            } //else if (item.type === items.fireUp) {
-                //this.speedBoost(); // Geschwindigkeit erhöhen
+            } else if (item.type === items.fireUp) {
+                if (this.bombRange < 5){
+                    this.bombRange++; // Range erhöhen
+                }
+            }
+
             }
             item.remove(); // Entfernt das Item nach Aufnahme
         }
@@ -320,7 +323,7 @@ function blowUp(bomb) {
     cells[bomb.row][bomb.col] = null; // Entfernt die Bombe vom Spielfeld
 
     const directions = [{ row: -1, col: 0 }, { row: 1, col: 0 }, { row: 0, col: -1 }, { row: 0, col: 1 }];
-    const startRange = 2; // Reichweite der Bombe
+    const startRange = bomb.owner.bombRange; // Reichweite der Bombe
 
     // Überprüft jede Richtung
     directions.forEach((direction) => {
