@@ -7,10 +7,10 @@ https://stackoverflow.com/questions/44464235/bomberman-vanilla-js
 
 YouTube:
 https://www.youtube.com/watch?v=bkFerURWPgA
+https://www.youtube.com/watch?v=IidrdODAfsU
 
 Codehilfe:
 https://codepen.io/lewster32/pen/KvzVVd
-https://gist.github.com/straker/769fb461e066147ea16ac2cb9463beae
 
 Itemreferenzen:
 https://bomberman.fandom.com/wiki/Power-Ups
