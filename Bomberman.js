@@ -465,5 +465,6 @@ document.addEventListener('keydown', (event) => {
 });
 const bgmAudio = new Audio('sounds/BGM_1.mp3');
 bgmAudio.volume = 0.2;
+bgmAudio.loop = true;
 bgmAudio.play();
 requestAnimationFrame(loop);
