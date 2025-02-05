@@ -27,16 +27,16 @@ wallImage.onload = () => {
 // Erstellt Timer
 const timerCanvas = document.createElement('canvas');
 const timerCtx = timerCanvas.getContext('2d');
-timerCanvas.id = 'timerCanvas'; // ID hinzufügen
+timerCanvas.id = 'timerCanvas';
 timerCanvas.width = 957;
 timerCanvas.height = 60; // Timer-Höhe anpassen, je nachdem, was du benötigst
 document.body.appendChild(timerCanvas);
 
-let seconds_left = 200;
+let seconds_left = 240;
 
 function updateCanvas() {
     timerCtx.clearRect(0, 0, timerCanvas.width, timerCanvas.height);
-    timerCtx.font = '30px Bahnschrift';
+    timerCtx.font = '28px Bahnschrift';
     timerCtx.fillStyle = 'white';
     timerCtx.textAlign = 'center';
     timerCtx.textBaseline = 'bottom';
@@ -49,7 +49,7 @@ function updateCanvas() {
     let timeString = `${checkZero(minutes)}:${checkZero(seconds)}`;
 
     // Zeit und Text Canvas zeichnen
-    timerCtx.fillText(seconds_left > 0 ? timeString : 'Time Up!', timerCanvas.width / 2, 47);
+    timerCtx.fillText(seconds_left > 0 ? timeString : 'Time Up!', timerCanvas.width / 2, 46);
 }
 
 // Stellt sicher, dass Minuten und Sekunden immer 2 Stellen haben
