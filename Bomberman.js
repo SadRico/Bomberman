@@ -77,7 +77,7 @@ const items = {
     vest: '🦺' // Extra Hit
 };
 
-let entities = []; // Alle entitäten wie Spieler, Bomben, Explosionen
+let substances = []; // Alle Substances wie Spieler, Bomben, Explosionen
 let cells = []; // Raster vom Spielfeld
 
 // Spielfeld-Template
@@ -165,7 +165,7 @@ class Item {
     remove() {
         // Item wird gelöscht
         //console.log(`Item bei (${this.row}, ${this.col}) wurde gelöscht`);
-        entities = entities.filter(substance => substance !== this);
+        substances = substances.filter(substance => substance !== this);
     }
 }
 
@@ -176,7 +176,7 @@ function generateItem(row, col) {
         const itemTypes = Object.values(items); // Object ist eine built-in method (Zur Verständnis)
         const randomItemType = itemTypes[Math.floor(Math.random() * itemTypes.length)];
         const item = new Item(row, col, randomItemType);
-        entities.push(item);
+        substances.push(item);
     }
 }
 // Bomb-Klasse
@@ -290,16 +290,16 @@ class Player {
 
     placeBomb() {
         // Platziert eine Bombe, wenn der Spieler keine andere Bombe an dieser Stelle hat
-        if (!cells[this.row][this.col] && entities.filter(substance => substance.type === types.bomb && substance.owner === this).length < this.numBombs) {
+        if (!cells[this.row][this.col] && substances.filter(substance => substance.type === types.bomb && substance.owner === this).length < this.numBombs) {
             const bomb = new Bomb(this.row, this.col, this.bombSize, this);
-            entities.push(bomb);
+            substances.push(bomb);
             cells[this.row][this.col] = types.bomb;
         }
     }
 
     getItem() {
         // Findet ein Item an der aktuellen Position
-        let item = entities.find(substance => substance instanceof Item && substance.row === this.row && substance.col === this.col);
+        let item = substances.find(substance => substance instanceof Item && substance.row === this.row && substance.col === this.col);
 
         if (item) {
             if (item.type === items.extraBombs) {
@@ -330,14 +330,14 @@ function blowUp(bomb) {
             const cell = cells[row]?.[col]; // Sicherstellen, dass die Zelle existiert
 
             if (cell === types.wall) return; // Wand blockiert Explosion
-            entities.push(new Explosion(row, col)); // Explosion erzeugen
+            substances.push(new Explosion(row, col)); // Explosion erzeugen
             cells[row][col] = null;
 
             if (cell === types.brick){
                 generateItem(row, col); // Zufälliges Item im Block generieren
             }
             if (cell === types.bomb) {
-                const nextBomb = entities.find((substance) => substance.type === types.bomb && substance.row === row && substance.col === col);
+                const nextBomb = substances.find((substance) => substance.type === types.bomb && substance.row === row && substance.col === col);
                 blowUp(nextBomb); // Nächste Bombe explodieren lassen, für Bombchains
             }
 
@@ -380,14 +380,14 @@ function loop(timestamp) {
         }
     }
 
-    // Aktualisiert und rendert alle Entitäten (Spieler, Bomben, Explosionen)
-    entities.forEach(substance => {
+    // Aktualisiert und rendert alle Substances (Spieler, Bomben, Explosionen)
+    substances.forEach(substance => {
         substance.update(frameTime);
         substance.render();
     });
 
-    // Entfernt inaktive Entitäten/Objekte
-    entities = entities.filter(substance => substance.alive);
+    // Entfernt inaktive Substances/Objekte
+    substances = substances.filter(substance => substance.alive);
 
     player.render();
 }
