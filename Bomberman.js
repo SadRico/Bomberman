@@ -55,11 +55,10 @@ blackCanvas.height = 947;
 blackCtx.fillRect(0, 0, blackCanvas.width, blackCanvas.height)
 document.body.appendChild(blackCanvas);
 
-// Timer
-let seconds_left = 240;
 
-// Lebenszahl
-let lives = 3
+let seconds_left = 240;
+let lives = 3;
+let interval; // Intervall für Timer
 
 function updateCanvas() {
     timerCtx.clearRect(0, 0, timerCanvas.width, timerCanvas.height);
@@ -76,60 +75,89 @@ function updateCanvas() {
 
     lifeCtx.fillText(`${lives}`, lifeCanvas.width / 5.78, 46);
 
-    // Minuten und Sekunden berechnen
+    // Zeit und Text Canvas zeichnen
     let minutes = Math.floor(seconds_left / 60);
     let seconds = seconds_left % 60;
 
-    // Zeit im mm:ss-Format
     let timeString = `${checkZero(minutes)}:${checkZero(seconds)}`;
 
-    // Zeit und Text Canvas zeichnen
     timerCtx.fillText(seconds_left > 0 ? timeString : 'Time Up!', timerCanvas.width / 2, 46);
 
-    // Wenn Leben gleich 0, Game Over Text wird angezeigt
-    if (lives === 0) {
-        timerCtx.clearRect(0, 0, timerCanvas.width, timerCanvas.height);
-        timerCtx.fillText('Game Over', timerCanvas.width / 2, 46); // Game Over Nachricht
-    }}
+    timeUpDeath()
+}
 
-// Stellt sicher, dass Minuten und Sekunden immer 2 Stellen haben
+function startTimer() {
+    if (interval) {
+        clearInterval(interval); // Stoppt einen vorherigen Timer, falls vorhanden
+    }
+    interval = setInterval(function() {
+        seconds_left--; // Zeit zählt runter
+        updateCanvas(); // Canvas wird aktualisiert
+
+        if (seconds_left <= 0) {
+            clearInterval(interval); // Stoppt das Intervall, wenn die Zeit abgelaufen ist
+        }
+    }, 1000);
+}
+
 function checkZero(num) {
     return num < 10 ? '0' + num : num;
 }
 
-// Leben verlieren
-    function reduceLife() {
-        if (lives > 0) {
-            lives--;
-            respawnPlayer() // Respawned den Spieler
-            updateCanvas();  // Updated das Canvas nach Tod
-        } else if (lives === 0) {
-            player = null; // Spieler tot
-            updateCanvas(); // Canvas wird nach GameOver geupdatet
+function timeUpDeath(){
+    // Wenn Tod durch Time Up & Leben > 0
+    if (seconds_left === 0 && lives > 0) {
+        timerCtx.fillText('Time Up!', timerCanvas.width / 2, 46);
+        clearInterval(interval);  // Stoppt den Timer
+
+        // Wenn 1 Leben durch Time Up verloren, dann Time-Reset, weil sonst cringe Fehler
+        if (lives - 1){
+            seconds_left = 240
         }
+
+        setTimeout(() => {
+            reduceLife(); // Leben verlieren
+            respawnPlayer(); // Spieler respawnen
+            startTimer(); // Timer neu starten
+
+        }, 1000);
+    } else if (lives === 0) {
+        timerCtx.clearRect(0, 0, timerCanvas.width, timerCanvas.height);
+        timerCtx.fillText('Game Over', timerCanvas.width / 2, 46); // Game Over Nachricht
     }
+}
 
-    function respawnPlayer(){
-        if (lives > 0) {
-            player = new Player(1,1);
-        }
-    }
-
-let interval = setInterval(function() {
-    seconds_left--; // Zeit zählt runter
-    updateCanvas();
-
-    if (seconds_left <= 0) {
-        clearInterval(interval);
-        player = null; // Wenn time up, spieler tot
-        reduceLife()
+function reduceLife() {
+    if (lives > 0) {
+        lives--;
+        player = null;
 
         // Player Death Sound
         const deathAudio = new Audio('sounds/Death.wav');
         deathAudio.volume = 0.1;
         deathAudio.play();
+
+        updateCanvas();  // Updated das Canvas nach Tod
+
+    } else if (lives === 0) {
+        player = null; // Spieler tot
+
+        // Player Death Sound
+        const deathAudio = new Audio('sounds/Death.wav');
+        deathAudio.volume = 0.1;
+        deathAudio.play();
+
+        updateCanvas(); // Canvas wird nach GameOver geupdatet
     }
-}, 1000); // zeigt an, wie langsam/schnell die Zeit abläuft
+}
+
+function respawnPlayer() {
+    if (lives > 0) {
+        player = new Player(1, 1);
+        player.numBombs = 1;  // Standardanzahl an Bomben
+        player.fireUp = 1;  // Standardanzahl an Bomben
+    }
+}
 
 // Definiert die verschiedenen Typen von Objekten im Spiel
 const types = {
@@ -567,13 +595,8 @@ function blowUp(bomb) {
             }
 
             if (player && player.row === row && player.col === col) {
-                player = null // Player wird gekillt
                 reduceLife()
-
-                // Player Death Sound
-                const deathAudio = new Audio('sounds/Death.wav');
-                deathAudio.volume = 0.1;
-                deathAudio.play();
+                respawnPlayer()
             }
             if (cell) return; // Stoppt die Explosion, wenn ein Block getroffen wurde
         }
@@ -632,4 +655,7 @@ document.addEventListener('keydown', (event) => {
         player.placeBomb();
     }
 });
+
+// Timer beim Start des Spiels aufrufen
+startTimer();
 requestAnimationFrame(loop);
