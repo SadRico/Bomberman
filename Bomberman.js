@@ -1,6 +1,6 @@
 const canvas = document.getElementById('game');
 const context = canvas.getContext('2d');
-const grid = 64; // Größe eines Spielfeldblocks
+const grid = 64; // Größe eines Levelblocks
 const numRows = 13; // Anzahl der Reihen
 const numCols = 15; // Anzahl der Spalten
 
@@ -9,7 +9,6 @@ const bgmAudio = new Audio('sounds/BGM_1.mp3');
 bgmAudio.volume = 0.2;
 bgmAudio.loop = true;
 bgmAudio.play();
-
 
 // Erstellt Canvas für zerstörbare Blöcke
 const brickCanvas = document.createElement('canvas');
@@ -286,15 +285,13 @@ class Item {
     }
 
     remove() {
-        // Item wird gelöscht
-        //console.log(`Item bei (${this.row}, ${this.col}) wurde gelöscht`);
         substances = substances.filter(substance => substance !== this);
     }
 }
 const itemChances = {
-    '💣': 0.15,  // 15 % Wahrscheinlichkeit für Bomben
-    '🔥': 0.15,  // 15 % Wahrscheinlichkeit für Fire Up
-    '🪡': 0.05   // 5 % Wahrscheinlichkeit für Piercing Bomb
+    '💣': 0.11,  // 11 % Wahrscheinlichkeit für Bomben
+    '🔥': 0.11,  // 11 % Wahrscheinlichkeit für Fire Up
+    '🪡': 0.02   // 2 % Wahrscheinlichkeit für Piercing Bomb
 };
 
 // Funktion um Item zu generieren
@@ -364,7 +361,6 @@ class Bomb extends Substance {
     }
 }
 
-
 const pierceBombCanvas = document.querySelector('canvas');
 const pierceBombCtx = pierceBombCanvas.getContext('2d');
 
@@ -429,9 +425,6 @@ class Explosion extends Substance {
     }
 
     render() {
-
-        //console.log(`Rendering Explosion at (${this.row}, ${this.col}) with type:`, this.type);
-
         const x = this.col * grid + grid / 2;
         const y = this.row * grid + grid / 2;
         const maxRadius = grid * 0.4;
@@ -467,7 +460,6 @@ playerImages.walkDown[1].src = 'assets/bomberman_idle.png';
 playerImages.walkDown[2].src = 'assets/bomberman_walk_down_2.png';
 playerImages.walkDown[3].src = 'assets/bomberman_idle.png';
 
-
 playerImages.walkUp[0].src = 'assets/bomberman_walk_up_1.png';
 playerImages.walkUp[1].src = 'assets/bomberman_walk_up_idle.png';
 playerImages.walkUp[2].src = 'assets/bomberman_walk_up_2.png';
@@ -482,8 +474,6 @@ playerImages.walkLeft[0].src = 'assets/bomberman_walk_left_1.png';
 playerImages.walkLeft[1].src = 'assets/bomberman_walk_left_idle.png';
 playerImages.walkLeft[2].src = 'assets/bomberman_walk_left_2.png';
 playerImages.walkLeft[3].src = 'assets/bomberman_walk_left_idle.png';
-
-
 
 class Player {
     constructor(row, col) {
@@ -716,7 +706,6 @@ function pierceBlowUp(bomb) {
         }
     });
 }
-
 
 let player = new Player(1, 1); // Startposition des Spielers
 let level = new Level();
