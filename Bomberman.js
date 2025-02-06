@@ -294,7 +294,7 @@ class Item {
 const itemChances = {
     '💣': 0.15,  // 15 % Wahrscheinlichkeit für Bomben
     '🔥': 0.15,  // 15 % Wahrscheinlichkeit für Fire Up
-    '🪡': 0.05   // 5 % Wahrscheinlichkeit für Piercing Bomb
+    '🪡': 1   // 5 % Wahrscheinlichkeit für Piercing Bomb
 };
 
 // Funktion um Item zu generieren
@@ -325,18 +325,73 @@ class Bomb extends Substance {
         this.timer = 3000;
         this.img = new Image();
 
-        this.img.src = 'assets/bomb.png';
+        // Wenn es eine Piercebomb ist, nutze das Bild der Piercebomb
+        if (this.type === 'pierce') {
+            this.img.src = 'assets/pierce.png';  // Piercebomb
+        } else {
+            this.img.src = 'assets/bomb.png';  // Standard Bombe
+        }
+
         this.img.onload = () => {
             this.init();
         };
     }
     init() {
-    bombCtx.drawImage(this.img, 0, 0, 16, 18, 0, 0, 16, 18);
-}
+        bombCtx.drawImage(this.img, 0, 0, 16, 18, 0, 0, 16, 18);
+    }
+
     update(frameTime) {
         this.timer -= frameTime;
         if (this.timer <= 0) {
             blowUp(this); // Bombe explodiert
+
+            // Explosion Sound
+            const bombAudio = new Audio('sounds/Bomb.wav');
+            bombAudio.volume = 0.15;
+            bombAudio.play();
+        }
+        // 'Animation' für Bombe
+        const interval = Math.ceil(this.timer / 500);
+        this.radius = (interval % 2 === 0) ? grid * 0.4 : grid * 0.5; // Wechsel der Größe von der Bombe, wegen Animation
+    }
+
+    render() {
+        const x = (this.col + 0.5) * grid;
+        const y = (this.row + 0.5) * grid;
+        const size = this.radius * 2;
+        // Bombenbild (jetzt das Bild der Piercebomb, wenn es eine ist)
+        bombCtx.drawImage(this.img, x - size / 2, y - size / 2, size, size)
+    }
+}
+
+
+const pierceBombCanvas = document.querySelector('canvas');
+const pierceBombCtx = pierceBombCanvas.getContext('2d');
+
+// Piercebomb-Klasse
+class Piercebomb extends Substance {
+    constructor(row, col, size, owner) {
+        super(row, col);
+        this.radius = grid * 0.4;
+        this.size = size;
+        this.owner = owner;
+        this.alive = true;
+        this.type = types.bomb;
+        this.timer = 3000;
+        this.img = new Image();
+
+        this.img.src = 'assets/pierce.png';
+        this.img.onload = () => {
+            this.init();
+        };
+    }
+    init() {
+        pierceBombCtx.drawImage(this.img, 0, 0, 16, 18, 0, 0, 16, 18);
+    }
+    update(frameTime) {
+        this.timer -= frameTime;
+        if (this.timer <= 0) {
+            pierceBlowUp(this); // Bombe explodiert
 
             // Explosion Sound
             const bombAudio = new Audio('sounds/Bomb.wav');
@@ -363,6 +418,7 @@ class Explosion extends Substance {
         super(row, col);
         this.alive = true;
         this.timer = 300; // 300ms Lebenszeit der Explosion
+        this.isPierceBomb = items.pierce; // Kennzeichnung, ob es eine Piercebomb war
     }
 
     update(frameTime) {
@@ -377,11 +433,23 @@ class Explosion extends Substance {
         const y = this.row * grid + grid / 2;
         const maxRadius = grid * 0.4;
 
-        const colors = [
-            '#D72B16',  // Rot
-            '#EA6C05',  // Orange
-            '#FFB700'   // Gelb
-        ];
+        let colors;
+
+        if (this.isPierceBomb) {
+            // Falls es eine Piercebomb war, wird die Explosion blau
+            colors = [
+                '#0066FF',  // Blau
+                '#3399FF',  // Hellblau
+                '#66CCFF'   // Sehr hellblau
+            ];
+        } else {
+            // Sonst normale Explosion mit den originalen Farben
+            colors = [
+                '#D72B16',  // Rot
+                '#EA6C05',  // Orange
+                '#FFB700'   // Gelb
+            ];
+        }
 
         colors.forEach((color, index) => {
             context.beginPath();
@@ -389,7 +457,8 @@ class Explosion extends Substance {
             context.fillStyle = color;
             context.fill();
         });
-    }}
+    }
+}
 
 const playerImages = {
     idle: new Image(),
@@ -515,9 +584,7 @@ class Player {
     isValidMove(row, col) {
         if (row < 0 || row >= numRows || col < 0 || col >= numCols) {
             return false; // Außerhalb des Spielfelds
-        }
-
-        else if (cells[row][col] === types.bomb || cells[row][col] === types.wall || cells[row][col] === types.brick){ // Hindernisse
+        } else if (cells[row][col] === types.bomb || cells[row][col] === types.wall || cells[row][col] === types.brick) { // Hindernisse
             return false;
         }
 
@@ -525,9 +592,17 @@ class Player {
     }
 
     placeBomb() {
-        // Platziert eine Bombe, wenn der Spieler keine andere Bombe an dieser Stelle hat
+        // Platziert eine Piercebomb, wenn der Spieler das Item aktiviert hat
         if (!cells[this.row][this.col] && substances.filter(substance => substance.type === types.bomb && substance.owner === this).length < this.numBombs) {
-            const bomb = new Bomb(this.row, this.col, this.bombSize, this);
+            let bomb;
+
+            // Da jede Bombe eine Piercebomb ist, wird sie als solche platziert
+            if (this.hasPierceBomb) {
+                bomb = new Piercebomb(this.row, this.col, this.bombSize, this);
+            } else {
+                bomb = new Bomb(this.row, this.col, this.bombSize, this); // Diese Zeile könnte entfernt werden, wenn alle Bomben Piercebombs sind
+            }
+
             substances.push(bomb);
             cells[this.row][this.col] = types.bomb;
 
@@ -538,33 +613,42 @@ class Player {
         }
     }
 
+
     getItem() {
         // Findet ein Item an der aktuellen Position
         let item = substances.find(substance => substance instanceof Item && substance.row === this.row && substance.col === this.col);
 
         if (item) {
             if (item.type === items.extraBombs) {
-                //Bomb-Up Audio
+                // Bomb-Up Audio
                 const bombUpAudio = new Audio('sounds/GetItem__.wav');
                 bombUpAudio.volume = 0.09;
                 bombUpAudio.play();
 
-                if (this.numBombs < 8){
+                if (this.numBombs < 8) {
                     this.numBombs++; // Mehr Bomben (max. 8)
-            }
+                }
             } else if (item.type === items.fireUp) {
                 // Fire-Up Audio
                 const fireUpAudio = new Audio('sounds/GetItem.wav');
                 fireUpAudio.volume = 0.09;
                 fireUpAudio.play();
 
-                if (this.bombRange < 8){
+                if (this.bombRange < 8) {
                     this.bombRange++; // Range erhöhen (max. 58)
                 }
+            } else if (item.type === items.pierce) {  // Wenn es die Piercebomb ist
+                // Piercebomb Audio
+                const pierceBombAudio = new Audio('sounds/PierceBomb.wav');
+                pierceBombAudio.volume = 0.09;
+                pierceBombAudio.play();
+
+                this.hasPierceBomb = true;  // Spieler erhält die Fähigkeit, eine Piercebomb zu legen
             }
-            }
+
             item.remove(); // Entfernt das Item nach Aufnahme
         }
+    }
 }
 
 // Funktion, die eine Bombe explodieren lässt
@@ -601,6 +685,42 @@ function blowUp(bomb) {
                 respawnPlayer()
             }
             if (cell) return; // Stoppt die Explosion, wenn ein Block getroffen wurde
+        }
+    });
+}
+
+function pierceBlowUp(bomb) {
+    if (!bomb.alive) return;
+    bomb.alive = false; // Bombe ist nicht mehr aktiv
+    cells[bomb.row][bomb.col] = null; // Entfernt die Bombe vom Spielfeld
+
+    const directions = [{ row: -1, col: 0 }, { row: 1, col: 0 }, { row: 0, col: -1 }, { row: 0, col: 1 }];
+    const startRange = bomb.owner.bombRange; // Reichweite der Bombe
+
+    // Überprüft jede Richtung
+    directions.forEach((direction) => {
+        for (let i = 0; i < startRange; i++) {
+            const row = bomb.row + direction.row * i;
+            const col = bomb.col + direction.col * i;
+            const cell = cells[row]?.[col]; // Sicherstellen, dass die Zelle existiert
+
+            if (cell === types.wall) return; // Wand blockiert Explosion
+            substances.push(new Explosion(row, col)); // Explosion erzeugen
+
+            cells[row][col] = null;
+
+            if (cell === types.brick){
+                generateItem(row, col); // Zufälliges Item im Block generieren
+            }
+            if (cell === types.bomb) {
+                const nextBomb = substances.find((substance) => substance.type === types.bomb && substance.row === row && substance.col === col);
+                blowUp(nextBomb); // Nächste Bombe explodieren lassen, für Bomb-chains
+            }
+
+            if (player && player.row === row && player.col === col) {
+                reduceLife()
+                respawnPlayer()
+            }
         }
     });
 }
