@@ -6,7 +6,7 @@ function updateCanvas() {
     timerCtx.textAlign = 'center';
     timerCtx.textBaseline = 'bottom';
 
-    lifeCtx.clearRect(0, 0, lifeCanvas.width, lifeCanvas.height); // Clear the canvas each time it's updated
+    lifeCtx.clearRect(0, 0, lifeCanvas.width, lifeCanvas.height);
     lifeCtx.font = '28px Bahnschrift';
     lifeCtx.fillStyle = 'white';
     lifeCtx.textAlign = 'center';
