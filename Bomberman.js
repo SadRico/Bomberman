@@ -52,7 +52,7 @@ const blackCanvas = document.createElement('canvas');
 const blackCtx = blackCanvas.getContext('2d');
 blackCanvas.id = 'blackCanvas';
 blackCanvas.width = 1050;
-blackCanvas.height = 947;
+blackCanvas.height = 926;
 blackCtx.fillRect(0, 0, blackCanvas.width, blackCanvas.height)
 document.body.appendChild(blackCanvas);
 
@@ -294,7 +294,7 @@ class Item {
 const itemChances = {
     '💣': 0.15,  // 15 % Wahrscheinlichkeit für Bomben
     '🔥': 0.15,  // 15 % Wahrscheinlichkeit für Fire Up
-    '🪡': 1   // 5 % Wahrscheinlichkeit für Piercing Bomb
+    '🪡': 0.05   // 5 % Wahrscheinlichkeit für Piercing Bomb
 };
 
 // Funktion um Item zu generieren
@@ -414,11 +414,11 @@ class Piercebomb extends Substance {
 
 // Explosion-Klasse
 class Explosion extends Substance {
-    constructor(row, col) {
+    constructor(row, col, type) {
         super(row, col);
         this.alive = true;
         this.timer = 300; // 300ms Lebenszeit der Explosion
-        this.isPierceBomb = items.pierce; // Kennzeichnung, ob es eine Piercebomb war
+        this.type = type; // Kennzeichnung, ob es eine Piercebomb war
     }
 
     update(frameTime) {
@@ -429,26 +429,19 @@ class Explosion extends Substance {
     }
 
     render() {
+
+        //console.log(`Rendering Explosion at (${this.row}, ${this.col}) with type:`, this.type);
+
         const x = this.col * grid + grid / 2;
         const y = this.row * grid + grid / 2;
         const maxRadius = grid * 0.4;
 
         let colors;
 
-        if (this.isPierceBomb) {
-            // Falls es eine Piercebomb war, wird die Explosion blau
-            colors = [
-                '#0066FF',  // Blau
-                '#3399FF',  // Hellblau
-                '#66CCFF'   // Sehr hellblau
-            ];
+        if (this.type === 'pierce') {  // Falls Piercebomb, benutze Blau-Töne
+            colors = ['#0066FF', '#3399FF', '#66CCFF'];
         } else {
-            // Sonst normale Explosion mit den originalen Farben
-            colors = [
-                '#D72B16',  // Rot
-                '#EA6C05',  // Orange
-                '#FFB700'   // Gelb
-            ];
+            colors = ['#D72B16', '#EA6C05', '#FFB700'];  // Standard Rot-Orange-Gelb
         }
 
         colors.forEach((color, index) => {
@@ -613,7 +606,6 @@ class Player {
         }
     }
 
-
     getItem() {
         // Findet ein Item an der aktuellen Position
         let item = substances.find(substance => substance instanceof Item && substance.row === this.row && substance.col === this.col);
@@ -639,7 +631,7 @@ class Player {
                 }
             } else if (item.type === items.pierce) {  // Wenn es die Piercebomb ist
                 // Piercebomb Audio
-                const pierceBombAudio = new Audio('sounds/PierceBomb.wav');
+                const pierceBombAudio = new Audio('sounds/GetItem__.wav');
                 pierceBombAudio.volume = 0.09;
                 pierceBombAudio.play();
 
@@ -705,7 +697,7 @@ function pierceBlowUp(bomb) {
             const cell = cells[row]?.[col]; // Sicherstellen, dass die Zelle existiert
 
             if (cell === types.wall) return; // Wand blockiert Explosion
-            substances.push(new Explosion(row, col)); // Explosion erzeugen
+            substances.push(new Explosion(row, col, 'pierce')); // Explosion als Pierce markieren
 
             cells[row][col] = null;
 
@@ -714,7 +706,7 @@ function pierceBlowUp(bomb) {
             }
             if (cell === types.bomb) {
                 const nextBomb = substances.find((substance) => substance.type === types.bomb && substance.row === row && substance.col === col);
-                blowUp(nextBomb); // Nächste Bombe explodieren lassen, für Bomb-chains
+                pierceBlowUp(nextBomb); // Nächste Bombe explodieren lassen, für Bomb-chains
             }
 
             if (player && player.row === row && player.col === col) {

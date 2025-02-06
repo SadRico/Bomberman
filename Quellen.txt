@@ -8,6 +8,7 @@ https://stackoverflow.com/questions/9419263/how-to-play-audio
 https://stackoverflow.com/questions/37115491/how-to-set-volume-of-audio-object
 https://stackoverflow.com/questions/13610638/loop-audio-with-javascript
 https://stackoverflow.com/questions/57235019/why-does-my-javascript-audio-not-work-after-i-refresh-a-page#:~:text=This%20happens%20because%20playing%20audio,will%20be%20allowed%20to%20play.
+https://stackoverflow.com/questions/950087/how-do-i-include-a-javascript-file-in-another-javascript-file
 
 YouTube:
 https://www.youtube.com/watch?v=bkFerURWPgA
@@ -35,5 +36,5 @@ Bearbeitungsprogramm für Bilder/Sounds:
 https://www.photopea.com
 https://mp3cut.net/de/
 
-Teilweise Bugfixing, wenn ich absolut keine Ahnung habe & Verständnisfragen:
+Teilweise Bugfixing, wenn ich absolut keine Ahnung hatte & Verständnisfragen:
 https://chatgpt.com/
