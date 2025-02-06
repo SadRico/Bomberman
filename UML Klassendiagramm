@@ -1,0 +1,64 @@
+    +-------------------+          +-----------------------+         +------------------------+
+    |    Substance      |          |        Player         |         |        Item             |
+    +-------------------+          +-----------------------+         +------------------------+
+    | - row: int        |          | - row: int            |         | - row: int              |
+    | - col: int        |          | - col: int            |         | - col: int              |
+    | + update()        |          | - numBombs: int       |         | - type: string          |
+    | + render()        |          | - bombSize: int       |         | - secondsLeft: int      |
+    +-------------------+          | - bombRange: int      |         | - interval: object      |
+           ^                      | - walkingDownFrame: int |       | - alive: bool           |
+           |                      | - walkingUpFrame: int |         | - img: Image            |
+           |                      | - walkingRightFrame: int |      | - imgLoaded: bool       |
+           |                      | - walkingLeftFrame: int |       +------------------------+
+           |                      | - isMovingDown: bool  |              | + render()             |
+           |                      | - isMovingUp: bool    |              | + update()             |
+           |                      | - isMovingRight: bool |              | + remove()             |
+           |                      | - isMovingLeft: bool  |              +------------------------+
+           |                      | - hasPierceBomb: bool |                      
+           |                      | + render()            |                        ^      
+           |                      | + move()              |                        |        
+           |                      | + isValidMove()       |                +------------------------+
+           |                      | + placeBomb()         |                |        Bomb             |
+           |                      | + getItem()           |                +------------------------+
+           +----------------------| - alive: bool         |                | - radius: float         |
+                                  |                       |                | - size: int             |
+                                  |                       |                | - owner: Player         |
+                                  |                       |                | - alive: bool           |
+                                  |                       |                | - type: string          |
+                                  |                       |                | - timer: int            |
+                                  |                       |                | - img: Image            |
+                                  |                       |                | + update()              |
+                                  |                       |                | + render()              |
+                                  |                       |                | + init()                |
+                                  +-----------------------+                +------------------------+
+                                                  ^
+                                                  |
+                                                  |
+                                          +------------------------+
+                                          |       Piercebomb        |
+                                          +------------------------+
+                                          | - radius: float         |
+                                          | - size: int             |
+                                          | - owner: Player         |
+                                          | - alive: bool           |
+                                          | - type: string          |
+                                          | - timer: int            |
+                                          | - img: Image            |
+                                          | + update()              |
+                                          | + render()              |
+                                          | + init()                |
+                                          +------------------------+
+                                                 ^
+                                                 |
+                                                 |
+                                          +------------------------+
+                                          |      Explosion          |
+                                          +------------------------+
+                                          | - row: int              |
+                                          | - col: int              |
+                                          | - alive: bool           |
+                                          | - timer: int            |
+                                          | - type: string          |
+                                          | + update()              |
+                                          | + render()              |
+                                          +------------------------+
