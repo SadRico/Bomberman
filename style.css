@@ -30,3 +30,10 @@ canvas {
     background-image: url('assets/timerCanvas.png');
     background-position: initial;
 }
+
+#lifeCanvas {
+    position: absolute;
+    top: 25px;
+    background-position: initial;
+    background-image: none;
+}

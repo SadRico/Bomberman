@@ -35,8 +35,16 @@ const timerCanvas = document.createElement('canvas');
 const timerCtx = timerCanvas.getContext('2d');
 timerCanvas.id = 'timerCanvas';
 timerCanvas.width = 957;
-timerCanvas.height = 60; // Timer-Höhe anpassen, je nachdem, was du benötigst
+timerCanvas.height = 60;
 document.body.appendChild(timerCanvas);
+
+// Erstellt Leben
+const lifeCanvas = document.createElement('canvas');
+const lifeCtx = lifeCanvas.getContext('2d');
+lifeCanvas.id = 'lifeCanvas';
+lifeCanvas.width = 957;
+lifeCanvas.height = 60;
+document.body.appendChild(lifeCanvas);
 
 // Erstellt schwarze Ränder
 const blackCanvas = document.createElement('canvas');
@@ -47,7 +55,11 @@ blackCanvas.height = 947;
 blackCtx.fillRect(0, 0, blackCanvas.width, blackCanvas.height)
 document.body.appendChild(blackCanvas);
 
+// Timer
 let seconds_left = 240;
+
+// Lebenszahl (3 Leben)
+let lives = 3
 
 function updateCanvas() {
     timerCtx.clearRect(0, 0, timerCanvas.width, timerCanvas.height);
@@ -55,6 +67,14 @@ function updateCanvas() {
     timerCtx.fillStyle = 'white';
     timerCtx.textAlign = 'center';
     timerCtx.textBaseline = 'bottom';
+
+    lifeCtx.clearRect(0, 0, lifeCanvas.width, lifeCanvas.height); // Clear the canvas each time it's updated
+    lifeCtx.font = '28px Bahnschrift';
+    lifeCtx.fillStyle = 'white';
+    lifeCtx.textAlign = 'center';
+    lifeCtx.textBaseline = 'bottom';
+
+    lifeCtx.fillText(`${lives}`, lifeCanvas.width / 5.78, 46);
 
     // Minuten und Sekunden berechnen
     let minutes = Math.floor(seconds_left / 60);
@@ -65,12 +85,26 @@ function updateCanvas() {
 
     // Zeit und Text Canvas zeichnen
     timerCtx.fillText(seconds_left > 0 ? timeString : 'Time Up!', timerCanvas.width / 2, 46);
-}
+
+    if (lives === 0) {
+        timerCtx.clearRect(0, 0, timerCanvas.width, timerCanvas.height);
+        timerCtx.fillText('Game Over', timerCanvas.width / 2, 46); // Game Over Nachricht
+    }}
 
 // Stellt sicher, dass Minuten und Sekunden immer 2 Stellen haben
 function checkZero(num) {
     return num < 10 ? '0' + num : num;
 }
+
+// Leben verlieren
+    function reduceLife() {
+        if (lives > 0) {
+            lives--;
+            updateCanvas();  // Updated das Canvas nach Tod
+        } else if (lives === 0) {
+            updateCanvas(); // Canvas wird nach GameOver geupdatet
+        }
+    }
 
 let interval = setInterval(function() {
     seconds_left--;
@@ -79,6 +113,7 @@ let interval = setInterval(function() {
     if (seconds_left <= 0) {
         clearInterval(interval);
         player = null; // wenn time up, spieler tot
+        reduceLife()
 
         // Player Death Sound
         const deathAudio = new Audio('sounds/Death.wav');
@@ -524,6 +559,7 @@ function blowUp(bomb) {
 
             if (player && player.row === row && player.col === col) {
                 player = null // Player wird gekillt
+                reduceLife()
 
                 // Player Death Sound
                 const deathAudio = new Audio('sounds/Death.wav');
