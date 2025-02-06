@@ -8,6 +8,7 @@ class Substance {
     render() {}
 }
 
+// Spieler Klasse
 class Player {
     constructor(row, col) {
         this.row = row;

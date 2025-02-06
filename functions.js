@@ -1,3 +1,4 @@
+// Funktion um das Canvas zu updaten
 function updateCanvas() {
     timerCtx.clearRect(0, 0, timerCanvas.width, timerCanvas.height);
     timerCtx.font = '28px Bahnschrift';
@@ -24,6 +25,7 @@ function updateCanvas() {
     timeUpDeath()
 }
 
+// Funktion um Timer zu starten
 function startTimer() {
     if (interval) {
         clearInterval(interval); // Stoppt einen vorherigen Timer, falls vorhanden
@@ -38,10 +40,12 @@ function startTimer() {
     }, 1000);
 }
 
+// Funktion um Timer richtig darzustellen
 function checkZero(num) {
     return num < 10 ? '0' + num : num;
 }
 
+// Funktion bei einem Time Up Tod
 function timeUpDeath(){
     // Wenn Tod durch Time Up & Leben > 0
     if (seconds_left === 0 && lives > 0) {
@@ -65,6 +69,7 @@ function timeUpDeath(){
     }
 }
 
+// Funktion um Leben zu verlieren
 function reduceLife() {
     if (lives > 0) {
         lives--;
@@ -89,6 +94,7 @@ function reduceLife() {
     }
 }
 
+// Funktion um Spieler zu respawnen
 function respawnPlayer() {
     if (lives > 0) {
         player = new Player(1, 1);
@@ -135,6 +141,7 @@ function blowUp(bomb) {
     });
 }
 
+// Funktion für Pierce Bombe (schießt durch mehrere Blöcke auf einmal, wenn Feuerkraft es hergibt)
 function pierceBlowUp(bomb) {
     if (!bomb.alive) return;
     bomb.alive = false; // Bombe ist nicht mehr aktiv
