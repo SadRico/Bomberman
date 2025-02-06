@@ -263,6 +263,11 @@ class Bomb extends Substance {
         this.timer -= frameTime;
         if (this.timer <= 0) {
             blowUp(this); // Bombe explodiert
+            
+            // Explosion Sound
+            const bombAudio = new Audio('sounds/Bomb.wav');
+            bombAudio.volume = 0.025;
+            bombAudio.play();
         }
         // 'Animation' für Bombe
         const interval = Math.ceil(this.timer / 500);
@@ -432,11 +437,6 @@ function blowUp(bomb) {
 
             if (cell === types.wall) return; // Wand blockiert Explosion
             substances.push(new Explosion(row, col)); // Explosion erzeugen
-
-            // Explosion Sound
-            const bombAudio = new Audio('sounds/Bomb.wav');
-            bombAudio.volume = 0.025;
-            bombAudio.play();
 
             cells[row][col] = null;
 
