@@ -55,23 +55,11 @@ blackCanvas.height = 926;
 blackCtx.fillRect(0, 0, blackCanvas.width, blackCanvas.height);
 document.body.appendChild(blackCanvas);
 
-export {
-    canvas,
-    context,
-    grid,
-    numRows,
-    numCols,
-    bgmAudio,
-    brickCanvas,
-    brickCtx,
-    brickImage,
-    wallCanvas,
-    wallCtx,
-    wallImage,
-    timerCanvas,
-    timerCtx,
-    lifeCanvas,
-    lifeCtx,
-    blackCanvas,
-    blackCtx
-};
+const bombCanvas = document.querySelector('canvas');
+const bombCtx = bombCanvas.getContext('2d');
+
+const pierceBombCanvas = document.querySelector('canvas');
+const pierceBombCtx = pierceBombCanvas.getContext('2d');
+
+const itemCanvas = document.querySelector('canvas');
+const itemCtx = itemCanvas.getContext('2d');
