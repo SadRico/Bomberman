@@ -357,24 +357,25 @@ class Player {
         const x = (this.col + 0.5) * grid - grid / 2; // Zentrierung
         const y = (this.row + 0.5) * grid - grid / 2;
 
-        // Wenn der Spieler nach unten läuft, verwende das animierte Bild
+        // Wenn Spieler sich bewegt, spiele Bilder ab
         if (this.isMovingDown) {
-            context.drawImage(playerImages.walkDown[this.walkingDownFrame], x, y, grid, grid);
+            context.drawImage(playerImages.walkDown[this.walkingDownFrame], x, y, grid, grid); // UntenFrame
         } else if (this.isMovingUp) {
-            context.drawImage(playerImages.walkUp[this.walkingUpFrame], x, y, grid, grid);
+            context.drawImage(playerImages.walkUp[this.walkingUpFrame], x, y, grid, grid); // ObenFrame
         } else if (this.isMovingRight) {
-            context.drawImage(playerImages.walkRight[this.walkingRightFrame], x, y, grid, grid);
+            context.drawImage(playerImages.walkRight[this.walkingRightFrame], x, y, grid, grid); // RechtsFrame
         } else if (this.isMovingLeft) {
-            context.drawImage(playerImages.walkLeft[this.walkingLeftFrame], x, y, grid, grid);
+            context.drawImage(playerImages.walkLeft[this.walkingLeftFrame], x, y, grid, grid); // LinksFrame
         } else {
-            context.drawImage(playerImages.idle, x, y, grid, grid); // Standardbild
+            context.drawImage(playerImages.idle, x, y, grid, grid); // Idle
         }
     }
 
     move(direction) {
         let newRow = this.row;
         let newCol = this.col;
-        this.isMovingDown = false; // Setze 'isMovingDown' standardmäßig auf false
+        // 'isMoving' standardmäßig auf false
+        this.isMovingDown = false;
         this.isMovingUp = false;
         this.isMovingRight = false;
         this.isMovingLeft = false;
@@ -382,15 +383,15 @@ class Player {
         switch (direction) {
             case 'a':
                 newCol--;
-                this.isMovingLeft = true;
+                this.isMovingLeft = true;// Spieler läuft nach links
                 break;
             case 'w':
                 newRow--;
-                this.isMovingUp = true;
+                this.isMovingUp = true;// Spieler läuft nach oben
                 break;
             case 'd':
                 newCol++;
-                this.isMovingRight = true;
+                this.isMovingRight = true;// Spieler läuft nach rechts
                 break;
             case 's':
                 newRow++;
