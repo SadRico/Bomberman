@@ -5,7 +5,7 @@ const grid = 64; // Größe eines Levelblocks
 const numRows = 13; // Anzahl der Reihen
 const numCols = 15; // Anzahl der Spalten
 
-// BGM Musik
+// BGM Musik (Option im Browser einstellen, um es IMMER abspielen zu lassen beim Restart!)
 const bgmAudio = new Audio('sounds/BGM_1.mp3');
 bgmAudio.volume = 0.2;
 bgmAudio.loop = true;
