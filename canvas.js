@@ -1,3 +1,5 @@
+
+// Game canvas
 const canvas = document.getElementById('game');
 const context = canvas.getContext('2d');
 const grid = 64; // Größe eines Levelblocks
@@ -55,11 +57,14 @@ blackCanvas.height = 926;
 blackCtx.fillRect(0, 0, blackCanvas.width, blackCanvas.height);
 document.body.appendChild(blackCanvas);
 
+// Erstellt Bomben
 const bombCanvas = document.querySelector('canvas');
 const bombCtx = bombCanvas.getContext('2d');
 
+// Erstellt Pierce Bomb
 const pierceBombCanvas = document.querySelector('canvas');
 const pierceBombCtx = pierceBombCanvas.getContext('2d');
 
+// Erstellt Items
 const itemCanvas = document.querySelector('canvas');
 const itemCtx = itemCanvas.getContext('2d');
