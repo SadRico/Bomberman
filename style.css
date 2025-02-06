@@ -20,13 +20,13 @@ canvas {
 
 #game {
     position: absolute;
-    bottom: 15px;
+    bottom: 30px;
     z-index: 1; /* Damit das Spiel unter dem Timer bleibt */
 }
 
 #timerCanvas {
     position: absolute;
-    top: 0px;
+    top: 25px;
     background-image: url('assets/timerCanvas.png');
     background-position: initial;
 }
