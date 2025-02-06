@@ -263,10 +263,10 @@ class Bomb extends Substance {
         this.timer -= frameTime;
         if (this.timer <= 0) {
             blowUp(this); // Bombe explodiert
-            
+
             // Explosion Sound
             const bombAudio = new Audio('sounds/Bomb.wav');
-            bombAudio.volume = 0.025;
+            bombAudio.volume = 0.15;
             bombAudio.play();
         }
         // 'Animation' für Bombe
@@ -304,9 +304,9 @@ class Explosion extends Substance {
         const maxRadius = grid * 0.4;
 
         const colors = [
-            'rgba(215, 43, 22, 0.9)',  // Rot
-            'rgba(234, 108, 5, 0.7)',  // Orange
-            'rgba(255, 183, 0, 0.5)'   // Gelb
+            '#D72B16',  // Rot
+            '#EA6C05',  // Orange
+            '#FFB700'   // Gelb
         ];
 
         colors.forEach((color, index) => {
@@ -317,37 +317,101 @@ class Explosion extends Substance {
         });
     }}
 
-const playerImage = new Image();
-playerImage.src = 'assets/bomberman.png';
+const playerImages = {
+    idle: new Image(),
+    walkDown: [new Image(), new Image()],
+    walkUp: [new Image(), new Image()],
+    walkRight: [new Image(), new Image()],
+    walkLeft: [new Image(), new Image()]
+};
 
-// Spieler-Klasse
+playerImages.idle.src = 'assets/bomberman_idle.png';
+playerImages.walkDown[0].src = 'assets/bomberman_walk_down_1.png';
+playerImages.walkDown[1].src = 'assets/bomberman_walk_down_2.png';
+
+playerImages.walkUp[0].src = 'assets/bomberman_walk_up_1.png';
+playerImages.walkUp[1].src = 'assets/bomberman_walk_up_2.png';
+
+playerImages.walkRight[0].src = 'assets/bomberman_walk_right_1.png';
+playerImages.walkRight[1].src = 'assets/bomberman_walk_right_2.png';
+
+playerImages.walkLeft[0].src = 'assets/bomberman_walk_left_1.png';
+playerImages.walkLeft[1].src = 'assets/bomberman_walk_left_2.png';
+
+
+
 class Player {
     constructor(row, col) {
         this.row = row;
         this.col = col;
-        this.numBombs = 1; // Spieler kann nur eine Bombe gleichzeitig legen
+        this.numBombs = 1;
         this.bombSize = 3;
         this.bombRange = 2;
+        this.walkingDownFrame = 0; // Index für das animierte Bild nach unten
+        this.walkingUpFrame = 0; // Index für das animierte Bild nach oben
+        this.walkingRightFrame = 0; // Index für das animierte Bild nach rechts
+        this.walkingLeftFrame = 0; // Index für das animierte Bild nach links
     }
 
     render() {
         const x = (this.col + 0.5) * grid - grid / 2; // Zentrierung
         const y = (this.row + 0.5) * grid - grid / 2;
 
-        context.drawImage(playerImage, x, y, grid, grid); // Spielerbild
+        // Wenn der Spieler nach unten läuft, verwende das animierte Bild
+        if (this.isMovingDown) {
+            context.drawImage(playerImages.walkDown[this.walkingDownFrame], x, y, grid, grid);
+        } else if (this.isMovingUp) {
+            context.drawImage(playerImages.walkUp[this.walkingUpFrame], x, y, grid, grid);
+        } else if (this.isMovingRight) {
+            context.drawImage(playerImages.walkRight[this.walkingRightFrame], x, y, grid, grid);
+        } else if (this.isMovingLeft) {
+            context.drawImage(playerImages.walkLeft[this.walkingLeftFrame], x, y, grid, grid);
+        } else {
+            context.drawImage(playerImages.idle, x, y, grid, grid); // Standardbild
+        }
     }
 
     move(direction) {
         let newRow = this.row;
         let newCol = this.col;
+        this.isMovingDown = false; // Setze 'isMovingDown' standardmäßig auf false
+        this.isMovingUp = false;
+        this.isMovingRight = false;
+        this.isMovingLeft = false;
 
-        // Berechnet die Position des Spielers
         switch (direction) {
-            case 'a': newCol--; break;
-            case 'w': newRow--; break;
-            case 'd': newCol++; break;
-            case 's': newRow++; break;
+            case 'a':
+                newCol--;
+                this.isMovingLeft = true;
+                break;
+            case 'w':
+                newRow--;
+                this.isMovingUp = true;
+                break;
+            case 'd':
+                newCol++;
+                this.isMovingRight = true;
+                break;
+            case 's':
+                newRow++;
+                this.isMovingDown = true; // Spieler läuft nach unten
+                break;
         }
+
+        // Update Position und Bildwechsel für Animation
+        if (this.isMovingDown) {
+            this.walkingDownFrame = (this.walkingDownFrame + 1) % 2; // Wechselt zwischen den beiden Bildern
+        }
+        if (this.isMovingUp) {
+            this.walkingUpFrame = (this.walkingUpFrame + 1) % 2;
+        }
+        if (this.isMovingRight) {
+            this.walkingRightFrame = (this.walkingRightFrame + 1) % 2;
+        }
+        if (this.isMovingLeft) {
+            this.walkingLeftFrame = (this.walkingLeftFrame + 1) % 2;
+        }
+
 
         // Überprüft, ob die neue Position gültig ist (keine Wand oder Bombe)
         if (this.isValidMove(newRow, newCol)) {

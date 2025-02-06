@@ -21,6 +21,8 @@ Itemreferenzen/bilder/sounds:
 https://bomberman.fandom.com/wiki/Fire_Up
 https://bomberman.fandom.com/wiki/Pierce_Bomb
 https://bomberman.fandom.com/wiki/Bomb
+https://www.spriters-resource.com/mobile/bomberman100manbattle/sheet/88879/
+https://www.spriters-resource.com/snes/sbomber4/sheet/156304/
 https://www.spriters-resource.com/mobile/bombermanforandroid/sheet/70111
 https://randomhoohaas.flyingomelette.com/spr/bomberman/BombermanNES2.gif
 https://bomberman.fandom.com/wiki/Bomberman_(DS)/Power_Ups
