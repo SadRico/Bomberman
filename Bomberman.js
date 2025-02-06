@@ -58,7 +58,7 @@ document.body.appendChild(blackCanvas);
 // Timer
 let seconds_left = 240;
 
-// Lebenszahl (3 Leben)
+// Lebenszahl
 let lives = 3
 
 function updateCanvas() {
@@ -86,6 +86,7 @@ function updateCanvas() {
     // Zeit und Text Canvas zeichnen
     timerCtx.fillText(seconds_left > 0 ? timeString : 'Time Up!', timerCanvas.width / 2, 46);
 
+    // Wenn Leben gleich 0, Game Over Text wird angezeigt
     if (lives === 0) {
         timerCtx.clearRect(0, 0, timerCanvas.width, timerCanvas.height);
         timerCtx.fillText('Game Over', timerCanvas.width / 2, 46); // Game Over Nachricht
@@ -100,19 +101,27 @@ function checkZero(num) {
     function reduceLife() {
         if (lives > 0) {
             lives--;
+            respawnPlayer() // Respawned den Spieler
             updateCanvas();  // Updated das Canvas nach Tod
         } else if (lives === 0) {
+            player = null; // Spieler tot
             updateCanvas(); // Canvas wird nach GameOver geupdatet
         }
     }
 
+    function respawnPlayer(){
+        if (lives > 0) {
+            player = new Player(1,1);
+        }
+    }
+
 let interval = setInterval(function() {
-    seconds_left--;
+    seconds_left--; // Zeit zählt runter
     updateCanvas();
 
     if (seconds_left <= 0) {
         clearInterval(interval);
-        player = null; // wenn time up, spieler tot
+        player = null; // Wenn time up, spieler tot
         reduceLife()
 
         // Player Death Sound
