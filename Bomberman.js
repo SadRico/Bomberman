@@ -43,7 +43,7 @@ const blackCanvas = document.createElement('canvas');
 const blackCtx = blackCanvas.getContext('2d');
 blackCanvas.id = 'blackCanvas';
 blackCanvas.width = 1050;
-blackCanvas.height = 926;
+blackCanvas.height = 947;
 blackCtx.fillRect(0, 0, blackCanvas.width, blackCanvas.height)
 document.body.appendChild(blackCanvas);
 
@@ -435,7 +435,7 @@ function blowUp(bomb) {
 
             // Explosion Sound
             const bombAudio = new Audio('sounds/Bomb.wav');
-            bombAudio.volume = 0.015;
+            bombAudio.volume = 0.025;
             bombAudio.play();
 
             cells[row][col] = null;
