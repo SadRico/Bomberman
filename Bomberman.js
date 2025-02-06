@@ -10,6 +10,7 @@ bgmAudio.volume = 0.2;
 bgmAudio.loop = true;
 bgmAudio.play();
 
+
 // Erstellt Canvas für zerstörbare Blöcke
 const brickCanvas = document.createElement('canvas');
 const brickCtx = brickCanvas.getContext('2d');
@@ -155,7 +156,7 @@ function respawnPlayer() {
     if (lives > 0) {
         player = new Player(1, 1);
         player.numBombs = 1;  // Standardanzahl an Bomben
-        player.fireUp = 1;  // Standardanzahl an Bomben
+        player.fireUp = 2;  // Standardanzahl an Bomben
     }
 }
 
@@ -311,6 +312,7 @@ function generateItem(row, col) {
 
 const bombCanvas = document.querySelector('canvas');
 const bombCtx = bombCanvas.getContext('2d');
+
 // Bomb-Klasse
 class Bomb extends Substance {
     constructor(row, col, size, owner) {
@@ -547,8 +549,8 @@ class Player {
                 bombUpAudio.volume = 0.09;
                 bombUpAudio.play();
 
-                if (this.numBombs < 5){
-                    this.numBombs++; // Mehr Bomben (max. 5)
+                if (this.numBombs < 8){
+                    this.numBombs++; // Mehr Bomben (max. 8)
             }
             } else if (item.type === items.fireUp) {
                 // Fire-Up Audio
@@ -556,8 +558,8 @@ class Player {
                 fireUpAudio.volume = 0.09;
                 fireUpAudio.play();
 
-                if (this.bombRange < 5){
-                    this.bombRange++; // Range erhöhen (max. 5)
+                if (this.bombRange < 8){
+                    this.bombRange++; // Range erhöhen (max. 58)
                 }
             }
             }
@@ -602,6 +604,7 @@ function blowUp(bomb) {
         }
     });
 }
+
 
 let player = new Player(1, 1); // Startposition des Spielers
 let level = new Level();
