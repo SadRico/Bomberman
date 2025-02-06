@@ -34,3 +34,6 @@ https://www.pixilart.com/draw/bomberman-sprite-c5e4d357e30cf9d
 Bearbeitungsprogramm für Bilder/Sounds:
 https://www.photopea.com
 https://mp3cut.net/de/
+
+Teilweise Bugfixing, wenn ich absolut keine Ahnung habe & Verständnisfragen:
+https://chatgpt.com/
