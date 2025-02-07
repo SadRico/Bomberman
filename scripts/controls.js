@@ -17,7 +17,7 @@ document.addEventListener('keydown', (event) => {
         // Timeout um zu schnellen Richtungswechsel zu verhindern
         setTimeout(() => {
             canChangeDirection = true;
-        }, 150);
+        }, 135); // Spieler 'Speed'
     }
     // Event für das Platzieren der Bombe
     else if (event.key === ' ' && !keysPressed[' ']) {
