@@ -9,8 +9,9 @@ let frameTime;       // Zeitdifferenz zwischen den Frames
 // === Spielstatus Variablen === //
 
 let canChangeDirection = true; // Kontrolliert, ob der Spieler die Richtung ändern kann
+let isGameOver = false;
 let invincible = false;        // Unverwundbarkeitsstatus des Spielers
-let seconds_left = 240;        // Verbleibende Zeit im Spiel (in Sekunden)
+let seconds_left = 3;        // Verbleibende Zeit im Spiel (in Sekunden)
 let lives = 3;                 // Anzahl der Leben des Spielers
 
 // Initialisierung des Spielers und Levels

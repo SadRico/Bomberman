@@ -20,9 +20,13 @@ function updateCanvas() {
 
     let timeString = `${checkZero(minutes)}:${checkZero(seconds)}`;
 
-    timerCtx.fillText(seconds_left > 0 ? timeString : 'Time Up!', timerCanvas.width / 2, 46);
-
+    if (lives > 0) {
+        timerCtx.fillText(seconds_left > 0 ? timeString : 'Time Up!', timerCanvas.width / 2, 46);
+    }
+    // Time Up nur prüfen, wenn das Spiel läuft
     timeUpDeath()
+    gameOver()
+
 }
 
 // Funktion um Timer zu starten
@@ -47,27 +51,55 @@ function checkZero(num) {
 
 // Funktion bei einem Time Up Tod
 function timeUpDeath(){
+    // Wenn das Spiel vorbei ist, nichts weiter ausführen
+    if (isGameOver) {
+        return;
+    }
+
     // Wenn Tod durch Time Up & Leben > 0
     if (seconds_left === 0 && lives > 0) {
-        timerCtx.fillText('Time Up!', timerCanvas.width / 2, 46);
-        clearInterval(interval);  // Stoppt den Timer
-
         // Wenn 1 Leben durch Time Up verloren, dann Time-Reset, weil sonst cringe Fehler
         if (lives - 1){
-            seconds_left = 240
+            seconds_left = 3
         }
 
         setTimeout(() => {
             reduceLife(); // Leben verlieren
             respawnPlayer(); // Spieler respawnen
             startTimer(); // Timer neu starten
-
         }, 1000);
-    } else if (lives === 0) {
-        timerCtx.clearRect(0, 0, timerCanvas.width, timerCanvas.height);
-        timerCtx.fillText('Game Over', timerCanvas.width / 2, 46); // Game Over Nachricht
     }
 }
+
+function gameOver() {
+    if (lives === 0 && !isGameOver) {
+        isGameOver = true;
+
+        timerCtx.fillText('GameOver!', timerCanvas.width / 2, 46);
+
+        setTimeout(() => {
+            timerCtx.fillText('Restart!', timerCanvas.width / 2, 46);
+        }, 1010);
+
+        // Entfernt alle Items
+        substances.forEach(substance => {
+            substance.remove();
+        });
+
+        // Nach insgesamt 4 Sekunden das Spiel neu starten
+        setTimeout(() => {
+            lives = 3;
+            seconds_left = 240;
+            respawnPlayer()
+            level.generate();
+            startTimer();
+            updateCanvas();
+
+            isGameOver = false;
+        }, 4000);
+    }
+}
+
 
 // Funktion um Leben zu verlieren
 function reduceLife() {
@@ -84,13 +116,13 @@ function reduceLife() {
 
     } else if (lives === 0) {
         player = null; // Spieler tot
-
         // Player Death Sound
         const deathAudio = new Audio('sounds/Death.wav');
         deathAudio.volume = 0.1;
         deathAudio.play();
-
+        respawnPlayer()
         updateCanvas(); // Canvas wird nach GameOver geupdated
+
     }
 }
 
