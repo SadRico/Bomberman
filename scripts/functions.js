@@ -25,7 +25,7 @@ function updateCanvas() {
     }
     // Time Up nur prüfen, wenn das Spiel läuft
     timeUpDeath()
-    gameOver()
+    restartGame()
 
 }
 
@@ -71,8 +71,8 @@ function timeUpDeath(){
     }
 }
 
-
-function gameOver() {
+// Funktion um Spiel zu restarten
+function restartGame() {
     if (lives === 0 && !isGameOver) {
         isGameOver = true;
 
@@ -96,7 +96,6 @@ function gameOver() {
         }, 2500);
     }
 }
-
 
 // Funktion um Leben zu verlieren
 function reduceLife() {
