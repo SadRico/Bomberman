@@ -13,7 +13,7 @@ const types = {
 const items = {
     extraBombs: '💣',// Erhöht die Anzahl der Bomben
     fireUp: '🔥', // Erhöht die Explosionsrange
-    pierce: '🪡' // Extra Hit
+    pierce: '🪡' // Kann durch mehrere Blöcke schießen, wenn Feuerrate > 1 ist
 };
 
 let substances = []; // Alle Substances wie Spieler, Bomben, Explosionen
