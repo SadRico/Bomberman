@@ -19,7 +19,7 @@ let level = new Level();
 
 // Definiert die verschiedenen Typen von Objekten im Spiel
 const types = {
-    wall:  9, // Wand
+    wall: 9, // Wand
     brick: 1, // zerstörbarer Block
     bomb: 2 // Bombe
 };
@@ -76,33 +76,6 @@ function loop(timestamp) {
 
     player.render();
 }
-
-let keysPressed = {
-    'a': false,
-    'w': false,
-    'd': false,
-    's': false,
-    ' ': false
-};
-
-// Event-Listener für Tasteneingaben
-document.addEventListener('keydown', (event) => {
-    if ((event.key === 'a' || event.key === 'w' || event.key === 'd' || event.key === 's') && !keysPressed[event.key]) {
-        player.move(event.key);
-        keysPressed[event.key] = true;
-    }
-    else if (event.key === ' ' && !keysPressed[' ']) {
-        player.placeBomb();
-        keysPressed[' '] = true;
-    }
-});
-
-// Event-Listener für Loslassen
-document.addEventListener('keyup', (event) => {
-    if (event.key === 'a' || event.key === 'w' || event.key === 'd' || event.key === 's' || event.key === ' ') {
-        keysPressed[event.key] = false;
-    }
-});
 
 
 // Timer beim Start des Spiels aufrufen
