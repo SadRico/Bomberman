@@ -1,6 +1,22 @@
+class Game {
+    constructor() {
+
+    }
+}
+
+// leere variablen
+let substances = []; // Alle Substances wie Spieler, Bomben, Explosionen
+let cells = []; // Raster vom Spielfeld
+let interval; // Intervall für Timer
+let last;
+let frameTime;
+
+// variablen mit content
 let seconds_left = 240;
 let lives = 3;
-let interval; // Intervall für Timer
+let player = new Player(1, 1); // Startposition des Spielers
+let level = new Level();
+
 
 // Definiert die verschiedenen Typen von Objekten im Spiel
 const types = {
@@ -16,22 +32,16 @@ const items = {
     pierce: '🪡' // Kann durch mehrere Blöcke schießen, wenn Feuerrate > 1 ist
 };
 
-let substances = []; // Alle Substances wie Spieler, Bomben, Explosionen
-let cells = []; // Raster vom Spielfeld
-
 const itemChances = {
     '💣': 0.11,  // 11 % Wahrscheinlichkeit für Bomben
     '🔥': 0.11,  // 11 % Wahrscheinlichkeit für Fire Up
     '🪡': 0.02   // 2 % Wahrscheinlichkeit für Piercing Bomb
 };
 
-let player = new Player(1, 1); // Startposition des Spielers
-let level = new Level();
+// Levelgenerierung
 level.generate();
 
 // Game-Loop für Animation
-let last;
-let frameTime;
 function loop(timestamp) {
     requestAnimationFrame(loop);
     context.clearRect(0, 0, canvas.width, canvas.height);
@@ -80,4 +90,6 @@ document.addEventListener('keydown', (event) => {
 
 // Timer beim Start des Spiels aufrufen
 startTimer();
+
+// Game-Loop
 requestAnimationFrame(loop);
