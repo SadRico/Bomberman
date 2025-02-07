@@ -26,14 +26,14 @@ canvas {
 
 #timerCanvas {
     position: absolute;
-    top: 25px;
+    top: 5px; /* 5px für Chrome-basierte Browser und 25 px für Mozilla Firefox */
     background-image: url('assets/timerCanvas.png');
     background-position: initial;
 }
 
 #lifeCanvas {
     position: absolute;
-    top: 25px;
+    top: 5px;  /* 5px für Chrome-basierte Browser und 25 px für Mozilla Firefox */
     background-position: initial;
     background-image: none;
 }
