@@ -10,11 +10,13 @@ let frameTime;       // Zeitdifferenz zwischen den Frames
 
 let canChangeDirection = true; // Kontrolliert, ob der Spieler die Richtung ändern kann
 let isGameOver = false;
-let invincible = false;        // Unverwundbarkeitsstatus des Spielers
-let seconds_left = 3;        // Verbleibende Zeit im Spiel (in Sekunden)
-let lives = 3;                 // Anzahl der Leben des Spielers
+let invincible = false;      // Unverwundbarkeitsstatus des Spielers
+let seconds_left = 240;        // Verbleibende Zeit im Spiel (in Sekunden)
+let lives = 3;               // Anzahl der Leben des Spielers
 
-// Initialisierung des Spielers und Levels
+
+// === Initialisierung des Spielers und Levels === //
+
 let player = new Player(1, 1); // Startposition des Spielers
 let level = new Level();       // Erzeugt ein neues Level
 
@@ -31,7 +33,7 @@ const types = {
 const items = {
     extraBombs: '💣',  // Erhöht die Anzahl der gleichzeitig platzierbaren Bomben
     fireUp: '🔥',      // Erhöht die Reichweite der Explosionen
-    pierce: '🪡'          // Explosionen können durch mehrere Blöcke gehen
+    pierce: '🪡'       // Explosionen können durch mehrere Blöcke gehen
 };
 
 // === Wahrscheinlichkeiten für das Erscheinen von Items === //
@@ -39,7 +41,7 @@ const items = {
 const itemChances = {
     '💣': 0.11,  // 11% Wahrscheinlichkeit für extra Bomben
     '🔥': 0.11,  // 11% Wahrscheinlichkeit für Fire Up
-    '🪡': 0.02       // 2% Wahrscheinlichkeit für Piercing Bomb
+    '🪡': 0.02   // 2% Wahrscheinlichkeit für Piercing Bomb
 };
 
 window.onload = initGame;

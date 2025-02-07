@@ -91,8 +91,7 @@ function gameOver() {
             lives = 3;
             seconds_left = 240;
             respawnPlayer()
-            level.generate();
-            startTimer();
+            initGame()
             updateCanvas();
 
             isGameOver = false;
