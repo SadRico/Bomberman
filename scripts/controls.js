@@ -12,9 +12,9 @@ document.addEventListener('keydown', (event) => {
     if ((event.key === 'a' || event.key === 'w' || event.key === 'd' || event.key === 's') && !keysPressed[event.key] && canChangeDirection) {
         player.move(event.key);
         keysPressed[event.key] = true;
-        canChangeDirection = false; // Verhindert sofortigen Richtungswechsel
+        canChangeDirection = false; // Verhindert sofortigen Richtungswechsel (Mashing)
 
-        // Timeout um zu schnellen Richtungswechsel zu verhindern
+        // Timeout um zu schnellen Richtungswechsel zu verhindern (Mashing)
         setTimeout(() => {
             canChangeDirection = true;
         }, 135); // Spieler 'Speed'
