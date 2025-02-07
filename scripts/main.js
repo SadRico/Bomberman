@@ -19,7 +19,7 @@ let level = new Level();
 
 // Definiert die verschiedenen Typen von Objekten im Spiel
 const types = {
-    wall: '🟩', // Wand
+    wall:  9, // Wand
     brick: 1, // zerstörbarer Block
     bomb: 2 // Bombe
 };
