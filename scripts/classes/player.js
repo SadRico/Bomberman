@@ -15,6 +15,11 @@ class Player {
         const x = (this.col + 0.5) * grid - grid / 2; // Zentrierung
         const y = (this.row + 0.5) * grid - grid / 2;
 
+        // Blinken bei Unverwundbarkeit
+        if (invincible && Math.floor(performance.now() / 200) % 2 !== 0) {
+            return;  // Überspringe das Zeichnen, um den Blinkeffekt zu erzeugen
+        }
+
         // Wenn Spieler sich bewegt, spiele Bilder ab
         if (this.isMovingDown) {
             context.drawImage(playerImages.walkDown[this.walkingDownFrame], x, y, grid, grid); // UntenFrame
@@ -150,7 +155,6 @@ class Player {
 
                 this.hasPierceBomb = true;  // Spieler erhält die Fähigkeit, eine Piercebomb zu legen
             }
-
             item.remove(); // Entfernt das Item nach Aufnahme
         }
     }
