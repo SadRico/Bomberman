@@ -5,15 +5,15 @@ class Player {
         this.numBombs = 1;
         this.bombSize = 3;
         this.bombRange = 2;
-        this.walkingDownFrame = 0; // Index für das animierte Bild nach unten
-        this.walkingUpFrame = 0; // Index für das animierte Bild nach oben
-        this.walkingRightFrame = 0; // Index für das animierte Bild nach rechts
-        this.walkingLeftFrame = 0; // Index für das animierte Bild nach links
+        this.walkingDownFrame = 0;
+        this.walkingUpFrame = 0;
+        this.walkingRightFrame = 0;
+        this.walkingLeftFrame = 0;
     }
 
     render() {
         const x = (this.col + 0.5) * grid - grid / 2; // Zentrierung
-        const y = (this.row + 0.5) * grid - grid / 2;
+        const y = (this.row + 0.5) * grid - grid / 2; // Zentrierung
 
         // Blinken bei Unverwundbarkeit
         if (invincible && Math.floor(performance.now() / 200) % 2 !== 0) {
