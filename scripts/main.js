@@ -17,7 +17,6 @@ let lives = 3;
 let player = new Player(1, 1); // Startposition des Spielers
 let level = new Level();
 
-
 // Definiert die verschiedenen Typen von Objekten im Spiel
 const types = {
     wall: '🟩', // Wand
@@ -78,15 +77,33 @@ function loop(timestamp) {
     player.render();
 }
 
+let keysPressed = {
+    'a': false,
+    'w': false,
+    'd': false,
+    's': false,
+    ' ': false
+};
+
 // Event-Listener für Tasteneingaben
 document.addEventListener('keydown', (event) => {
-    if (event.key === 'a' || event.key === 'w' || event.key === 'd' || event.key === 's') {
+    if ((event.key === 'a' || event.key === 'w' || event.key === 'd' || event.key === 's') && !keysPressed[event.key]) {
         player.move(event.key);
-
-    } else if (event.key === ' ') {
+        keysPressed[event.key] = true;
+    }
+    else if (event.key === ' ' && !keysPressed[' ']) {
         player.placeBomb();
+        keysPressed[' '] = true;
     }
 });
+
+// Event-Listener für Loslassen
+document.addEventListener('keyup', (event) => {
+    if (event.key === 'a' || event.key === 'w' || event.key === 'd' || event.key === 's' || event.key === ' ') {
+        keysPressed[event.key] = false;
+    }
+});
+
 
 // Timer beim Start des Spiels aufrufen
 startTimer();
