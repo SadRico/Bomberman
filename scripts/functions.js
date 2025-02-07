@@ -90,7 +90,7 @@ function reduceLife() {
         deathAudio.volume = 0.1;
         deathAudio.play();
 
-        updateCanvas(); // Canvas wird nach GameOver geupdatet
+        updateCanvas(); // Canvas wird nach GameOver geupdated
     }
 }
 
@@ -98,8 +98,15 @@ function reduceLife() {
 function respawnPlayer() {
     if (lives > 0) {
         player = new Player(1, 1);
+        invincible = true;  // Spieler ist unverwundbar
         player.numBombs = 1;  // Standardanzahl an Bomben
         player.fireUp = 2;  // Standardanzahl an Bomben
+
+        // Nach 3 Sekunden ist der Spieler wieder verwundbar
+        setTimeout(() => {
+            invincible = false;
+        }, 3000); // 3000 Millisekunden = 3 Sekunden
+
     }
 }
 
@@ -111,7 +118,6 @@ function blowUp(bomb) {
 
     const directions = [{ row: -1, col: 0 }, { row: 1, col: 0 }, { row: 0, col: -1 }, { row: 0, col: 1 }];
     const startRange = bomb.owner.bombRange; // Reichweite der Bombe
-
     // Überprüft jede Richtung
     directions.forEach((direction) => {
         for (let i = 0; i < startRange; i++) {
@@ -133,9 +139,14 @@ function blowUp(bomb) {
             }
 
             if (player && player.row === row && player.col === col) {
-                reduceLife()
-                respawnPlayer()
+                if (!invincible) {  // Nur Schaden zufügen, wenn Spieler nicht unverwundbar ist
+                    setTimeout(() => {
+                        respawnPlayer();
+                    }, 50);
+                    reduceLife();
+                }
             }
+
             if (cell) return; // Stoppt die Explosion, wenn ein Block getroffen wurde
         }
     });
@@ -171,8 +182,12 @@ function pierceBlowUp(bomb) {
             }
 
             if (player && player.row === row && player.col === col) {
-                reduceLife()
-                respawnPlayer()
+                if (!invincible) {  // Nur Schaden zufügen, wenn Spieler nicht unverwundbar ist
+                    setTimeout(() => {
+                        respawnPlayer();
+                    }, 50);
+                    reduceLife();
+                }
             }
         }
     });
@@ -189,4 +204,48 @@ function generateItem(row, col) {
             break; // Nur ein Item wird erzeugt
         }
     }
+}
+
+// Game-Loop für Animation
+function loop(timestamp) {
+    requestAnimationFrame(loop);
+    context.clearRect(0, 0, canvas.width, canvas.height);
+
+    if (!last) last = timestamp;
+    frameTime = timestamp - last;
+    last = timestamp;
+
+    // Zeichnet das Spielfeld basierend auf den Zellen
+    for (let row = 0; row < numRows; row++) {
+        for (let col = 0; col < numCols; col++) {
+            switch (cells[row][col]) {
+                // zeichnet feste Wände
+                case types.wall:
+                    context.drawImage(wallCanvas, col * grid, row * grid);
+                    break;
+                // zeichnet Blöcke
+                case types.brick:
+                    context.drawImage(brickCanvas, col * grid, row * grid);
+                    break;
+            }
+        }
+    }
+
+    // Aktualisiert und rendert alle Substances (Spieler, Bomben, Explosionen)
+    substances.forEach(substance => {
+        substance.update(frameTime);
+        substance.render();
+    });
+
+    // Entfernt inaktive Substances/Objekte
+    substances = substances.filter(substance => substance.alive);
+
+    player.render();
+}
+
+// Spiel-Initialisierung
+function initGame() {
+    level.generate();      // Generiert das Level-Layout
+    startTimer();      // Startet den Spiel-Timer
+    requestAnimationFrame(loop); // Startet den Spiel-Loop
 }

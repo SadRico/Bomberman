@@ -3,10 +3,8 @@ let keysPressed = {
     'w': false,
     'd': false,
     's': false,
-    ' ': false
+    'ArrowUp': false
 };
-
-let canChangeDirection = true;
 
 document.addEventListener('keydown', (event) => {
     if ((event.key === 'a' || event.key === 'w' || event.key === 'd' || event.key === 's') && !keysPressed[event.key] && canChangeDirection) {
@@ -17,18 +15,18 @@ document.addEventListener('keydown', (event) => {
         // Timeout um zu schnellen Richtungswechsel zu verhindern (Mashing)
         setTimeout(() => {
             canChangeDirection = true;
-        }, 135); // Spieler 'Speed'
+        }, 75); // Spieler 'Speed'
     }
     // Event für das Platzieren der Bombe
-    else if (event.key === ' ' && !keysPressed[' ']) {
+    else if (event.key === 'ArrowUp' && !keysPressed['ArrowUp']) {
         player.placeBomb();
-        keysPressed[' '] = true;
+        keysPressed['ArrowUp'] = true;
     }
 });
 
 // Event-Listener für Loslassen
 document.addEventListener('keyup', (event) => {
-    if (event.key === 'a' || event.key === 'w' || event.key === 'd' || event.key === 's' || event.key === ' ') {
+    if (event.key === 'a' || event.key === 'w' || event.key === 'd' || event.key === 's' || event.key === 'ArrowUp') {
         keysPressed[event.key] = false;
     }
 });
