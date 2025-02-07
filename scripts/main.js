@@ -14,7 +14,6 @@ let invincible = false;      // Unverwundbarkeitsstatus des Spielers
 let seconds_left = 240;        // Verbleibende Zeit im Spiel (in Sekunden)
 let lives = 3;               // Anzahl der Leben des Spielers
 
-
 // === Initialisierung des Spielers und Levels === //
 
 let player = new Player(1, 1); // Startposition des Spielers

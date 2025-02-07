@@ -60,7 +60,7 @@ function timeUpDeath(){
     if (seconds_left === 0 && lives > 0) {
         // Wenn 1 Leben durch Time Up verloren, dann Time-Reset, weil sonst cringe Fehler
         if (lives - 1){
-            seconds_left = 240
+            seconds_left = 3
         }
 
         setTimeout(() => {
@@ -71,6 +71,7 @@ function timeUpDeath(){
     }
 }
 
+
 function gameOver() {
     if (lives === 0 && !isGameOver) {
         isGameOver = true;
@@ -79,23 +80,20 @@ function gameOver() {
 
         setTimeout(() => {
             timerCtx.fillText('Restart!', timerCanvas.width / 2, 46);
-        }, 1010);
-
-        // Entfernt alle Items
-        substances.forEach(substance => {
-            substance.remove();
-        });
+        }, 1030);
 
         // Nach insgesamt 4 Sekunden das Spiel neu starten
         setTimeout(() => {
             lives = 3;
+            substances = [];
             seconds_left = 240;
-            respawnPlayer()
-            initGame()
+            respawnPlayer();
+            level.generate();
+            startTimer();
             updateCanvas();
 
             isGameOver = false;
-        }, 4000);
+        }, 2500);
     }
 }
 
