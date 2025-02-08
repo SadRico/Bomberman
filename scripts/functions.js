@@ -64,9 +64,9 @@ function timeUpDeath(){
         }
 
         setTimeout(() => {
-            reduceLife(); // Leben verlieren
-            respawnPlayer(); // Spieler respawnen
-            startTimer(); // Timer neu starten
+            reduceLife();
+            respawnPlayer();
+            startTimer();
         }, 1000);
     }
 }
@@ -282,16 +282,15 @@ function loop(timestamp) {
     frameCounter++;
 
     if (frameCounter % 7 === 0) {  // Bewegung nur alle 4 Frames
-        if (keysPressed['a']) {
+        // Fix, damit man nicht entgegengesetzte Richtungen gleichzeitig drücken kann für Moonwalk-Bug UND nicht diagonal glitcht
+        if (keysPressed['a'] && !keysPressed['d'] && !keysPressed['w'] && !keysPressed['s']){
             player.move('a');
-        }
-        if (keysPressed['w']) {
-            player.move('w');
-        }
-        if (keysPressed['d']) {
+        } else if (keysPressed['d'] && !keysPressed['a'] && !keysPressed['w'] && !keysPressed['s']) {
             player.move('d');
         }
-        if (keysPressed['s']) {
+        if (keysPressed['w'] && !keysPressed['s'] && !keysPressed['d'] && !keysPressed['a']) {
+            player.move('w');
+        } else if (keysPressed['s'] && !keysPressed['w'] && !keysPressed['a'] && !keysPressed['d']) {
             player.move('s');
         }
     }
