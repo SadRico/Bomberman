@@ -287,7 +287,7 @@ function loop(timestamp) {
         substance.render();
     });
 
-    // Entfernt inaktive Substances/Objekte
+    // Entfernt inaktive Substances/Objekte/Entities
     substances = substances.filter(substance => substance.alive);
 
     player.render();
