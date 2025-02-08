@@ -54,8 +54,8 @@ const controlsImage = new Image();
 controlsImage.src = 'assets/misc/controls.png';
 
 controlsImage.onload = () => {
-    controlsCanvas.width = 400;
-    controlsCanvas.height = 400;
+    controlsCanvas.width = 250;
+    controlsCanvas.height = 300;
     controlsCtx.drawImage(controlsImage, 0, 0, controlsCanvas.width, controlsCanvas.height);
 };
 controlsCanvas.id = 'controlsCanvas';
