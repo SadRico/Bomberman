@@ -60,7 +60,7 @@ function timeUpDeath(){
     if (seconds_left === 0 && lives > 0) {
         // Wenn 1 Leben durch Time Up verloren, dann Time-Reset, weil sonst cringe Fehler
         if (lives - 1){
-            seconds_left = 3
+            seconds_left = 240
         }
 
         setTimeout(() => {
