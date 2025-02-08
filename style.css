@@ -38,3 +38,10 @@ canvas {
     background-position: initial;
     background-image: none;
 }
+
+#controlsCanvas {
+    background-image: none;
+    position: absolute;
+    left: 20px;
+    top: 100px;
+}

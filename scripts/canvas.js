@@ -47,6 +47,20 @@ lifeCanvas.width = 957;
 lifeCanvas.height = 60;
 document.body.appendChild(lifeCanvas);
 
+// Erstellt Controls Canvas
+const controlsCanvas = document.createElement('canvas');
+const controlsCtx = controlsCanvas.getContext('2d');
+const controlsImage = new Image();
+controlsImage.src = 'assets/misc/controls.png';
+
+controlsImage.onload = () => {
+    controlsCanvas.width = 400;
+    controlsCanvas.height = 400;
+    controlsCtx.drawImage(controlsImage, 0, 0, controlsCanvas.width, controlsCanvas.height);
+};
+controlsCanvas.id = 'controlsCanvas';
+document.body.appendChild(controlsCanvas);
+
 // Erstellt schwarze Ränder
 const blackCanvas = document.createElement('canvas');
 const blackCtx = blackCanvas.getContext('2d');
