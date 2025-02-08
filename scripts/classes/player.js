@@ -84,7 +84,7 @@ class Player {
 
             // Walking Sound (Hier platziert, damit Sound nicht IMMER abgespielt, wenn gegen Wand gelaufen wird bei Eingabe!)
             let walkAudio = new Audio('sounds/Walking.wav');
-            walkAudio.volume = 0.4;
+            walkAudio.volume = 0.3;
             walkAudio.play();
 
             this.getItem(); // Item einsammeln
