@@ -9,6 +9,7 @@ let frameTime;       // Zeitdifferenz zwischen den Frames
 
 // === Spielstatus Variablen === //
 
+const bgmAudio = new Audio('sounds/BGM_1.mp3');
 let canPlaceBomb = true;     // Separate Kontrolle für Bombenplatzierung
 let isGameOver = false;      // Überprüfung, ob Game Over ist
 let invincible = false;      // Unverwundbarkeitsstatus des Spielers

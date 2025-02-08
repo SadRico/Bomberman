@@ -314,6 +314,10 @@ function loop(timestamp) {
 
 // Spiel-Initialisierung
 function initGame() {
+    // BGM Musik (Option im Browser einstellen, um es IMMER abspielen zu lassen beim Restart!)
+    bgmAudio.volume = 0.2;
+    bgmAudio.loop = true;
+    bgmAudio.play();
     level.generate();      // Generiert das Level-Layout
     startTimer();      // Startet den Spiel-Timer
     requestAnimationFrame(loop); // Startet den Spiel-Loop
