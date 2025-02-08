@@ -76,24 +76,44 @@ function restartGame() {
     if (lives === 0 && !isGameOver) {
         isGameOver = true;
 
+        // GameOver-Text anzeigen
+        timerCtx.clearRect(0, 0, timerCanvas.width, timerCanvas.height);
         timerCtx.fillText('GameOver!', timerCanvas.width / 2, 46);
 
+        // GameOver-Text verzögern
         setTimeout(() => {
-            timerCtx.fillText('Restart!', timerCanvas.width / 2, 46);
-        }, 1030);
 
-        // Nach insgesamt 4 Sekunden das Spiel neu starten
+            const blinkText = setInterval(() => {
+                timerCtx.clearRect(0, 0, timerCanvas.width, timerCanvas.height);
+
+                if (isVisible) {
+                    timerCtx.fillText('Restart!', timerCanvas.width / 2, 46); // Restart-Text
+                }
+
+                isVisible = !isVisible; // Sichtbarkeit
+            }, 500); // Alle 500ms blinken lassen
+
+            // Nach 5 Sekunden Blinkeffekt stoppen
+            setTimeout(() => {
+                clearInterval(blinkText); // Stoppe das Blinken
+                timerCtx.clearRect(0, 0, timerCanvas.width, timerCanvas.height); // Canvas leeren
+                timerCtx.fillText('Restart!', timerCanvas.width / 2, 46); // Text dauerhaft anzeigen
+            }, 5000);
+
+        }, 1050); // Verzögert Start des Blinkeffekts
+
+        // Nach 7 Sekunden das Spiel neu starten
         setTimeout(() => {
             lives = 3;
             substances = [];
             seconds_left = 240;
             respawnPlayer();
             level.generate();
-            startTimer();
+            startTimer()
             updateCanvas();
 
             isGameOver = false;
-        }, 2500);
+        }, 7000);
     }
 }
 

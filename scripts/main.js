@@ -9,12 +9,13 @@ let frameTime;       // Zeitdifferenz zwischen den Frames
 
 // === Spielstatus Variablen === //
 
-let canPlaceBomb = true;       // Separate Kontrolle für Bombenplatzierung
-let isGameOver = false;       // Überprüfung, ob Game Over ist
+let canPlaceBomb = true;     // Separate Kontrolle für Bombenplatzierung
+let isGameOver = false;      // Überprüfung, ob Game Over ist
 let invincible = false;      // Unverwundbarkeitsstatus des Spielers
-let seconds_left = 240;      // Verbleibende Zeit im Spiel (in Sekunden)
-let lives = 3;              // Anzahl der Leben des Spielers
-let frameCounter = 0;      // Zählt die Frames
+let isVisible = false;       // Zustand für Blinkeffekt von Restart-Text
+let seconds_left = 240;        // Verbleibende Zeit im Spiel (in Sekunden)
+let lives = 3;               // Anzahl der Leben des Spielers
+let frameCounter = 0;        // Zählt die Frames
 
 // === Initialisierung des Spielers und Levels === //
 
