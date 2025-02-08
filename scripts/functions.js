@@ -258,8 +258,30 @@ function loop(timestamp) {
             }
         }
     }
+    // Bewegung, wenn man Tasten hält
+    frameCounter++;
 
-    // Aktualisiert und rendert alle Substances (Spieler, Bomben, Explosionen)
+    if (frameCounter % 7 === 0) {  // Bewegung nur alle 4 Frames
+        if (keysPressed['a']) {
+            player.move('a');
+        }
+        if (keysPressed['w']) {
+            player.move('w');
+        }
+        if (keysPressed['d']) {
+            player.move('d');
+        }
+        if (keysPressed['s']) {
+            player.move('s');
+        }
+    }
+    // Bombe platzieren, wenn Pfeil nach oben gedrückt wird
+    if (keysPressed['ArrowUp'] && canPlaceBomb) {
+        player.placeBomb();
+        canPlaceBomb = false; // Verhindert, dass Bomben gespammt werden
+    }
+
+    // Aktualisiert und rendert alle Substances (Spieler, Bomben, Explosionen, Items etc.)
     substances.forEach(substance => {
         substance.update(frameTime);
         substance.render();

@@ -6,13 +6,15 @@ let interval;        // Intervall für den Spiel-Timer
 let last;            // Zeitstempel der letzten Frame-Aktualisierung
 let frameTime;       // Zeitdifferenz zwischen den Frames
 
+
 // === Spielstatus Variablen === //
 
-let canChangeDirection = true; // Kontrolliert, ob der Spieler die Richtung ändern kann
+let canPlaceBomb = true; // Separate Kontrolle für Bombenplatzierung
 let isGameOver = false;       // Überprüfung, ob Game Over ist
 let invincible = false;      // Unverwundbarkeitsstatus des Spielers
 let seconds_left = 240;        // Verbleibende Zeit im Spiel (in Sekunden)
 let lives = 3;               // Anzahl der Leben des Spielers
+let frameCounter = 0;     // Zählt die Frames
 
 // === Initialisierung des Spielers und Levels === //
 
