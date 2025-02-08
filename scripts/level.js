@@ -25,7 +25,7 @@ class Level {
         for (let row = 0; row < numRows; row++) {
             cells[row] = [];
             for (let col = 0; col < numCols; col++) {
-                if (!this.template[row][col] && Math.random() < 0.00) { // 90% Chance, einen Block zu spawnen
+                if (!this.template[row][col] && Math.random() < 0.90) { // 90% Chance, einen Block zu spawnen
                     cells[row][col] = types.brick;
 
                 } else if (this.template[row][col] === types.wall) {

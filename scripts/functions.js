@@ -281,7 +281,7 @@ function loop(timestamp) {
     // Bewegung, wenn man Tasten hält
     frameCounter++;
 
-    if (frameCounter % 7 === 0) {  // Bewegung nur alle 4 Frames
+    if (frameCounter % 9 === 0) {  // Bewegung nur alle 9 Frames
         // Fix, damit man nicht entgegengesetzte Richtungen gleichzeitig drücken kann für Moonwalk-Bug UND nicht diagonal glitcht
         if (keysPressed['a'] && !keysPressed['d'] && !keysPressed['w'] && !keysPressed['s']){
             player.move('a');
