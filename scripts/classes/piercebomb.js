@@ -9,7 +9,7 @@ class Piercebomb extends Substance {
         this.timer = 3000;
         this.img = new Image();
 
-        this.img.src = 'assets/pierce.png';
+        this.img.src = 'assets/bombs/pierce.png';
         this.img.onload = () => {
             this.init();
         };

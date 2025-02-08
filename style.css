@@ -4,7 +4,8 @@ html, body {
 }
 
 body {
-    background-image: url('assets/bomberman-wallpaper.png');
+    content: "Welcome to the Game!";
+    background-image: url('assets/misc/bomberman-wallpaper.png');
     background-size: cover;
     display: flex;
     align-items: center;
@@ -15,7 +16,7 @@ body {
 canvas {
     background-position-y: 64px;
     background-position-x: center;
-    background-image: url('assets/green_zone.png');
+    background-image: url('assets/misc/green_zone.png');
 }
 
 #game {
@@ -27,7 +28,7 @@ canvas {
 #timerCanvas {
     position: absolute;
     top: 5px; /* 5px für Chrome-basierte Browser und 25 px für Mozilla Firefox */
-    background-image: url('assets/timerCanvas.png');
+    background-image: url('assets/misc/timerCanvas.png');
     background-position: initial;
 }
 

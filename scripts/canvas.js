@@ -16,7 +16,7 @@ const brickCanvas = document.createElement('canvas');
 const brickCtx = brickCanvas.getContext('2d');
 brickCanvas.width = brickCanvas.height = grid;
 const brickImage = new Image();
-brickImage.src = 'assets/block.png';
+brickImage.src = 'assets/level_tiles/block.png';
 brickImage.onload = () => {
     brickCtx.drawImage(brickImage, 0, 0, grid, grid); // Bild auf Canvas zeichnen
 };
@@ -26,7 +26,7 @@ const wallCanvas = document.createElement('canvas');
 const wallCtx = wallCanvas.getContext('2d');
 wallCanvas.width = wallCanvas.height = grid;
 const wallImage = new Image();
-wallImage.src = 'assets/wall.png';
+wallImage.src = 'assets/level_tiles/wall.png';
 wallImage.onload = () => {
     wallCtx.drawImage(wallImage, 0, 0, grid, grid); // Wandbild auf Canvas zeichnen
 };

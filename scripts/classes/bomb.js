@@ -11,9 +11,9 @@ class Bomb extends Substance {
 
         // Wenn es eine Piercebomb ist, nutze das Bild der Piercebomb
         if (this.type === 'pierce') {
-            this.img.src = 'assets/pierce.png';  // Piercebomb
+            this.img.src = 'assets/bombs/pierce.png';  // Piercebomb
         } else {
-            this.img.src = 'assets/bomb.png';  // Standard Bombe
+            this.img.src = 'assets/bombs/bomb.png';  // Standard Bombe
         }
 
         this.img.onload = () => {

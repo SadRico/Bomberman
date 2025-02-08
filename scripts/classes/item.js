@@ -9,11 +9,11 @@ class Item {
 
         this.img = new Image();
         if (this.type === '💣') {
-            this.img.src = 'assets/bomb_up.png';
+            this.img.src = 'assets/items/bomb_up.png';
         } else if (this.type === '🔥') {
-            this.img.src = 'assets/fire_up.png';
+            this.img.src = 'assets/items/fire_up.png';
         } else if (this.type === '🪡') {
-            this.img.src = 'assets/pierce_bomb.png';
+            this.img.src = 'assets/items/pierce_bomb.png';
         }
 
         this.imgLoaded = false;
