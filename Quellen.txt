@@ -10,6 +10,9 @@ https://stackoverflow.com/questions/13610638/loop-audio-with-javascript (Frage v
 https://stackoverflow.com/questions/57235019/why-does-my-javascript-audio-not-work-after-i-refresh-a-page#:~:text=This%20happens%20because%20playing%20audio,will%20be%20allowed%20to%20play. (Frage von: https://stackoverflow.com/users/11188084/joshua-segal)
 https://stackoverflow.com/questions/950087/how-do-i-include-a-javascript-file-in-another-javascript-file (Frage von: https://stackoverflow.com/users/426996/alec-smart)
 
+Mein damaliges eigenes Projekt (hauptsächlich nur um JavaScript und CSS wieder zu verstehen):
+https://github.com/SadRico/Tic-Tac-Toe
+
 YouTube:
 https://www.youtube.com/watch?v=bkFerURWPgA
 https://www.youtube.com/watch?v=IidrdODAfsU
