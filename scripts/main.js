@@ -10,7 +10,8 @@ let frameTime;             // Zeitdifferenz zwischen den Frames
 // === Spielstatus Variablen === //
 
 let bgmAudio = new Audio('sounds/BGM_1.mp3');
-let bossAudio = new Audio('sounds/boss.wav');
+let bossAudio = new Audio('sounds/boss_2.wav');
+const hitAudio = new Audio('sounds/boss_damage.wav');
 let winAudio = new Audio('sounds/victory_theme.wav');
 
 let canPlaceBomb = true;      // Separate Kontrolle für Bombenplatzierung

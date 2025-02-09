@@ -4,8 +4,8 @@ class Boss {
         this.col = col;
         this.level = level;
         this.radius = 200;  // Radius der Hitbox
-        this.speedX = 2;    // X Geschwindigkeit
-        this.speedY = -2;   // Y Geschwindigkeit
+        this.speedX = 3;    // X Geschwindigkeit // Etwas Abwechslung mit den Stats um es schwer zu machen
+        this.speedY = -4;   // Y Geschwindigkeit
         this.grid = 64;
 
         this.x = col * this.grid + this.grid / 2;  // Um den Mittelpunkt zu berechnen

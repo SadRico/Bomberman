@@ -301,17 +301,13 @@ function reduceBossLife() {
     }, 3000);
 
     // Boss Hit Sound
-    const hitAudio = new Audio('sounds/Death.wav');
-    hitAudio.volume = 0.1;
+    hitAudio.volume = 0.5;
     hitAudio.play();
     updateCanvas(); // Canvas aktualisieren nach Treffer
 
     // Überprüfen, ob Boss jetzt tot ist
     if (bossHP === 0) {
-        const deathAudio = new Audio('sounds/Death.wav');
-        deathAudio.volume = 0.1;
-        deathAudio.play();
-
+        hitAudio.pause();
         bossDeath(); // Victory-Screen und Game-Stop
         updateCanvas(); // Nach dem Sieg aktualisieren
     }
@@ -392,7 +388,7 @@ function spawnBossRoom() {
     bossEnemy.render(); // Boss rendern
 
     // Boss-Kampfmusik abspielen
-    bossAudio.volume = 0.3;
+    bossAudio.volume = 0.5; // Je lauter, desto besser
     bossAudio.loop = true;
     bossAudio.play();
 
@@ -632,6 +628,7 @@ function initGame() {
     setTimeout(() => {
         window.alert('Willkommen! Zerstöre alle Blöcke und eine Überraschung erwartet dich!')
     }, 20)
+
 
     frameTime = 0; // Setzt frameTime zurück
     last = undefined; // Setzt last auf undefined, um Zeit zu korrigieren
