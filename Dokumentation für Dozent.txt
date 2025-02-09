@@ -61,6 +61,8 @@ Das Projekt hat extrem viel Spaß gemacht, aber auch extrem viele Nerven geraubt
 
 Ich habe sehr viel neues dazugelernt und kann mir sehr gut vorstellen, wenn ich meine Skills weiter verbessere, dass ich privat nebenbei ein Indiespiel erstellen werde, da alles mit Videospielen mir sehr gut liegt und ich mich wie gesagt sehr schnell reindenken kann, was wahrscheinlich bei einem normalen Job leider nicht der Fall sein wird, da es nicht viel mit visuellen und spielerischen Sachen zu tun hat. Das gleiche gilt wahrscheinlich auch mit node.js.
 
+Achja bitte stelle sicher, dass der Browser die Musik oben abspielt und wenn man es über die index.html öffnet und nicht über eine IDE, dann spielt die Musik nicht korrekt ab, obwohl es im onload ist.
+
 Danke für's durchlesen :)
 
 
