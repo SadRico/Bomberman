@@ -4,7 +4,6 @@ html, body {
 }
 
 body {
-    content: "Welcome to the Game!";
     background-image: url('assets/misc/bomberman-wallpaper.png');
     background-size: cover;
     display: flex;
@@ -22,7 +21,7 @@ canvas {
 #game {
     position: absolute;
     bottom: 30px;
-    z-index: 1; /* Damit das Spiel unter dem Timer bleibt */
+
 }
 
 #timerCanvas {
@@ -44,4 +43,11 @@ canvas {
     position: absolute;
     left: 100px;
     top: 200px;
+}
+
+#victoryCanvas {
+    background-image: none;
+    position: absolute;
+    left: -550px;
+    top: -10px;
 }

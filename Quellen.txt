@@ -13,18 +13,28 @@ https://stackoverflow.com/questions/950087/how-do-i-include-a-javascript-file-in
 Mein damaliges eigenes Projekt (hauptsächlich nur um JavaScript und CSS wieder zu verstehen):
 https://github.com/SadRico/Tic-Tac-Toe
 
+Habe noch ein Projekt auf dem PC woher ich die Itemchancen abgeguckt habe:
+
+
 YouTube:
 https://www.youtube.com/watch?v=bkFerURWPgA
 https://www.youtube.com/watch?v=IidrdODAfsU
 
+Musik:
+https://www.youtube.com/watch?v=ivHQEGIZG50
+https://www.youtube.com/watch?v=_HSBsbrmm1M
 Codehilfe:
 https://codepen.io/lewster32/pen/KvzVVd
 https://dev.to/martyhimmel/animating-sprite-sheets-with-javascript-ag3
 
-Itemreferenzen/bilder/sounds:
+Bossbewegung:
+https://developer.mozilla.org/en-US/docs/Games/Tutorials/2D_Breakout_game_pure_JavaScript/Bounce_off_the_walls
+
+Itemreferenzen/bilder/sounds/musik:
 https://bomberman.fandom.com/wiki/Fire_Up
 https://bomberman.fandom.com/wiki/Pierce_Bomb
 https://bomberman.fandom.com/wiki/Bomb
+https://www.spriters-resource.com/fullview/190983/
 https://www.spriters-resource.com/mobile/bomberman100manbattle/sheet/88879/
 https://www.spriters-resource.com/snes/sbomber4/sheet/156304/
 https://www.spriters-resource.com/mobile/bombermanforandroid/sheet/70111
@@ -38,6 +48,7 @@ https://www.pixilart.com/draw/bomberman-sprite-c5e4d357e30cf9d
 Bearbeitungsprogramm für Bilder/Sounds:
 https://www.photopea.com
 https://mp3cut.net/de/
+https://y2down.cc/de/youtube-mp3.html
 
 Teilweise Bugfixing, wenn ich absolut keine Ahnung hatte & Verständnisfragen:
 https://chatgpt.com/
