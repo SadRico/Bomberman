@@ -10,7 +10,7 @@ let frameTime;             // Zeitdifferenz zwischen den Frames
 // === Spielstatus Variablen === //
 const bgmAudio = new Audio('sounds/music/BGM_1.mp3');
 const bgm2Audio = new Audio('sounds/music/BGM_2.wav');
-const bgm3Audio = new Audio('sounds/music/BGM_3.wav');
+const bgm3Audio = new Audio('sounds/music/BGM_3.wav'); // loopt noch nicht richtig(sehr aufwendig in Audacity)
 const bossAudio = new Audio('sounds/boss/boss_2.wav');
 const hitAudio = new Audio('sounds/boss/boss_damage.wav');
 const winAudio = new Audio('sounds/music/victory_theme.wav');
