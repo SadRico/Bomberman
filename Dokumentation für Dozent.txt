@@ -24,6 +24,11 @@ Folgende Funktionalitäten sollen im fertigen Programm vorhanden sein.
 Dem Projekt soll etwas einmaliges hinzugefügt werden -> Da gibt es viel, was ich nennen könnte. Habe aber viel optisches hinzugefügt wie blaue Explosionen oder auch Musik und eine Walkinganimation. -> Erfüllt
 
 
+Item-erklärungen:
+Bomb-Up -> Erhöht Bombenanzahl bis maximal 8 (Bomberman Original)
+Fire-Up -> Erhöht Feuerrange bis maximal 8 (Bomberman Original)
+Pierce-Bombe -> Kann durch mehrere Blöcke schießen und erhöht NICHT die Bombenanzahl (Bomberman Original)
+
 Anfangsnotiz:
 
 Vorneweg, ich will transparent bleiben und muss sagen, dass ich am Ende doch eingeknickt bin und gerade in der Bossklasse Chatgpt-Hilfe brauchte, weil Mathe echt nicht meine Stärke ist. Habe mir auch ein Beispiel an einen Breakout Ball genommen, wie das bouncen funktioniert. Ebenso habe ich das Level Template ergooglet und fast 1 zu 1 abgeguckt, da ich im Unterricht das Von-Neumann nicht richtig verstanden habe und bevor ich mich da aufhalte, habe ich das Template genommen und daraufhin aus Wolfgangs Unterricht mit Row und Col gearbeitet.
