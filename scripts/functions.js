@@ -656,7 +656,7 @@ function initGame() {
     bgm3Audio.volume = 0.12;
     bgm3Audio.loop = true;
 
-    // 30 % Chance welche Hintergrundmusik abspielt, außer für BGM3, weil guter Track
+    // 30 % Chance welche Hintergrundmusik abspielt, außer für BGM2, weil guter Track
     if (Math.random() < 0.3) {
         bgmAudio.play();
     } else if (Math.random() < 0.6) {
@@ -664,7 +664,7 @@ function initGame() {
     } else if (Math.random() < 0.9) {
         bgm3Audio.play();
     } else {
-        bgm3Audio.play();
+        bgm2Audio.play();
     }
 
     bossEnemy = null;
