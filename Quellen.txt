@@ -13,8 +13,8 @@ https://stackoverflow.com/questions/950087/how-do-i-include-a-javascript-file-in
 Mein damaliges eigenes Projekt (hauptsächlich nur um JavaScript und CSS wieder zu verstehen):
 https://github.com/SadRico/Tic-Tac-Toe
 
-Habe noch ein Projekt auf dem PC woher ich die Itemchancen abgeguckt habe:
-
+Habe noch ein eigenes Projekt auf dem PC, woher ich die Itemchancen abgeguckt habe:
+https://github.com/SadRico/Turn_based_rpg
 
 YouTube:
 https://www.youtube.com/watch?v=bkFerURWPgA
@@ -23,6 +23,7 @@ https://www.youtube.com/watch?v=IidrdODAfsU
 Musik:
 https://www.youtube.com/watch?v=ivHQEGIZG50
 https://www.youtube.com/watch?v=_HSBsbrmm1M
+
 Codehilfe:
 https://codepen.io/lewster32/pen/KvzVVd
 https://dev.to/martyhimmel/animating-sprite-sheets-with-javascript-ag3
@@ -50,5 +51,5 @@ https://www.photopea.com
 https://mp3cut.net/de/
 https://y2down.cc/de/youtube-mp3.html
 
-Teilweise Bugfixing, wenn ich absolut keine Ahnung hatte & Verständnisfragen:
+Teilweise Bugfixing, wenn ich absolut keine Ahnung hatte & Verständnisfragen: & Bossklasse, da viel Mathe...
 https://chatgpt.com/
