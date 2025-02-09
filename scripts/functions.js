@@ -243,23 +243,20 @@ function respawnPlayerInBossLevel() {
     }
 }
 
-// Speed-einstellungen für Spieler
-function resetPlayerSpeed(){
-    frameCounter++
-    // Bewegung, wenn man Tasten hält
-    if (frameCounter % 7 === 0) {  // Bewegung nur alle 7 Frames (Speed-items noch geplant)
-        if (keysPressed['a'] && !keysPressed['d'] && !keysPressed['w'] && !keysPressed['s']) {
-            player.move('a');
-        } else if (keysPressed['d'] && !keysPressed['a'] && !keysPressed['w'] && !keysPressed['s']) {
-            player.move('d');
-        }
+// Funktion um Bomberman zu bewegen jenachdem welche Richtung gedrückt wird
+function evaluateControllerDirection(input){
+	//if (input !== undefined) {debugger;}
+	if (keyCooldown !== 0) {
+		return;
+	}
 
-        if (keysPressed['w'] && !keysPressed['s'] && !keysPressed['d'] && !keysPressed['a']) {
-            player.move('w');
-        } else if (keysPressed['s'] && !keysPressed['w'] && !keysPressed['a'] && !keysPressed['d']) {
-            player.move('s');
-        }
-    }
+	for (let direction of lastInputs) {
+		if (['a', 'w', 'd', 's'].indexOf(direction) !== -1) {
+			keyCooldown = 10;
+			player.move(direction);
+			break;
+		}
+	}
 }
 
 // Funktion um Leben zu verlieren
@@ -595,7 +592,10 @@ function loop(timestamp) {
         }
     }
 
-    resetPlayerSpeed()
+    if (keyCooldown > 0) {
+   		keyCooldown--;
+    }
+    evaluateControllerDirection()
 
     // Bombe platzieren, wenn Pfeil nach oben gedrückt wird
     if (keysPressed['ArrowUp'] && canPlaceBomb) {
@@ -625,7 +625,7 @@ function loop(timestamp) {
         // Debugging: Überprüfe, ob die Bewegung des Bosses stattfindet
         console.log(`Boss Geschwindigkeit: speedX=${bossEnemy.speedX}, speedY=${bossEnemy.speedY}`);
     } else {
-        console.log("Boss nicht vorhanden.");
+        //console.log("Boss nicht vorhanden.");
     }
 
     // Entfernt inaktive Substances/Objekte/Entities

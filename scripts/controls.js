@@ -1,3 +1,8 @@
+let keyCooldown = 0;
+
+//alle Inputs in der Reihenfolge von neu zu alt
+let lastInputs = [];
+
 let keysPressed = {
     'a': false,
     'w': false,
@@ -7,8 +12,15 @@ let keysPressed = {
 };
 
 document.addEventListener('keydown', (event) => {
-    if (event.key in keysPressed) {
+    if (event.key in keysPressed && keysPressed[event.key] !== true) {
+
         keysPressed[event.key] = true;
+
+        if (lastInputs.indexOf(event.key) === -1) {
+        	lastInputs.unshift(event.key);
+        }
+
+        evaluateControllerDirection(event.key);
     }
 });
 
@@ -19,6 +31,11 @@ document.addEventListener('keyup', (event) => {
         // Erlaubt erneutes Platzieren der Bombe beim Loslassen
         if (event.key === 'ArrowUp') {
             canPlaceBomb = true;
+        }
+
+        let index = lastInputs.indexOf(event.key);
+        if (index !== -1) {
+        	lastInputs.splice(index, 1);
         }
     }
 });
