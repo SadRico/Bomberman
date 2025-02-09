@@ -246,7 +246,7 @@ function respawnPlayerInBossLevel() {
 function resetPlayerSpeed(){
     frameCounter++
     // Bewegung, wenn man Tasten hält
-    if (frameCounter % 4.5 === 0) {  // Bewegung nur alle 4.5 Frames (Speeditems noch geplant)
+    if (frameCounter % 8 === 0) {  // Bewegung nur alle 8 Frames (Speeditems noch geplant)
         if (keysPressed['a'] && !keysPressed['d'] && !keysPressed['w'] && !keysPressed['s']) {
             player.move('a');
         } else if (keysPressed['d'] && !keysPressed['a'] && !keysPressed['w'] && !keysPressed['s']) {
