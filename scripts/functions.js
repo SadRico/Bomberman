@@ -246,7 +246,7 @@ function respawnPlayerInBossLevel() {
 function resetPlayerSpeed(){
     frameCounter++
     // Bewegung, wenn man Tasten hält
-    if (frameCounter % 8 === 0) {  // Bewegung nur alle 8 Frames (Speeditems noch geplant)
+    if (frameCounter % 7 === 0) {  // Bewegung nur alle 7 Frames (Speed-items noch geplant)
         if (keysPressed['a'] && !keysPressed['d'] && !keysPressed['w'] && !keysPressed['s']) {
             player.move('a');
         } else if (keysPressed['d'] && !keysPressed['a'] && !keysPressed['w'] && !keysPressed['s']) {
@@ -313,7 +313,7 @@ function reduceBossLife() {
     // Überprüfen, ob Boss jetzt tot ist
     if (bossHP === 0) {
         hitAudio.volume = 0.5;
-        hitAudio.play();
+        hitAudio.pause();
 
         bossDeath(); // Victory-Screen und Game-Stop
         updateCanvas(); // Nach dem Sieg aktualisieren
