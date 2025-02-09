@@ -105,8 +105,10 @@ function restartGame() {
             // Musik neu starten
             bossAudioMute();
             bgmAudio.pause();
+            bgm2Audio.pause();
             bgmAudio.currentTime = 0;
-            bgmAudio.play();
+            bgm2Audio.currentTime = 0;
+
 
             initGame();
         }, 7000);
@@ -377,6 +379,8 @@ function spawnBossRoom() {
     // Hintergrundmusik stoppen
     bgmAudio.pause();
     bgmAudio.currentTime = 0;
+    bgm2Audio.pause();
+    bgm2Audio.currentTime = 0;
 
     // Boss-Level generierend
     level.generate_bossLevel();
@@ -641,7 +645,14 @@ function initGame() {
     last = undefined; // Setzt last auf undefined, um Zeit zu korrigieren
     bgmAudio.volume = 0.2;
     bgmAudio.loop = true;
-    bgmAudio.play();
+    bgm2Audio.volume = 0.2;
+    bgm2Audio.loop = true;
+
+    if (Math.random() < 0.5) {
+        bgmAudio.play();
+    } else {
+        bgm2Audio.play();
+    }
 
     bossEnemy = null;
     level.generate(); // Normales Level generieren
