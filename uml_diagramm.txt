@@ -1,0 +1,93 @@
+Minus steht für privat, das heißt es ist nur in der Klasse zugänglich
+Plus steht für öffentlich, das heißt es ist auch außerhalb der Klasse zugänglich
+
+Class: Substance (hätte man auch Entity oder Object nennen können)
+- row: int
+- col: int
++ update()
++ render()
+
+Class: Player
+- row: int
+- col: int
+- numBombs: int
+- bombSize: int
+- bombRange: int
+- walkingDownFrame: int
+- walkingUpFrame: int
+- walkingRightFrame: int
+- walkingLeftFrame: int
+- isMovingDown: bool
+- isMovingUp: bool
+- isMovingRight: bool
+- isMovingLeft: bool
+- hasPierceBomb: bool
+- alive: bool
++ render()
++ move()
++ isValidMove()
++ placeBomb()
++ getItem()
+
+Class: Item
+- row: int
+- col: int
+- type: string
+- secondsLeft: int
+- interval: object
+- alive: bool
+- img: Image
+- imgLoaded: bool
++ render()
++ update()
++ remove()
+
+Class: Bomb
+- radius: float
+- size: int
+- owner: Player
+- alive: bool
+- type: string
+- timer: int
+- img: Image
++ update()
++ render()
++ init()
+
+Class: Piercebomb
+- radius: float
+- size: int
+- owner: Player
+- alive: bool
+- type: string
+- timer: int
+- img: Image
++ update()
++ render()
++ init()
+
+Class: Explosion
+- row: int
+- col: int
+- alive: bool
+- timer: int
+- type: string
++ update()
++ render()
+
+Class: Boss
+- row: int
+- col: int
+- level: object
+- radius: int
+- speedX: int
+- speedY: int
+- x: float
+- y: float
+- img: Image
++ move()
++ checkCollision()
++ reverseDirection()
++ render()
+
+Class: Level -> Boss hat eine Referenz auf Levelklasse
