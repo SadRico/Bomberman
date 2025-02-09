@@ -33,7 +33,7 @@ function updateCanvas() {
 // Funktion um Timer zu starten
 function startTimer() {
     if (interval) {
-        clearInterval(interval); // Stoppt einen vorherigen Timer, falls vorhanden
+        clearInterval(interval); // Stoppt vorherigen Timer, falls vorhanden
     }
     interval = setInterval(function() {
         seconds_left--; // Zeit zählt runter
@@ -166,6 +166,9 @@ function winScreen(){
     winAudio.volume = 0.15;
     winAudio.play();
 
+    if (interval) {
+        clearInterval(interval); // Stoppt vorherigen Timer, falls vorhanden
+    }
 
     // Game-Loop stoppen, falls aktiv
     cancelAnimationFrame(animationFrameId);
