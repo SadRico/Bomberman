@@ -24,7 +24,7 @@ let savedPlayerState = {};        // Spielerzustand speichern (Range, Bombenanza
 let invincible = false;      // Unverwundbarkeitsstatus des Spielers
 let boss_invincible = false; // Unverwundbarkeitsstatus des Bosses
 let isVisible = false;       // Zustand für Blinkeffekt von Restart-Text
-let seconds_left = 240;      // Verbleibende Zeit im Spiel (in Sekunden)
+let seconds_left = 340;      // Verbleibende Zeit im Spiel (in Sekunden)
 
 let lives = 3;               // Anzahl der Leben des Spielers
 let bossHP = 10;             // Anzahl der Leben des Bosses
