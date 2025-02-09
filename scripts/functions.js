@@ -643,11 +643,13 @@ function initGame() {
 
     frameTime = 0; // Setzt frameTime zurück
     last = undefined; // Setzt last auf undefined, um Zeit zu korrigieren
+
     bgmAudio.volume = 0.2;
     bgmAudio.loop = true;
     bgm2Audio.volume = 0.2;
     bgm2Audio.loop = true;
 
+    // 50/50 Chance welche Hintergrundmusik abspielt
     if (Math.random() < 0.5) {
         bgmAudio.play();
     } else {
