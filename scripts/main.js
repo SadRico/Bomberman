@@ -1,32 +1,47 @@
 // === Globale Variablen === //
 
-let substances = []; // Enthält alle Spielobjekte wie Spieler, Bomben, Explosionen
+let substances = []; // Enthält alle Spielobjekte wie Bomben, Explosionen und Items
 let cells = [];      // Raster für das Spielfeld
-let interval;        // Intervall für den Spiel-Timer
-let last;            // Zeitstempel der letzten Frame-Aktualisierung
-let frameTime;       // Zeitdifferenz zwischen den Frames
+let interval;              // Intervall für den Spiel-Timer
+let last;                  // Zeitstempel der letzten Frame-Aktualisierung
+let frameTime;             // Zeitdifferenz zwischen den Frames
 
 
 // === Spielstatus Variablen === //
 
-const bgmAudio = new Audio('sounds/BGM_1.mp3');
-let canPlaceBomb = true;     // Separate Kontrolle für Bombenplatzierung
+let bgmAudio = new Audio('sounds/BGM_1.mp3');
+let bossAudio = new Audio('sounds/boss.wav');
+let winAudio = new Audio('sounds/victory_theme.wav');
+
+let canPlaceBomb = true;      // Separate Kontrolle für Bombenplatzierung
+
+let animationFrameId;                 // Variable zum Speichern der Loop-ID (Danke Chatgpt)
 let isGameOver = false;      // Überprüfung, ob Game Over ist
+let isVictory = false;       // Überprüfung, ob Spiel gewonnen ist
+
+let savedPlayerState = {};        // Spielerzustand speichern (Range, Bombenanzahl/-art)
+
 let invincible = false;      // Unverwundbarkeitsstatus des Spielers
+let boss_invincible = false; // Unverwundbarkeitsstatus des Bosses
 let isVisible = false;       // Zustand für Blinkeffekt von Restart-Text
-let seconds_left = 240;        // Verbleibende Zeit im Spiel (in Sekunden)
+let seconds_left = 240;      // Verbleibende Zeit im Spiel (in Sekunden)
+
 let lives = 3;               // Anzahl der Leben des Spielers
+let bossHP = 10;             // Anzahl der Leben des Bosses
 let frameCounter = 0;        // Zählt die Frames
+let totalBricks = 0;         // Gesamtanzahl der Bricks im Level (Fürs Bosslevel wichtig)
+
 
 // === Initialisierung des Spielers und Levels === //
 
-let player = new Player(1, 1); // Startposition des Spielers
-let level = new Level();       // Erzeugt ein neues Level
+let level = new Level();                        // Rendert neues Level
+let player = new Player(1, 1, level); // Startposition des Spielers
+let bossEnemy = new Boss(3, 7, level); // Startposition des Bosses
 
 // === Definition von Spielobjekttypen === //
 
 const types = {
-    wall: 9,   // Feste Wand, nicht zerstörbar
+    wall: 9,   // Feste Wand (nicht zerstörbar)
     brick: 1,  // Zerstörbarer Block
     bomb: 2    // Bombe
 };
@@ -42,9 +57,9 @@ const items = {
 // === Wahrscheinlichkeiten für das Erscheinen von Items === //
 
 const itemChances = {
-    '💣': 0.11,  // 11% Wahrscheinlichkeit für extra Bomben
-    '🔥': 0.11,  // 11% Wahrscheinlichkeit für Fire Up
+    '💣': 0.11,  // 11 % Wahrscheinlichkeit für extra Bomben
+    '🔥': 0.11,  // 11 % Wahrscheinlichkeit für Fire Up
     '🪡': 0.02   // 2% Wahrscheinlichkeit für Piercing Bomb
 };
 
-window.onload = initGame;
+window.onload = () => initGame();

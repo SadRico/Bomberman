@@ -3,7 +3,7 @@ class Explosion extends Substance {
         super(row, col);
         this.alive = true;
         this.timer = 300; // 300ms Lebenszeit der Explosion
-        this.type = type; // Kennzeichnung, ob es eine Piercebomb war
+        this.type = type; // Checkt, ob es eine Piercebomb war
     }
 
     update(frameTime) {
@@ -20,12 +20,13 @@ class Explosion extends Substance {
 
         let colors;
 
-        if (this.type === 'pierce') {  // Falls Piercebomb, benutze Blau-Töne
+        if (this.type === 'pierce') {  // Falls Piercebomb, Blau-Töne
             colors = ['#0066FF', '#3399FF', '#66CCFF'];
         } else {
             colors = ['#D72B16', '#EA6C05', '#FFB700'];  // Standard Rot-Orange-Gelb
         }
 
+        // Bomben Explosion selbst gemacht
         colors.forEach((color, index) => {
             context.beginPath();
             context.arc(x, y, maxRadius * (1 - index * 0.3), 0, Math.PI * 2);

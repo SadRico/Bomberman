@@ -5,6 +5,16 @@ const grid = 64; // Größe eines Levelblocks
 const numRows = 13; // Anzahl der Reihen
 const numCols = 15; // Anzahl der Spalten
 
+// Erstellt Canvas für feste Wände
+const wallCanvas = document.createElement('canvas');
+const wallCtx = wallCanvas.getContext('2d');
+wallCanvas.width = wallCanvas.height = grid;
+const wallImage = new Image();
+wallImage.src = 'assets/level_tiles/wall.png';
+wallImage.onload = () => {
+    wallCtx.drawImage(wallImage, 0, 0, grid, grid); // Wandbild auf Canvas zeichnen
+};
+
 // Erstellt Canvas für zerstörbare Blöcke
 const brickCanvas = document.createElement('canvas');
 const brickCtx = brickCanvas.getContext('2d');
@@ -15,15 +25,9 @@ brickImage.onload = () => {
     brickCtx.drawImage(brickImage, 0, 0, grid, grid); // Bild auf Canvas zeichnen
 };
 
-// Erstellt Canvas für feste Wände
-const wallCanvas = document.createElement('canvas');
-const wallCtx = wallCanvas.getContext('2d');
-wallCanvas.width = wallCanvas.height = grid;
-const wallImage = new Image();
-wallImage.src = 'assets/level_tiles/wall.png';
-wallImage.onload = () => {
-    wallCtx.drawImage(wallImage, 0, 0, grid, grid); // Wandbild auf Canvas zeichnen
-};
+// Erstellt Boss
+const bossCanvas = document.querySelector('canvas');
+const bossCtx = bossCanvas.getContext('2d');
 
 // Erstellt Timer
 const timerCanvas = document.createElement('canvas');

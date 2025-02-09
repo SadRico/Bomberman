@@ -17,6 +17,7 @@ class Piercebomb extends Substance {
     init() {
         pierceBombCtx.drawImage(this.img, 0, 0, 16, 18, 0, 0, 16, 18);
     }
+
     update(frameTime) {
         this.timer -= frameTime;
         if (this.timer <= 0) {

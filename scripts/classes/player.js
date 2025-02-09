@@ -2,6 +2,7 @@ class Player {
     constructor(row, col) {
         this.row = row;
         this.col = col;
+        this.level = level;
         this.numBombs = 1;
         this.bombSize = 3;
         this.bombRange = 2;
@@ -16,8 +17,8 @@ class Player {
         const y = (this.row + 0.5) * grid - grid / 2; // Zentrierung
 
         // Blinken bei Unverwundbarkeit
-        if (invincible && Math.floor(performance.now() / 200) % 2 !== 0) {
-            return;  // Überspringe das Zeichnen, um den Blinkeffekt zu erzeugen
+        if (invincible && Math.floor(performance.now() / 200) % 2 !== 0) { // Danke ChatGpt
+            return;  // Überspringt das rendern, um Blinkeffekt zu erzeugen
         }
 
         // Wenn Spieler sich bewegt, spiele Bilder ab
@@ -37,6 +38,7 @@ class Player {
     move(direction) {
         let newRow = this.row;
         let newCol = this.col;
+
         // 'isMoving' standardmäßig auf false
         this.isMovingDown = false;
         this.isMovingUp = false;
@@ -64,7 +66,7 @@ class Player {
 
         // Update Position und Bildwechsel für Animation
         if (this.isMovingDown) {
-            this.walkingDownFrame = (this.walkingDownFrame + 1) % 4; // Wechselt zwischen den beiden Bildern
+            this.walkingDownFrame = (this.walkingDownFrame + 1) % 4; // Wechselt zwischen den Bildern
         }
         if (this.isMovingUp) {
             this.walkingUpFrame = (this.walkingUpFrame + 1) % 4;
@@ -87,7 +89,7 @@ class Player {
             walkAudio.volume = 0.2;
             walkAudio.play();
 
-            this.getItem(); // Item einsammeln
+            this.getItem();
         }
     }
 
@@ -98,7 +100,6 @@ class Player {
         } else if (cells[row][col] === types.bomb || cells[row][col] === types.wall || cells[row][col] === types.brick) { // Hindernisse
             return false;
         }
-
         return true; // Bewegung ist gültig, wenn kein Hindernis vorhanden ist
     }
 
@@ -111,7 +112,7 @@ class Player {
             if (this.hasPierceBomb) {
                 bomb = new Piercebomb(this.row, this.col, this.bombSize, this);
             } else {
-                bomb = new Bomb(this.row, this.col, this.bombSize, this); // Diese Zeile könnte entfernt werden, wenn alle Bomben Piercebombs sind
+                bomb = new Bomb(this.row, this.col, this.bombSize, this); // Ansonsten die normale Bombe
             }
 
             substances.push(bomb);
@@ -126,7 +127,7 @@ class Player {
 
     getItem() {
         // Findet ein Item an der aktuellen Position
-        let item = substances.find(substance => substance instanceof Item && substance.row === this.row && substance.col === this.col);
+        let item = substances.find(substance => substance instanceof Item && substance.row === this.row && substance.col === this.col); // ergooglet
 
         if (item) {
             if (item.type === items.extraBombs) {
@@ -153,9 +154,9 @@ class Player {
                 pierceBombAudio.volume = 0.09;
                 pierceBombAudio.play();
 
-                this.hasPierceBomb = true;  // Spieler erhält die Fähigkeit, eine Piercebomb zu legen
+                this.hasPierceBomb = true;  // Spieler hat jetzt die Fähigkeit, eine Piercebomb zu legen
             }
-            item.remove(); // Entfernt das Item nach Aufnahme
+            item.remove(); // Entfernt das Item nach dem einsammeln
         }
     }
 }
