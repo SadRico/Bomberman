@@ -26,7 +26,7 @@ Dem Projekt soll etwas einmaliges hinzugefügt werden -> Da gibt es viel, was ic
 
 Anfangsnotiz:
 
-Vorneweg, ich will transparent bleiben und muss sagen, dass ich am Ende doch eingeknickt bin und gerade in der Bossklasse relativ viel Chatgpt-Hilfe brauchte, weil Mathe echt nicht meine Stärke ist. Ebenso habe ich das Level Template ergooglet und fast 1 zu 1 abgeguckt, da ich im Unterricht das Von-Neumann nicht richtig verstanden habe und bevor ich mich da aufhalte, habe ich das Template genommen und daraufhin aus Wolfgangs Unterricht mit Row und Col gearbeitet.
+Vorneweg, ich will transparent bleiben und muss sagen, dass ich am Ende doch eingeknickt bin und gerade in der Bossklasse Chatgpt-Hilfe brauchte, weil Mathe echt nicht meine Stärke ist. Habe mir auch ein Beispiel an einen Breakout Ball genommen, wie das bouncen funktioniert. Ebenso habe ich das Level Template ergooglet und fast 1 zu 1 abgeguckt, da ich im Unterricht das Von-Neumann nicht richtig verstanden habe und bevor ich mich da aufhalte, habe ich das Template genommen und daraufhin aus Wolfgangs Unterricht mit Row und Col gearbeitet.
 
 Ich musste auch häufiger meinen Kumpel fragen, ob er Bugtesting betreiben kann und über den Code schauen kann, ob der so in Ordnung ist. Er selber hat nichts gecodet. Er will nicht verlinkt werden, aber ich habe ihn ebenso als Collaborator in Github drinne.
 
@@ -54,7 +54,7 @@ Ich wollte eigentlich noch mehrere Level Layouts erstellen, aber das ist etwas, 
 Fazit:
 Das Projekt hat extrem viel Spaß gemacht, aber auch extrem viele Nerven geraubt. Ich kann mir sehr gut vorstellen, daran privat weiterzuarbeiten und vielleicht zeige ich es dir dann nochmal den Fortschritt den ich gemacht habe. Oder fange das Projekt nochmal neu in Python an (da Python für mich besser ist) und mache das ganze in Tkinter oder pygame, mal sehen.
 
-Ich habe sehr viel neues dazugelernt und kann mir sehr gut vorstellen, wenn ich meine Skills weiter verbessere, dass ich privat nebenbei ein Indiespiel erstellen werde, da alles mit Videospielen mir sehr gut liegt und ich mich wie gesagt sehr schnell reindenken kann, was wahrscheinlich bei einem normalen Job leider nicht der Fall sein wird, da es nicht viel mit visuellen Sachen zu tun hat. Das gleiche gilt wahrscheinlich auch mit node.js.
+Ich habe sehr viel neues dazugelernt und kann mir sehr gut vorstellen, wenn ich meine Skills weiter verbessere, dass ich privat nebenbei ein Indiespiel erstellen werde, da alles mit Videospielen mir sehr gut liegt und ich mich wie gesagt sehr schnell reindenken kann, was wahrscheinlich bei einem normalen Job leider nicht der Fall sein wird, da es nicht viel mit visuellen und spielerischen Sachen zu tun hat. Das gleiche gilt wahrscheinlich auch mit node.js.
 
 Danke für's durchlesen :)
 
