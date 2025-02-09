@@ -104,11 +104,14 @@ function restartGame() {
 
             // Musik neu starten
             bossAudioMute();
+
             bgmAudio.pause();
             bgm2Audio.pause();
+            bgm3Audio.pause();
+
             bgmAudio.currentTime = 0;
             bgm2Audio.currentTime = 0;
-
+            bgm3Audio.currentTime = 0;
 
             initGame();
         }, 7000);
@@ -381,6 +384,8 @@ function spawnBossRoom() {
     bgmAudio.currentTime = 0;
     bgm2Audio.pause();
     bgm2Audio.currentTime = 0;
+    bgm3Audio.pause();
+    bgm3Audio.currentTime = 0;
 
     // Boss-Level generierend
     level.generate_bossLevel();
@@ -646,14 +651,20 @@ function initGame() {
 
     bgmAudio.volume = 0.2;
     bgmAudio.loop = true;
-    bgm2Audio.volume = 0.2;
+    bgm2Audio.volume = 0.13;
     bgm2Audio.loop = true;
+    bgm3Audio.volume = 0.12;
+    bgm3Audio.loop = true;
 
-    // 50/50 Chance welche Hintergrundmusik abspielt
-    if (Math.random() < 0.5) {
+    // 30 % Chance welche Hintergrundmusik abspielt, außer für BGM3, weil guter Track
+    if (Math.random() < 0.3) {
         bgmAudio.play();
-    } else {
+    } else if (Math.random() < 0.6) {
         bgm2Audio.play();
+    } else if (Math.random() < 0.9) {
+        bgm3Audio.play();
+    } else {
+        bgm3Audio.play();
     }
 
     bossEnemy = null;
