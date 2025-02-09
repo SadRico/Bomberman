@@ -25,7 +25,7 @@ Dem Projekt soll etwas einmaliges hinzugefügt werden -> Da gibt es viel, was ic
 
 
 Item-erklärungen:
-Bomb-Up -> Erhöht Bombenanzahl bis maximal 8 (Bomberman Original)
+Bomb-Up -> Erhöht Bombenanzahl bis maximal 8 (Bomberman Original) (Wenn 2 Bomben nebeneinander liegen, dann piercen diese 2 Blöcke durch)
 Fire-Up -> Erhöht Feuerrange bis maximal 8 (Bomberman Original)
 Pierce-Bombe -> Kann durch mehrere Blöcke schießen und erhöht NICHT die Bombenanzahl (Bomberman Original)
 
