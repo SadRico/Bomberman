@@ -4,7 +4,7 @@ class Boss {
         this.col = col;
         this.level = level;
         this.radius = 200;  // Radius der Hitbox
-        this.speedX = 3;    // X Geschwindigkeit // Etwas Abwechslung mit den Stats um es schwer zu machen
+        this.speedX = 5;    // X Geschwindigkeit // Etwas Abwechslung mit den Stats um es schwer zu machen
         this.speedY = -4;   // Y Geschwindigkeit
         this.grid = 64;
 

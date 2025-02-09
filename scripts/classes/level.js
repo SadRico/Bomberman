@@ -26,7 +26,7 @@ class Level {
         for (let row = 0; row < numRows; row++) { // Geht durch jede Reihe des Spielfelds
             cells[row] = []; // Für jede Zeile wird leeres Array erstellt
             for (let col = 0; col < numCols; col++) { // Geht durch jede Spalte des Spielfelds
-                if (!this.template[row][col] && Math.random() < 0.90) { // 90 % Chance, einen Block zu spawnen. überprüft, ob keine Wand da ist
+                if (!this.template[row][col] && Math.random() < 0.00) { // 90 % Chance, einen Block zu spawnen. überprüft, ob keine Wand da ist
                     cells[row][col] = types.brick; // Wenn Bedingung true, dann platziert Brick
                     totalBricks++;  // Jedes Mal, wenn ein Brick erstellt wird, den Zähler erhöhen
 
