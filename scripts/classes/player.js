@@ -85,7 +85,7 @@ class Player {
             this.col = newCol;
 
             // Walking Sound (Hier platziert, damit Sound nicht IMMER abgespielt, wenn gegen Wand gelaufen wird bei Eingabe!)
-            let walkAudio = new Audio('sounds/Walking.wav');
+            let walkAudio = new Audio('sounds/player/Walking.wav');
             walkAudio.volume = 0.2;
             walkAudio.play();
 
@@ -119,7 +119,7 @@ class Player {
             cells[this.row][this.col] = types.bomb;
 
             // Place-Bomb Sound
-            const bombPlaceAudio = new Audio('sounds/Place_Bomb.wav');
+            const bombPlaceAudio = new Audio('sounds/player/Place_Bomb.wav');
             bombPlaceAudio.volume = 0.4;
             bombPlaceAudio.play();
         }
@@ -132,7 +132,7 @@ class Player {
         if (item) {
             if (item.type === items.extraBombs) {
                 // Bomb-Up Audio
-                const bombUpAudio = new Audio('sounds/GetItem__.wav');
+                const bombUpAudio = new Audio('sounds/player/GetItem__.wav');
                 bombUpAudio.volume = 0.09;
                 bombUpAudio.play();
 
@@ -141,7 +141,7 @@ class Player {
                 }
             } else if (item.type === items.fireUp) {
                 // Fire-Up Audio
-                const fireUpAudio = new Audio('sounds/GetItem.wav');
+                const fireUpAudio = new Audio('sounds/player/GetItem.wav');
                 fireUpAudio.volume = 0.09;
                 fireUpAudio.play();
 
@@ -150,7 +150,7 @@ class Player {
                 }
             } else if (item.type === items.pierce) {  // Wenn es die Piercebomb ist
                 // Piercebomb Audio
-                const pierceBombAudio = new Audio('sounds/GetItem__.wav');
+                const pierceBombAudio = new Audio('sounds/player/GetItem__.wav');
                 pierceBombAudio.volume = 0.09;
                 pierceBombAudio.play();
 

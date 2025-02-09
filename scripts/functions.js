@@ -263,7 +263,7 @@ function reduceLife() {
         player = null;
 
         // Player Death Sound
-        const deathAudio = new Audio('sounds/Death.wav');
+        const deathAudio = new Audio('sounds/player/Death.wav');
         deathAudio.volume = 0.1;
         deathAudio.play();
 
@@ -272,7 +272,7 @@ function reduceLife() {
     } else if (lives === 0) {
         player = null; // Spieler tot
         // Player Death Sound
-        const deathAudio = new Audio('sounds/Death.wav');
+        const deathAudio = new Audio('sounds/player/Death.wav');
         deathAudio.volume = 0.1;
         deathAudio.play();
         respawnPlayer();  // Spieler respawnen
@@ -307,7 +307,9 @@ function reduceBossLife() {
 
     // Überprüfen, ob Boss jetzt tot ist
     if (bossHP === 0) {
-        hitAudio.pause();
+        hitAudio.volume = 0.5;
+        hitAudio.play();
+
         bossDeath(); // Victory-Screen und Game-Stop
         updateCanvas(); // Nach dem Sieg aktualisieren
     }
@@ -361,6 +363,11 @@ function playerBossDamage() {
 
 // Funktion um im Boss Raum zu spawnen
 function spawnBossRoom() {
+
+    setTimeout(() => {
+        window.alert('Oh nein, was ist das?!')
+    }, 20)
+
     // Spieleritems speichern
     savePlayerItems();
 

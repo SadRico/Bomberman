@@ -24,7 +24,7 @@ class Piercebomb extends Substance {
             pierceBlowUp(this); // Bombe explodiert
 
             // Explosion Sound
-            const bombAudio = new Audio('sounds/Bomb.wav');
+            const bombAudio = new Audio('sounds/player/Bomb.wav');
             bombAudio.volume = 0.15;
             bombAudio.play();
         }
