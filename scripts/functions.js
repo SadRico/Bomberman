@@ -656,12 +656,12 @@ function initGame() {
     bgm3Audio.volume = 0.12;
     bgm3Audio.loop = true;
 
-    // 30 % Chance welche Hintergrundmusik abspielt, außer für BGM2, weil guter Track
-    if (Math.random() < 0.3) {
+    // 33 % Chance welche Hintergrundmusik abspielt, außer für BGM2, weil guter Track
+    if (Math.random() < 0.33) {
         bgmAudio.play();
-    } else if (Math.random() < 0.6) {
+    } else if (Math.random() < 0.66) {
         bgm2Audio.play();
-    } else if (Math.random() < 0.9) {
+    } else if (Math.random() < 0.99) {
         bgm3Audio.play();
     } else {
         bgm2Audio.play();
