@@ -1,3 +1,5 @@
+Das UML habe ich ehrlicherweise ganz am Ende gemacht, weil ich die Klassen lieber sofort als Code notiere, als erst ein UML zu erstellen.
+
 Minus steht für privat, das heißt es ist nur in der Klasse zugänglich
 Plus steht für öffentlich, das heißt es ist auch außerhalb der Klasse zugänglich
 
