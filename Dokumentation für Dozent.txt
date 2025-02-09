@@ -1,6 +1,6 @@
 Dokumentation für Dozent:
 
-Arbeitsstunden am Projekt: ca. 71 Stunden
+Arbeitsstunden am Projekt: ca. 71 Stunden (knapp über 10 stunden pro tag)
 
 Folgende Funktionalitäten sollen im fertigen Programm vorhanden sein.
 
