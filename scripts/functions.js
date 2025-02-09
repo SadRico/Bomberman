@@ -199,18 +199,19 @@ function winScreen(){
 
 // === PlayerFunktionen === //
 
+// Funktion um Items vom Player zu speichern
 function savePlayerItems() {
     savedPlayerState.numBombs = player.numBombs;
     savedPlayerState.bombRange = player.bombRange;
     savedPlayerState.hasPierceBomb = player.hasPierceBomb;
 }
 
+// Funktion um Items vom Player wiederherzustellen
 function restorePlayerItems() {
     player.numBombs = savedPlayerState.numBombs || 1;  // Standardwert 1 Bombe
     player.bombRange = savedPlayerState.bombRange || 2; // Standardwert 2
     player.hasPierceBomb = savedPlayerState.hasPierceBomb || false; // Standardwert false
 }
-
 
 // Funktion um Spieler zu respawnen
 function respawnPlayer() {
@@ -411,7 +412,6 @@ function spawnBossRoom() {
     // Spieleritems im Bossraum wiederherstellen
     restorePlayerItems();
 }
-
 
 
 

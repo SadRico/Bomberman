@@ -15,7 +15,6 @@ class Bomb extends Substance {
         } else {
             this.img.src = 'assets/bombs/bomb.png';  // Standard Bombe
         }
-
         this.img.onload = () => {
             this.init();
         };
