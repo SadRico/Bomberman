@@ -30,7 +30,6 @@ let seconds_left = 340;      // Verbleibende Zeit im Spiel (in Sekunden)
 
 let lives = 3;               // Anzahl der Leben des Spielers
 let bossHP = 10;             // Anzahl der Leben des Bosses
-let frameCounter = 0;        // Zählt die Frames
 let totalBricks = 0;         // Gesamtanzahl der Bricks im Level (Fürs Bosslevel wichtig)
 
 

@@ -243,21 +243,25 @@ function respawnPlayerInBossLevel() {
     }
 }
 
-// Speed-einstellungen für Spieler
-function resetPlayerSpeed(){
-    frameCounter++
-    // Bewegung, wenn man Tasten hält
-    if (frameCounter % 7 === 0) {  // Bewegung nur alle 7 Frames (Speed-items noch geplant)
-        if (keysPressed['a'] && !keysPressed['d'] && !keysPressed['w'] && !keysPressed['s']) {
-            player.move('a');
-        } else if (keysPressed['d'] && !keysPressed['a'] && !keysPressed['w'] && !keysPressed['s']) {
-            player.move('d');
-        }
+// Funktion um Spieler zu bewegen
+function evaluateControllerDirection(input){
+	if (keyCooldown !== 0) {
+		return;
+	}
 
-        if (keysPressed['w'] && !keysPressed['s'] && !keysPressed['d'] && !keysPressed['a']) {
-            player.move('w');
-        } else if (keysPressed['s'] && !keysPressed['w'] && !keysPressed['a'] && !keysPressed['d']) {
-            player.move('s');
+    // Schleife über jedes Element in 'lastInputs'
+    for (let direction of lastInputs) {
+        // Überprüfen, ob 'direction' einer der erlaubten Tasten ('a', 'w', 'd', 's') entspricht
+        if (['a', 'w', 'd', 's'].indexOf(direction) !== -1) {
+
+            // Setzt Cooldown für Tasteneingaben auf 10, um mehrfaches schnelles eingeben zu verhindern
+            keyCooldown = 10;
+
+            // Ruft Methode 'move' des 'player'-Objekts auf und übergibt Richtung als Argument
+            player.move(direction);
+
+            // Beendet Schleife nach der ersten gültigen Eingabe, um nur eine Bewegung zu verarbeiten
+            break;
         }
     }
 }
@@ -595,7 +599,10 @@ function loop(timestamp) {
         }
     }
 
-    resetPlayerSpeed()
+    if (keyCooldown > 0) {
+   		keyCooldown--;
+    }
+    evaluateControllerDirection()
 
     // Bombe platzieren, wenn Pfeil nach oben gedrückt wird
     if (keysPressed['ArrowUp'] && canPlaceBomb) {
