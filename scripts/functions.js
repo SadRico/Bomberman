@@ -244,7 +244,7 @@ function respawnPlayerInBossLevel() {
 }
 
 // Funktion um Spieler zu bewegen
-function evaluateControllerDirection(input){
+function controllerDirection(input){
 	if (keyCooldown !== 0) {
 		return;
 	}
@@ -602,7 +602,7 @@ function loop(timestamp) {
     if (keyCooldown > 0) {
    		keyCooldown--;
     }
-    evaluateControllerDirection()
+    controllerDirection()
 
     // Bombe platzieren, wenn Pfeil nach oben gedrückt wird
     if (keysPressed['ArrowUp'] && canPlaceBomb) {

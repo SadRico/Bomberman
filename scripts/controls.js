@@ -20,7 +20,7 @@ document.addEventListener('keydown', (event) => {
         	lastInputs.unshift(event.key);
         }
 
-        evaluateControllerDirection(event.key);
+        controllerDirection(event.key);
     }
 });
 
