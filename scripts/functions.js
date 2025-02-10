@@ -615,17 +615,9 @@ function loop(timestamp) {
     });
 
     if (bossEnemy) {
-        // Debugging: Überprüfe, ob der Boss richtig existiert
-        console.log(`Boss Position: (${bossEnemy.x}, ${bossEnemy.y})`);
-
         bossEnemy.render();
         bossEnemy.move();
         playerBossDamage();
-
-        // Debugging: Überprüfe, ob die Bewegung des Bosses stattfindet
-        console.log(`Boss Geschwindigkeit: speedX=${bossEnemy.speedX}, speedY=${bossEnemy.speedY}`);
-    } else {
-        console.log("Boss nicht vorhanden.");
     }
 
     // Entfernt inaktive Substances/Objekte/Entities
@@ -633,10 +625,7 @@ function loop(timestamp) {
 
     if (player) {
         player.render();  // Spieler rendern, wenn existent
-    } else {
-        console.log("Spieler ist null, kann nicht gerendert werden.");
     }
-
 }
 
 // Spiel-Initialisierung
