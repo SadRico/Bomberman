@@ -17,10 +17,8 @@ JavaScript Dokumentation:
 https://developer.mozilla.org/de/docs/Web/JavaScript
 https://wiki.selfhtml.org/wiki/JavaScript
 
-Mein damaliges eigenes Projekt (hauptsächlich nur um JavaScript und CSS wieder zu verstehen):
+Eigene Projekte:
 https://github.com/SadRico/Tic-Tac-Toe
-
-Habe noch ein eigenes Projekt auf dem PC, woher ich die Itemchancen abgeguckt habe:
 https://github.com/SadRico/Turn_based_rpg
 
 YouTube:
@@ -30,7 +28,7 @@ https://www.youtube.com/watch?v=IidrdODAfsU
 Musik:
 https://www.youtube.com/watch?v=ivHQEGIZG50
 https://www.youtube.com/watch?v=_HSBsbrmm1M
-https://www.youtube.com/watch?v=eyHjtWEKjcI // Boss Theme
+https://www.youtube.com/watch?v=eyHjtWEKjcI
 https://www.youtube.com/watch?v=y_MPwrbIA-g&list=PLC3BC541D61C37D62&index=6
 https://www.youtube.com/watch?v=pjy4NcTZezQ&list=PLC3BC541D61C37D62&index=10
 
@@ -62,5 +60,5 @@ https://www.photopea.com
 https://mp3cut.net/de/
 https://y2down.cc/de/youtube-mp3.html
 
-Teilweise Bugfixing, wenn ich absolut keine Ahnung hatte & Verständnisfragen: & Bossklasse, da viel Mathe...
+Unerklärliche Verständnisfragen:
 https://chatgpt.com/
