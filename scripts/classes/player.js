@@ -78,7 +78,6 @@ class Player {
             this.walkingLeftFrame = (this.walkingLeftFrame + 1) % 4;
         }
 
-
         // Überprüft, ob die neue Position gültig ist (keine Wand oder Bombe)
         if (this.isValidMove(newRow, newCol)) {
             this.row = newRow;
