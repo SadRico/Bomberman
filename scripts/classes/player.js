@@ -17,7 +17,7 @@ class Player {
         const y = (this.row + 0.5) * grid - grid / 2; // Zentrierung
 
         // Blinken bei Unverwundbarkeit
-        if (invincible && Math.floor(performance.now() / 200) % 2 !== 0) { // Danke ChatGpt
+        if (invincible && Math.floor(performance.now() / 200) % 2 !== 0) {
             return;  // Überspringt das rendern, um Blinkeffekt zu erzeugen
         }
 

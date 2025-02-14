@@ -17,7 +17,7 @@ const winAudio = new Audio('sounds/music/victory_theme.wav');
 
 let canPlaceBomb = true;      // Separate Kontrolle für Bombenplatzierung
 
-let animationFrameId;                 // Variable zum Speichern der Loop-ID (Danke Chatgpt)
+let animationFrameId;                 // Variable zum Speichern der Loop-ID
 let isGameOver = false;      // Überprüfung, ob Game Over ist
 let isVictory = false;       // Überprüfung, ob Spiel gewonnen ist
 

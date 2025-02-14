@@ -59,7 +59,7 @@ function timeUpDeath(){
 
     // Wenn Tod durch Time Up & Leben > 0
     if (seconds_left === 0 && lives > 0) {
-        // Wenn 1 Leben durch Time Up verloren, dann Time-Reset, weil sonst cringe Fehler
+        // Wenn 1 Leben durch Time Up verloren, dann Time-Reset
         if (lives - 1){
             seconds_left = 340;
         }
@@ -359,7 +359,7 @@ function playerBossDamage() {
         const playerY = (player.row + 0.5) * grid;
 
         // Berechnet die Entfernung zwischen Spieler und Boss
-        const distance = Math.hypot(bossX - playerX, bossY - playerY); // (ChatGPT)
+        const distance = Math.hypot(bossX - playerX, bossY - playerY);
 
         // Wenn der Spieler den Boss berührt (innerhalb des Boss-Radius)
         if (distance < bossEnemy.radius) {
