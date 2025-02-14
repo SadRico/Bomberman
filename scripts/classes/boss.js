@@ -54,7 +54,6 @@ class Boss {
         return false;
     }
 
-
     reverseDirection() {
         if (this.x - this.radius <= 0 || this.x + this.radius >= canvas.width) {
             this.speedX = -this.speedX; // Umkehren der horizontalen Richtung
@@ -63,7 +62,6 @@ class Boss {
             this.speedY = -this.speedY; // Umkehren der vertikalen Richtung
         }
     }
-
 
     render() {
         // Berechnet die Position der oberen linken Ecke des Bildes
